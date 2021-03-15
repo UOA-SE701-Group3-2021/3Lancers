@@ -2,8 +2,9 @@
   "name": "telos-backend",
   "version": "1.0.0",
   "description": "Express based backend for the Telos app",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "jest"
   },
   "author": "",
