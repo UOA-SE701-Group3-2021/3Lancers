@@ -1,0 +1,18 @@
+{
+  "name": "telos-backend",
+  "version": "1.0.0",
+  "description": "Express based backend for the Telos app",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.0"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
