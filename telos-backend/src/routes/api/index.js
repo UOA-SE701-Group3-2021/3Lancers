@@ -8,10 +8,10 @@ const router = express.Router();
 
 // Test end point to verify the router paths work.
 router.get('/', (req, res) => {
-    res.json({
-        name: 'This endpoint is /api',
-        status: 'Working'
-    })
+  res.json({
+    name: 'This endpoint is /api',
+    status: 'Working',
+  });
 });
 
 module.exports = router;
