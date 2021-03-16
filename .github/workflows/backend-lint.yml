@@ -21,6 +21,8 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
 
+        run: npm ci
+
       - name: Run eslint
         uses: wearerequired/lint-action@v1
         with:
