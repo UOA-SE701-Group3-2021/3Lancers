@@ -7,6 +7,7 @@ const port = process.env.PORT || 3001;
 app.use(express.json());
 
 const router = require('./src/routes');
+
 app.use('/', router);
 
 // Basic message for verifying Express app is working
