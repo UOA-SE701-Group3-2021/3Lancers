@@ -1,0 +1,32 @@
+.container{
+    background-color: white;
+    box-shadow: 3px 3px 3px darkgrey;
+    width: 221px;
+    border-radius: 5px;
+
+}
+
+.header{
+    margin: 16px;
+    height: 24px;
+    font-weight: 500;
+
+}
+
+.Publish {
+    background-color: #6200EE;
+    border-radius: 28px;
+    color: white;
+}
+
+.listItem:hover {
+    background-color: #efdcfc!important;
+}
+
+.listItem:active {
+    background-color: #8b46eb!important;
+}
+
+.outdated{
+    color: red!important;
+}
