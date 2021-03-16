@@ -4,7 +4,7 @@ const router = express.Router();
 
 // Add in the other routers here:
 // eg. const todos = require('./todos')
-//router.use('/todos', todos)
+// router.use('/todos', todos)
 
 // Test end point to verify the router paths work.
 router.get('/', (req, res) => {

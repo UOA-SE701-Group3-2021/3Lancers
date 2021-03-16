@@ -15,5 +15,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'off',
     'func-names': 'off',
+    'no-console': 'off',
   },
 };
