@@ -1,7 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import TextWidget from './TextWidget/TextWidget';
 
 function App() {
+  const divsize = { width: '420px', height: '420px' };
+
   return (
     <div className="App">
       <header className="App-header">
