@@ -7,10 +7,11 @@ const port = process.env.PORT || 3001;
 app.use(express.json());
 
 const router = require('./src/routes');
+
 app.use('/', router);
 
 // Basic message for verifying Express app is working
-app.get('/', (req,res) => res.send('Telos app coming soon!'));
+app.get('/', (req, res) => res.send('Telos app coming soon!'));
 
 // Launch app (start server running), with a simple logging statement, based on SE750 example
 app.listen(port, () => console.log(`App server litening on port number: ${port}`));
