@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "test": "jest",
-    "pretty": "prettier --write \"./**/*.{js,jsx,json}\""
+    "pretty": "prettier --write \"./**/*.{js,jsx,json}\"",
+    "lint": "eslint \"./**/*.{js,jsx,json}\""
   },
   "author": "",
   "license": "ISC",
