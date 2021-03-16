@@ -1,10 +1,7 @@
-name: Backend Test
+name: Backend CI
 
 on:
   pull_request:
-    paths:
-      - telos-backend/**
-  push:
     paths:
       - telos-backend/**
 
@@ -13,8 +10,8 @@ defaults:
     working-directory: telos-backend
 
 jobs:
-  test:
-    name: Running Backend Tests
+  backend-ci:
+    name: Run Backend Tests and Linter
     runs-on: ubuntu-latest
 
     steps:
@@ -28,6 +25,9 @@ jobs:
 
       - name: Install Node.js dependencies
         run: npm ci
+
+      - name: Run linter
+        run: npm run lint
 
       - name: Run tests
         run: npm test
