@@ -14,7 +14,7 @@ const events = [
   },
   {
     id: 23,
-    title: 'Go to the gym',
+    title: 'Go to the gym 💪',
     start: new Date(new Date().setHours(new Date().getHours() - 3)),
     end: new Date(new Date().setHours(new Date().getHours() + 5)),
   },
