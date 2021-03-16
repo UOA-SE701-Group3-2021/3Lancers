@@ -1,3 +1,5 @@
+import Paper from '@material-ui/core/Paper';
+// import InputBase from '@material-ui/core/InputBase';
 import styles from './TextWidget.module.css';
 
 /**
@@ -6,5 +8,10 @@ import styles from './TextWidget.module.css';
  * for sizing.
  */
 export default function TextWidget() {
-  return <textarea className={styles.textBox} />;
+  return (
+    <Paper className={styles.paper} variant="outlined">
+      {/* <InputBase multiline style={{ height: '50px' }} /> */}
+      <textarea className={styles.textInput} />
+    </Paper>
+  );
 }
