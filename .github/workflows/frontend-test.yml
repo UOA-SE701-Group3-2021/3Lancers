@@ -14,7 +14,7 @@ defaults:
 
 jobs:
   test:
-    name: Running Backend Tests
+    name: Running Frontend Tests
     runs-on: ubuntu-latest
 
     steps:
