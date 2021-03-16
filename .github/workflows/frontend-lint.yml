@@ -1,0 +1,28 @@
+name: Frontend Lint
+
+on:
+  pull_request:
+    paths:
+      - telos-frontend/**
+  push:
+    paths:
+      - telos-frontend/**
+
+defaults:
+  run:
+    working-directory: telos-frontend
+
+jobs:
+  run-linter:
+    name: Run linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Run eslint
+        uses: wearerequired/lint-action@v1
+        with:
+          eslint: true
+          prettier: true

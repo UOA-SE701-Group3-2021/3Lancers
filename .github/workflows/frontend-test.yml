@@ -1,0 +1,27 @@
+name: Frontend Test
+
+on:
+  pull_request:
+    paths:
+      - telos-frontend/**
+  push:
+    paths:
+      - telos-frontend/**
+
+defaults:
+  run:
+    working-directory: telos-frontend
+
+jobs:
+  test:
+    name: Running Frontend Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+      run: npm ci
+      run: npm test
