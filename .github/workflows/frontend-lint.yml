@@ -1,0 +1,33 @@
+name: Frontend Lint
+
+on:
+  pull_request:
+    paths:
+      - telos-frontend/**
+  push:
+    paths:
+      - telos-frontend/**
+
+defaults:
+  run:
+    working-directory: telos-frontend
+
+jobs:
+  run-linter:
+    name: Run linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
