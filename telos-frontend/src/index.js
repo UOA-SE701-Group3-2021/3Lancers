@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import DashboardHabitTracker from './components/habit-tracker/DashboardHabitTracker';
 import reportWebVitals from './reportWebVitals';
-import "fontsource-roboto";
+import 'fontsource-roboto';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <DashboardHabitTracker />
   </React.StrictMode>,
   document.getElementById('root')
 );
