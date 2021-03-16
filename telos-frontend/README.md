@@ -6,13 +6,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     - [npm](https://www.npmjs.com/get-npm)
     - [Node.js](https://nodejs.org/en/)
     - [Prettier](https://prettier.io/docs/en/install.html)
-    - [Lint](https://www.npmjs.com/package/lint)
+    - [ESLint](https://eslint.org/)
 
 # Getting Started
 
-1. Open the command prompt and set the working directory as the `3Lancers` directory of your cloned repository. (`cd 3Lancers`)
+1. Open the command prompt and set the working directory as the `3Lancers` directory of your cloned repository. (`cd path/to/3Lancers`)
 2. Run `npm install` to install all the required dependencies
-3. Run `npm run lint` to check for any programmatic and stylistic errors
+3. Run `npm run lint` to check for any problems in the code
 3. Run `npm start` to launch the application. Close the application with ctrl+c in the command prompt
 
 # Available Scripts
@@ -25,7 +25,7 @@ Runs the app in the development mode. Open http://localhost:3000 to view it in t
 The page will reload if you make edits. You will also see any lint errors in the console.
 
 ## `npm run lint`
-Runs lint to automatically check for programmatic and stylistic errors.
+Runs ESLint to find and fix problems in the code
 
 ## `npm test`
 Launches the test runner in the interactive watch mode. See the section about running tests for more information.
