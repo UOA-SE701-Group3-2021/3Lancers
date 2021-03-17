@@ -10,10 +10,9 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log(req.body);
   res.json({
     endpoint: '/calendar',
-    request: `POST date: ${req.body.date}, position: ${req.body.position}`,
+    request: `POST data: ${req.body.data}`,
   });
 });
 
