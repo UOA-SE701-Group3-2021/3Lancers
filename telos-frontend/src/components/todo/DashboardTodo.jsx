@@ -1,3 +1,9 @@
+/* eslint-disable react/no-this-in-sfc */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable prefer-const */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
 /* eslint-disable no-alert */
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
@@ -23,6 +29,10 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ErrorIcon from '@material-ui/icons/Error';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import DeleteIcon from '@material-ui/icons/Delete';
+import BlockIcon from '@material-ui/icons/Block';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import Button from '@material-ui/core/Button';
 import './DashboardTodo.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -38,54 +48,79 @@ const useStyles = makeStyles((theme) => ({
   datetextField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
+    width: '100%',
   },
 }));
-
-const listitems = [
-  {
-    name: 'OnGoing',
-    due: '18/03/2021',
-    onGoing: true,
-  },
-  {
-    name: 'OutDated',
-    due: '16/03/2021',
-    onGoing: false,
-  },
-];
 
 const outdated = {
   color: 'red',
 };
 
 const DashboardTodo = () => {
+  let listitems = [
+    {
+      name: 'OnGoing',
+      due: '2021-04-30',
+      onGoing: true,
+      completed: false,
+    },
+    {
+      name: 'OutDated',
+      due: '2021-01-30',
+      onGoing: false,
+      completed: true,
+    },
+    {
+      name: '一二三四五',
+      due: '2021-04-30',
+      onGoing: true,
+      completed: true,
+    },
+    {
+      name: '上山打老虎',
+      due: '2021-04-30',
+      onGoing: true,
+      completed: false,
+    },
+  ];
+
   const classes = useStyles();
-  const [checked, setChecked] = useState([0]);
   const [item, setItem] = useState('');
   const [dueDate, setDueDate] = useState('2021-01-01');
-  const [newItem, setNewItem] = useState(listitems);
+  const [itemList, setItemList] = useState(listitems);
+  const [newItem, setNewItem] = useState(itemList);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [cancel, setCancel] = useState([0]);
+  const [reDate, setReDate] = useState('');
+  const [reEventName, setReEventName] = useState('');
+  const [reItem, setReItem] = useState('');
+
+  const reDateChange = (event) => {
+    setReDate(event.target.value);
+    console.log(reDate);
+    setReItem({ name: reItem.name, due: event.target.value, onGoing: true, completed: false });
+  };
 
   const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
+    let newList = [...newItem];
+    for (let x of newList) {
+      if (x.name === value.name) {
+        x.completed = !x.completed;
+      }
     }
-    setChecked(newChecked);
+
+    setNewItem(newList);
+    setItemList(newList);
   };
 
   const firstEvent = (event) => {
-    setItem({ name: event.target.value, due: dueDate, onGoing: true });
+    setItem({ name: event.target.value, due: dueDate, onGoing: true, completed: false });
   };
 
   const dateChange = (event) => {
     setDueDate(event.target.value);
-    setItem({ name: item.name, due: event.target.value, onGoing: true });
+    console.log(dueDate);
+    setItem({ name: item.name, due: event.target.value, onGoing: true, completed: false });
   };
 
   const secondEvent = () => {
@@ -93,16 +128,63 @@ const DashboardTodo = () => {
     setItem('');
   };
 
-  const handleOption = (event) => {
+  const handleOption = (value) => (event) => {
+    setReEventName(value);
+    // reEventName = value;
+    console.log(value);
+    console.log(reEventName);
+    setReItem({ name: value, due: reDate, onGoing: true, completed: false });
     setAnchorEl(event.currentTarget);
   };
 
-  const handleOptionClose = () => {
+  const handleOptionClose = (event) => {
+    console.log(event);
     setAnchorEl(null);
   };
 
   const inputAlert = () => {
     alert('Please enter something :)');
+  };
+
+  const cancelevent = (value) => () => {
+    const currentIndex = cancel.indexOf(value);
+    const newCancel = [...cancel];
+
+    if (currentIndex === -1) {
+      newCancel.push(value);
+    } else {
+      newCancel.splice(currentIndex, 1);
+    }
+    setCancel(newCancel);
+  };
+
+  const deleteevent = (value) => () => {
+    let newList = [...newItem];
+    for (let x of newList) {
+      if (x.name === value) {
+        const index = newList.indexOf(x);
+        newList.splice(index, 1);
+      }
+    }
+
+    setNewItem(newList);
+    setItemList(newList);
+  };
+
+  const scheduleevent = () => {
+    let newList = [...newItem];
+    let reItemx = reItem;
+    console.log(reItemx);
+
+    for (let x of newList) {
+      if (x.name === reItemx.name) {
+        x.due = reItemx.due;
+        console.log(x);
+      }
+    }
+
+    setNewItem(newList);
+    setItemList(newList);
   };
 
   return (
@@ -122,14 +204,14 @@ const DashboardTodo = () => {
               role={undefined}
               dense
               button
-              onClick={handleToggle(value.name)}
+              onClick={handleToggle(value)}
             >
               {value.onGoing ? (
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
                     style={{ color: '#6200EE' }}
-                    checked={checked.indexOf(value.name) !== -1}
+                    checked={value.completed === true}
                     tabIndex={-1}
                     disableRipple
                     inputProps={{ 'aria-labelledby': labelId }}
@@ -140,7 +222,7 @@ const DashboardTodo = () => {
                   <Checkbox
                     edge="start"
                     style={{ color: '#FF0000' }}
-                    checked={checked.indexOf(value.name) !== -1}
+                    checked={value.completed === true}
                     tabIndex={-1}
                     disableRipple
                     inputProps={{ 'aria-labelledby': labelId }}
@@ -148,37 +230,85 @@ const DashboardTodo = () => {
                 </ListItemIcon>
               )}
               {value.onGoing ? (
-                <ListItemText id={labelId} primary={` ${value.name}`} secondary={` ${value.due}`} />
+                <ListItemText
+                  id={labelId}
+                  primary={` ${value.name}`}
+                  secondary={` ${value.due}`}
+                  style={{
+                    textDecorationLine: cancel.indexOf(value.name) !== -1 ? 'line-through' : '',
+                    textDecorationStyle: cancel.indexOf(value.name) !== -1 ? 'solid' : '',
+                  }}
+                />
               ) : (
                 <ListItemText
                   primaryTypographyProps={{ style: outdated }}
                   id={labelId}
                   primary={` ${value.name}`}
                   secondary={` ${value.due}`}
+                  style={{
+                    textDecorationLine: cancel.indexOf(value.name) !== -1 ? 'line-through' : '',
+                    textDecorationStyle: cancel.indexOf(value.name) !== -1 ? 'solid' : '',
+                  }}
                 />
               )}
               {value.onGoing ? (
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
-                    aria-label="comments"
+                    aria-label="cancel"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
-                    onClick={handleOption}
+                    onClick={cancelevent(value.name)}
                   >
-                    <MoreVertIcon />
+                    <BlockIcon />
+                  </IconButton>
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={deleteevent(value.name)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                  <IconButton
+                    edge="end"
+                    aria-label="schedule"
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={handleOption(value.name)}
+                  >
+                    <ScheduleIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
               ) : (
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
-                    aria-label="warning"
+                    aria-label="cancel"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
-                    onClick={handleOption}
+                    onClick={cancelevent(value.name)}
                   >
-                    <ErrorIcon className="outdated" />
+                    <BlockIcon className="outdated" />
+                  </IconButton>
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={deleteevent(value.name)}
+                  >
+                    <DeleteIcon className="outdated" />
+                  </IconButton>
+                  <IconButton
+                    edge="end"
+                    aria-label="schedule"
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={handleOption(value.name)}
+                  >
+                    <ScheduleIcon className="outdated" />
                   </IconButton>
                 </ListItemSecondaryAction>
               )}
@@ -187,7 +317,7 @@ const DashboardTodo = () => {
         })}
       </List>
       <div>
-        <FormControl variant="outlined">
+        <FormControl className="inputbox" variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
           <OutlinedInput
             id="outlined-todo"
@@ -223,10 +353,29 @@ const DashboardTodo = () => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleOptionClose}
+        style={{
+          alignItems: 'center',
+          textAlign: 'center',
+        }}
       >
-        <MenuItem onClick={handleOptionClose}>Option</MenuItem>
-        <MenuItem onClick={handleOptionClose}>Option</MenuItem>
-        <MenuItem onClick={handleOptionClose}>Option</MenuItem>
+        <MenuItem>
+          <form className={classes.datecontainer} noValidate>
+            <TextField
+              id="reDated"
+              label="Reschedule"
+              type="date"
+              value={reDate}
+              onChange={reDateChange}
+              className={classes.datetextField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </form>
+        </MenuItem>
+        <Button variant="contained" color="primary" onClick={scheduleevent}>
+          Confirm
+        </Button>
       </Menu>
     </Box>
   );
