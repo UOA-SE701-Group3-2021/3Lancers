@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'fontsource-roboto';
-import DashboardToDo from './components/todo/DashboardTodo';
 
 ReactDOM.render(
   <React.StrictMode>
+    <App />
     
-    <DashboardToDo />
   </React.StrictMode>,
   document.getElementById('root')
 );
