@@ -4,12 +4,12 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Page from './Page';
 
 const Journal = () => (
-<div className="Journal">
-    <ArrowBackIcon className="Arrow-left"/>
+  <div className="Journal">
+    <ArrowBackIcon className="Arrow-left" />
     <Page />
     <Page />
-    <ArrowForwardIcon className="Arrow-right"/>
-</div>
+    <ArrowForwardIcon className="Arrow-right" />
+  </div>
 );
 
 export default Journal;

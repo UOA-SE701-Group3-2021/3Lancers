@@ -3,9 +3,9 @@ import Journal from './views/journal/Journal';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" data-testid="test">
       <div className="Journal-view">
-        <Journal/>
+        <Journal />
       </div>
     </div>
   );
