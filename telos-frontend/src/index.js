@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
-import JournalTodo from './components/todo/JournalTodo';
 
 ReactDOM.render(
   <React.StrictMode>
-    <JournalTodo />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
