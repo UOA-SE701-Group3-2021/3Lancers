@@ -21,6 +21,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+//Top bar which can be rendered at the top of any page and includes menu, users and settings buttons.
 const TopBar = () => {
   const classes = useStyles();
 
@@ -43,7 +44,7 @@ const TopBar = () => {
     <div>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
-            
+
           <IconButton onClick={menuHandler} edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
