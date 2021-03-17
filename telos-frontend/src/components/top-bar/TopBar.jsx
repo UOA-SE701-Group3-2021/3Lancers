@@ -7,7 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SettingsIcon from '@material-ui/icons/Settings';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-// Used to define styles of MUI components.
+//  Used to define styles of MUI components.
 const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: '#7A00F4',
@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-//Top bar which can be rendered at the top of any page and includes menu, users and settings buttons.
+//  Top bar which can be rendered at the top of any page and includes menu, users and settings buttons.
 const TopBar = () => {
   const classes = useStyles();
 
@@ -44,7 +44,6 @@ const TopBar = () => {
     <div>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
-
           <IconButton onClick={menuHandler} edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
@@ -64,7 +63,6 @@ const TopBar = () => {
               <AccountCircleIcon />
             </IconButton>
           </section>
-
         </Toolbar>
       </AppBar>
     </div>
