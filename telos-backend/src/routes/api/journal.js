@@ -2,6 +2,11 @@ const express = require('express');
 
 const router = express.Router();
 
+// get widgets for a date range.
+// query params:
+// 'widget': type of widget i.e. 'all', 'calendar', etc.
+// 'startDate': start date
+// 'endDate': end date
 router.get('/', (req, res) => {
   res.json({
     endpoint: '/journal',
@@ -9,6 +14,9 @@ router.get('/', (req, res) => {
   });
 });
 
+// get widgets for a single date.
+// query params:
+// 'widget': type of widget i.e. 'all', 'calendar', etc.
 router.get('/:date', (req, res) => {
   res.json({
     endpoint: '/journal',
@@ -16,6 +24,11 @@ router.get('/:date', (req, res) => {
   });
 });
 
+// create widget entry in journal (widget must be created separately)
+// request body:
+// 'date': date to insert widget into
+// 'position': position of widget in journal for the specified date
+// 'widgetId': id of widget to put in journal
 router.post('/', (req, res) => {
   res.json({
     endpoint: '/journal',
@@ -23,13 +36,18 @@ router.post('/', (req, res) => {
   });
 });
 
+// update widget entry in journal (e.g. change date, change position)
+// request body:
+// 'date': date to insert widget into
+// 'position': position of widget in journal for the specified date
 router.put('/:id', (req, res) => {
   res.json({
     endpoint: '/journal',
-    request: `PUT id: ${req.params.id}`,
+    request: `PUT id: ${req.params.id}, date: ${req.body.date}, position: ${req.body.position}`,
   });
 });
 
+// delete widget entry in journal (but not the widget itself)
 router.delete('/:id', (req, res) => {
   res.json({
     endpoint: '/journal',
