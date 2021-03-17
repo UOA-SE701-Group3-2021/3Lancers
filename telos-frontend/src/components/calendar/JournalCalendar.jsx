@@ -55,8 +55,9 @@ const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
       <Toolbar.Root {...restProps}>{children}</Toolbar.Root>
       <LinearProgress className={classes.progress} />
     </div>
-  )
-);
+  ))
+
+// import {useState, useEffect} from "react";
 
 const usaTime = (date) =>
   new Date(date).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
