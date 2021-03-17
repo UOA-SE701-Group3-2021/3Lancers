@@ -1,0 +1,16 @@
+.textInput {
+    resize: none;
+    width: inherit;
+    height: inherit;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.paper {
+    resize: none;
+    position: relative;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    background-color:rgba(0, 0, 0, 0.096) !important;
+}
