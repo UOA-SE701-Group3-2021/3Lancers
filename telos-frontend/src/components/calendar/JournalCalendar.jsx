@@ -12,9 +12,9 @@ import Typography from '@material-ui/core/Typography';
 
 export default function BasicTimeline() {
   return (
-    <Timeline align="left">
-      <h1>Calendar</h1>
-      <TimelineItem>
+    <Timeline>
+      <h1 align="center">Calendar</h1>
+      <TimelineItem align="left">
         <Typography variant="body1" color="textSecondary">
           7:00 am
         </Typography>
