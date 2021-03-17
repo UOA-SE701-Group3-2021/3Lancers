@@ -17,21 +17,35 @@ const JournalCalendar = () => {
         {time: "9:00 AM", activity: ""},
         {time: "10:00 AM", activity: "Food"},
         {time: "11:00 AM", activity: "Gym"},
+        {time: "12:00 PM", activity: ""},
+        {time: "1:00 PM", activity: "Sleep"},
+        {time: "2:00 PM", activity: ""},
+        {time: "3:00 PM", activity: ""},
+        {time: "4:00 PM", activity: ""},
+        {time: "5:00 PM", activity: ""},
+        {time: "6:00 PM", activity: "Wake up"},
+        {time: "7:00 PM", activity: "Coffee"},
+        {time: "8:00 PM", activity: "Assignment"},
+        {time: "9:00 PM", activity: ""},
+        {time: "10:00 PM", activity: "Food"},
+        {time: "11:00 PM", activity: "Gym"},
     ]
     // eslint-disable-next-line no-shadow
     const renderTable = (times, index) => (
+        <table style={{"borderWidth":"3px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
             <tr key={index}>
                 <td>{times.time}</td>
                 <td>{times.activity}</td>
             </tr>
+        </table>
+
         )
 return(
         <div>
-            <ReactBootStrap.Table striped bordered hover>
+            <ReactBootStrap.Table striped bordered hover size="sm">
                 <thead>
                 <tr>
-                    <td>Time</td>
-                    <td>Activity</td>
+                    <th>Calendar</th>
                 </tr>
                 </thead>
                 <tbody>
