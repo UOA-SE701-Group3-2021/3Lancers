@@ -12,15 +12,9 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "fontsource-roboto": "^4.0.0",
-    "moment": "^2.29.1",
     "react": "^17.0.1",
-    "react-big-calendar": "^0.33.2",
-    "react-bootstrap": "^1.5.2",
-    "react-custom-table": "^1.1.0",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
-    "react-timeline-scribble": "^1.0.14",
-    "react-variable-width-grid": "^0.0.4",
     "web-vitals": "^1.1.1"
   },
   "scripts": {
@@ -49,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@material-ui/styles": "^4.11.3",
     "eslint": "^7.22.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-node": "^4.1.0",
