@@ -1,0 +1,33 @@
+name: Frontend CI
+
+on:
+  pull_request:
+    paths:
+      - telos-frontend/**
+
+defaults:
+  run:
+    working-directory: telos-frontend
+
+jobs:
+  frontend-ci:
+    name: Run Frontend Tests and Linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
