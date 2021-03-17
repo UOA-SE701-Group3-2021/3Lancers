@@ -44,17 +44,22 @@ const TopBar = () => {
       <div>
         <AppBar position="static" className={classes.root}>
           <Toolbar>
+
             <IconButton onClick={menuHandler} edge="start" color="inherit" aria-label="menu">
               <MenuIcon />
             </IconButton>
+
             <Typography variant="h6">Telos</Typography>
+
             <section className={classes.rightSide}>
+
               <IconButton onClick={settingsMenuHandler} edge="start" color="inherit">
                 <SettingsIcon />
               </IconButton>
               <IconButton onClick={userMenuHandler} edge="start" color="inherit" className={classes.userButton}>
                 <AccountCircleIcon />
               </IconButton>
+              
             </section>
           </Toolbar>
         </AppBar>
