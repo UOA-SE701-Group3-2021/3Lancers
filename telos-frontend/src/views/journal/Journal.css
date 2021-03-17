@@ -1,0 +1,17 @@
+.Journal {
+    background-image: url("./journal.png");
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.Arrow-left {
+    position: fixed;
+    bottom: 25px;
+    left: 28px;
+}
+.Arrow-right {
+    position: fixed;
+    bottom: 25px;
+    right: 28px;
+}
