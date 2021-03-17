@@ -3,7 +3,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable prefer-const */
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-console */
 /* eslint-disable no-alert */
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
@@ -97,7 +96,6 @@ const DashboardTodo = () => {
 
   const reDateChange = (event) => {
     setReDate(event.target.value);
-    console.log(reDate);
     setReItem({ name: reItem.name, due: event.target.value, onGoing: true, completed: false });
   };
 
@@ -119,7 +117,6 @@ const DashboardTodo = () => {
 
   const dateChange = (event) => {
     setDueDate(event.target.value);
-    console.log(dueDate);
     setItem({ name: item.name, due: event.target.value, onGoing: true, completed: false });
   };
 
@@ -131,14 +128,11 @@ const DashboardTodo = () => {
   const handleOption = (value) => (event) => {
     setReEventName(value);
     // reEventName = value;
-    console.log(value);
-    console.log(reEventName);
     setReItem({ name: value, due: reDate, onGoing: true, completed: false });
     setAnchorEl(event.currentTarget);
   };
 
   const handleOptionClose = (event) => {
-    console.log(event);
     setAnchorEl(null);
   };
 
@@ -174,12 +168,10 @@ const DashboardTodo = () => {
   const scheduleevent = () => {
     let newList = [...newItem];
     let reItemx = reItem;
-    console.log(reItemx);
 
     for (let x of newList) {
       if (x.name === reItemx.name) {
         x.due = reItemx.due;
-        console.log(x);
       }
     }
 
