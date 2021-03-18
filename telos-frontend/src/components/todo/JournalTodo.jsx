@@ -61,7 +61,7 @@ const JournalTodo = () => {
     setAnchorEl(null);
   };
 
-  const cancelevent = () => {
+  const cancelEvent = () => {
     const currentIndex = cancel.indexOf(newItem[activeIndex]);
     const newCancel = [...cancel];
 
@@ -235,7 +235,7 @@ const JournalTodo = () => {
         <MenuItem
           className="menubar"
           onClick={() => {
-            cancelevent();
+            cancelEvent();
             setAnchorEl(null);
           }}
         >
