@@ -1,4 +1,3 @@
-  
 const mongoose = require('mongoose');
 
 const widgetSchema = new mongoose.Schema(
@@ -8,15 +7,16 @@ const widgetSchema = new mongoose.Schema(
             type: Date,
             required: true,
         },
-        // position of widget on journal page as JSON {row: Number, col: Number}
+        // position of widget on journal page as JSON
         position: {
-            type: Object,
+            type: { row: Number, col: Number },
             required: true,
         },
-        // type of widget from {calendar, todo, habit_tracker, text}
+        // type of widget, needs to match one of the given values
         type: {
             type: String,
             required: true,
+            enum: ["calendar", "todo", "habit_tracker", "text"]
         },
     },
 );
