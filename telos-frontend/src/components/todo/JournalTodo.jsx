@@ -31,29 +31,27 @@ const outdated = {
 };
 
 const JournalTodo = () => {
-  // const listitems = [
-  //   {
-  //     name: 'OnGoing',
-  //     onGoing: true,
-  //     completed: false,
-  //   },
-  //   {
-  //     name: 'OutDated',
-  //     onGoing: false,
-  //     completed: true,
-  //   },
-  // ];
-
+  const listitems = [
+    {
+      name: 'OnGoing',
+      onGoing: true,
+      completed: false,
+    },
+    {
+      name: 'OutDated',
+      onGoing: false,
+      completed: true,
+    },
+  ];
   const [checked, setChecked] = useState([0]);
   const [item, setItem] = useState('');
-  const [newItem, setNewItem] = useState([]);
+  const [newItem, setNewItem] = useState(listitems);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
   const [deleted, setDelete] = useState([0]);
   const [reDate, setReDate] = useState('');
-  const [reEventName, setReEventName] = useState('');
-  const [reItem, setReItem] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
+  const [input, inputEntered] = useState('');
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -83,6 +81,7 @@ const JournalTodo = () => {
       newList.push(newItem[activeIndex]);
     } else {
       cancel.splice(currentIndex, 1);
+      checked.splice(currentIndex, 1);
       newList.splice(currentIndex, 1);
     }
     setNewItem(newList);
@@ -99,14 +98,15 @@ const JournalTodo = () => {
     }
     setChecked(newChecked);
   };
-
+  // const inputAlert = () => {
+  //   alert('Please enter something :)');
+  // };
   const firstEvent = (event) => {
-    setItem(event.target.value);
+    setItem({ name: event.target.value, onGoing: true, completed: false });
   };
 
   const secondEvent = () => {
     setNewItem((prev) => [...prev, item]);
-    setItem('');
   };
 
   return (
@@ -121,24 +121,13 @@ const JournalTodo = () => {
           return (
             <ListItem
               className="listItem"
-              key={value}
+              key={value.name}
               role={undefined}
               dense
               button
               onClick={handleToggle(value)}
             >
               {value.onGoing ? (
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    style={{ color: '#EB5757' }}
-                    checked={checked.indexOf(value) !== -1}
-                    tabIndex={-1}
-                    disableRipple
-                    inputProps={{ 'aria-labelledby': labelId }}
-                  />
-                </ListItemIcon>
-              ) : (
                 <ListItemIcon>
                   <Checkbox
                     // checkedIcon={<ArrowForwardIcon />}
@@ -150,15 +139,19 @@ const JournalTodo = () => {
                     inputProps={{ 'aria-labelledby': labelId }}
                   />
                 </ListItemIcon>
+              ) : (
+                <ListItemIcon>
+                  <Checkbox
+                    edge="start"
+                    style={{ color: '#EB5757' }}
+                    checked={checked.indexOf(value) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    inputProps={{ 'aria-labelledby': labelId }}
+                  />
+                </ListItemIcon>
               )}
               {value.onGoing ? (
-                <ListItemText
-                  style={{ color: 'rgba(0, 0, 0, 0.6)' }}
-                  primaryTypographyProps={{ style: outdated }}
-                  id={labelId}
-                  primary={` ${value}`}
-                />
-              ) : (
                 <ListItemText
                   style={{
                     textDecorationLine: cancel.indexOf(newItem[index]) !== -1 ? 'line-through' : '',
@@ -166,21 +159,21 @@ const JournalTodo = () => {
                     color: 'rgba(0, 0, 0, 0.6)',
                   }}
                   id={labelId}
-                  primary={` ${value}`}
+                  primary={` ${value.name}`}
+                />
+              ) : (
+                <ListItemText
+                  style={{
+                    textDecorationLine: cancel.indexOf(newItem[index]) !== -1 ? 'line-through' : '',
+                    textDecorationStyle: cancel.indexOf(newItem[index]) !== -1 ? 'solid' : '',
+                    color: '#EB5757',
+                  }}
+                  primaryTypographyProps={{ style: outdated }}
+                  id={labelId}
+                  primary={` ${value.name}`}
                 />
               )}
               {value.onGoing ? (
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={handleClick}
-                  >
-                    <ErrorIcon style={{ color: '#EB5757' }} />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              ) : (
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
@@ -194,6 +187,20 @@ const JournalTodo = () => {
                     <MoreVertIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
+              ) : (
+                <ListItemSecondaryAction>
+                  <IconButton
+                    edge="end"
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={(event) => {
+                      setActiveIndex(index);
+                      setAnchorEl(event.currentTarget);
+                    }}
+                  >
+                    <ErrorIcon style={{ color: '#EB5757' }} />
+                  </IconButton>
+                </ListItemSecondaryAction>
               )}
             </ListItem>
           );
@@ -204,8 +211,9 @@ const JournalTodo = () => {
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
           <OutlinedInput
             id="outlined-todo"
-            value={item}
+            value={item.name}
             onChange={firstEvent}
+            disable
             endAdornment={
               <InputAdornment position="end">
                 <IconButton className="AddBtn" onClick={secondEvent}>

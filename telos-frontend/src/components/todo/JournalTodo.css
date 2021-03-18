@@ -34,3 +34,8 @@
   display: 'flex';
   flex-wrap: 'wrap';
 }
+
+.outdated {
+  color: '#FF0000';
+  font-weight: 500;
+}
