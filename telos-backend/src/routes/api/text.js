@@ -2,24 +2,17 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/:id', (req, res) => {
-  res.json({
-    endpoint: '/text',
-    request: `GET id: ${req.params.id}`,
-  });
-});
-
 router.post('/', (req, res) => {
   res.json({
     endpoint: '/text',
-    request: `POST data: ${req.body.data}`,
+    request: `POST text: ${req.body.text}, widgetId: ${req.body.widgetId}`,
   });
 });
 
 router.put('/:id', (req, res) => {
   res.json({
     endpoint: '/text',
-    request: `PUT id: ${req.params.id}`,
+    request: `PUT id: ${req.params.id}, text: ${req.body.text}, widgetId: ${req.body.widgetId}`,
   });
 });
 

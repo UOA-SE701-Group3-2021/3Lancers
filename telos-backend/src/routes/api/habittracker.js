@@ -2,24 +2,17 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/:id', (req, res) => {
-  res.json({
-    endpoint: '/habittracker',
-    request: `GET id: ${req.params.id}`,
-  });
-});
-
 router.post('/', (req, res) => {
   res.json({
     endpoint: '/habittracker',
-    request: `POST data: ${req.body.data}`,
+    request: `POST name: ${req.body.name}, daysOfWeek: ${req.body.daysOfWeek}, start: ${req.body.start}, end: ${req.body.end}, completedDates: ${req.body.completedDates}`,
   });
 });
 
 router.put('/:id', (req, res) => {
   res.json({
     endpoint: '/habittracker',
-    request: `PUT id: ${req.params.id}`,
+    request: `PUT id: ${req.params.id}, name: ${req.body.name}, daysOfWeek: ${req.body.daysOfWeek}, start: ${req.body.start}, end: ${req.body.end}, completedDates: ${req.body.completedDates}`,
   });
 });
 
