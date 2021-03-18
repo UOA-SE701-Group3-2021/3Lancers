@@ -1,10 +1,5 @@
-/* eslint-disable react/no-this-in-sfc */
-/* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable prefer-const */
-/* eslint-disable no-param-reassign */
 /* eslint-disable no-alert */
-/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import {
   Checkbox,
@@ -28,9 +23,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ErrorIcon from '@material-ui/icons/Error';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import DeleteIcon from '@material-ui/icons/Delete';
-import BlockIcon from '@material-ui/icons/Block';
-import ScheduleIcon from '@material-ui/icons/Schedule';
 import Button from '@material-ui/core/Button';
 import './DashboardTodo.css';
 
@@ -56,7 +48,7 @@ const outdated = {
 };
 
 const DashboardTodo = () => {
-  let listitems = [
+  const listitems = [
     {
       name: 'OnGoing',
       due: '2021-04-30',
@@ -91,7 +83,6 @@ const DashboardTodo = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
   const [reDate, setReDate] = useState('');
-  const [reEventName, setReEventName] = useState('');
   const [reItem, setReItem] = useState('');
   const [add, setAdd] = useState(false);
 
@@ -101,8 +92,8 @@ const DashboardTodo = () => {
   };
 
   const handleToggle = (value) => () => {
-    let newList = [...newItem];
-    for (let x of newList) {
+    const newList = [...newItem];
+    for (const x of newList) {
       if (x.name === value.name) {
         x.completed = !x.completed;
       }
@@ -135,8 +126,6 @@ const DashboardTodo = () => {
   };
 
   const handleOption = (value) => (event) => {
-    setReEventName(value);
-    // reEventName = value;
     setReItem({
       name: value.name,
       due: value.due,
@@ -146,7 +135,7 @@ const DashboardTodo = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleOptionClose = (event) => {
+  const handleOptionClose = () => {
     setAnchorEl(null);
   };
 
@@ -168,8 +157,8 @@ const DashboardTodo = () => {
   };
 
   const deleteevent = () => {
-    let newList = [...newItem];
-    for (let x of newList) {
+    const newList = [...newItem];
+    for (const x of newList) {
       if (x.name === reItem.name) {
         const index = newList.indexOf(x);
         newList.splice(index, 1);
@@ -182,10 +171,10 @@ const DashboardTodo = () => {
   };
 
   const scheduleevent = () => {
-    let newList = [...newItem];
-    let reItemx = reItem;
+    const newList = [...newItem];
+    const reItemx = reItem;
 
-    for (let x of newList) {
+    for (const x of newList) {
       if (x.name === reItemx.name) {
         x.due = reItemx.due;
       }
