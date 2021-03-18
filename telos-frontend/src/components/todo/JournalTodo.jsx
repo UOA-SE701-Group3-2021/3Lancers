@@ -49,6 +49,7 @@ const JournalTodo = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
   const [deleted, setDelete] = useState([0]);
+  const [toBeDel, setToBeDel] = useState('');
   const [reDate, setReDate] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
   const [input, inputEntered] = useState('');
@@ -74,17 +75,18 @@ const JournalTodo = () => {
   };
 
   const deleteEvent = () => {
-    const currentIndex = deleted.indexOf(newItem[activeIndex]);
     const newList = [...newItem];
 
-    if (currentIndex !== -1) {
-      newList.push(newItem[activeIndex]);
-    } else {
-      cancel.splice(currentIndex, 1);
-      checked.splice(currentIndex, 1);
-      newList.splice(currentIndex, 1);
+    // eslint-disable-next-line no-restricted-syntax
+    for (const x of newList) {
+      if (x.name === toBeDel) {
+        const index = newList.indexOf(x);
+        newList.splice(index, 1);
+      }
     }
+
     setNewItem(newList);
+    setAnchorEl(null);
   };
 
   const handleToggle = (value) => () => {
@@ -180,6 +182,7 @@ const JournalTodo = () => {
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                     onClick={(event) => {
+                      setToBeDel(value.name);
                       setActiveIndex(index);
                       setAnchorEl(event.currentTarget);
                     }}
@@ -194,6 +197,7 @@ const JournalTodo = () => {
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                     onClick={(event) => {
+                      setToBeDel(value.name);
                       setActiveIndex(index);
                       setAnchorEl(event.currentTarget);
                     }}
