@@ -131,6 +131,39 @@ export default () => {
     getData(setData, setLoading);
   }, [setData, currentViewName, currentDate]);
 
+const usaTime = (date) =>
+  new Date(date).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
+
+const mapAppointmentData = (appointment) => ({
+  id: appointment.id,
+  startDate: usaTime(appointment.start.dateTime),
+  endDate: usaTime(appointment.end.dateTime),
+  title: appointment.summary,
+});
+
+const initialState = {
+  data: [],
+  loading: false,
+  currentDate: '2017-05-23',
+  currentViewName: 'Day',
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'setLoading':
+      return { ...state, loading: action.payload };
+    case 'setData':
+      return { ...state, data: action.payload.map(mapAppointmentData) };
+    case 'setCurrentViewName':
+      return { ...state, currentViewName: action.payload };
+    case 'setCurrentDate':
+      return { ...state, currentDate: action.payload };
+    default:
+      return state;
+  }
+};
+
+export default () => {
   return (
     <Paper>
       <Scheduler data={data} height="full">
@@ -151,4 +184,4 @@ export default () => {
       </Scheduler>
     </Paper>
   );
-};
+}};
