@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   datetextField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: '100%',
+    width: '98%',
   },
 }));
 
@@ -93,6 +93,7 @@ const DashboardTodo = () => {
   const [reDate, setReDate] = useState('');
   const [reEventName, setReEventName] = useState('');
   const [reItem, setReItem] = useState('');
+  const [add, setAdd] = useState(false);
 
   const reDateChange = (event) => {
     setReDate(event.target.value);
@@ -120,15 +121,28 @@ const DashboardTodo = () => {
     setItem({ name: item.name, due: event.target.value, onGoing: true, completed: false });
   };
 
+  const openAdd = () => {
+    setAdd(true);
+  };
+
+  const closeAdd = () => {
+    setAdd(false);
+  };
+
   const secondEvent = () => {
     setNewItem((prev) => [...prev, item]);
-    setItem('');
+    // setItem('');
   };
 
   const handleOption = (value) => (event) => {
     setReEventName(value);
     // reEventName = value;
-    setReItem({ name: value, due: reDate, onGoing: true, completed: false });
+    setReItem({
+      name: value.name,
+      due: value.due,
+      onGoing: value.onGoing,
+      completed: value.completed,
+    });
     setAnchorEl(event.currentTarget);
   };
 
@@ -140,22 +154,23 @@ const DashboardTodo = () => {
     alert('Please enter something :)');
   };
 
-  const cancelevent = (value) => () => {
-    const currentIndex = cancel.indexOf(value);
+  const cancelevent = () => {
+    const currentIndex = cancel.indexOf(reItem.name);
     const newCancel = [...cancel];
 
     if (currentIndex === -1) {
-      newCancel.push(value);
+      newCancel.push(reItem.name);
     } else {
       newCancel.splice(currentIndex, 1);
     }
     setCancel(newCancel);
+    setAnchorEl(null);
   };
 
-  const deleteevent = (value) => () => {
+  const deleteevent = () => {
     let newList = [...newItem];
     for (let x of newList) {
-      if (x.name === value) {
+      if (x.name === reItem.name) {
         const index = newList.indexOf(x);
         newList.splice(index, 1);
       }
@@ -163,6 +178,7 @@ const DashboardTodo = () => {
 
     setNewItem(newList);
     setItemList(newList);
+    setAnchorEl(null);
   };
 
   const scheduleevent = () => {
@@ -177,6 +193,7 @@ const DashboardTodo = () => {
 
     setNewItem(newList);
     setItemList(newList);
+    setAnchorEl(null);
   };
 
   return (
@@ -247,60 +264,24 @@ const DashboardTodo = () => {
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
-                    aria-label="cancel"
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={cancelevent(value.name)}
-                  >
-                    <BlockIcon />
-                  </IconButton>
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={deleteevent(value.name)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                  <IconButton
-                    edge="end"
                     aria-label="schedule"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
-                    onClick={handleOption(value.name)}
+                    onClick={handleOption(value)}
                   >
-                    <ScheduleIcon />
+                    <MoreVertIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
               ) : (
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
-                    aria-label="cancel"
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={cancelevent(value.name)}
-                  >
-                    <BlockIcon className="outdated" />
-                  </IconButton>
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={deleteevent(value.name)}
-                  >
-                    <DeleteIcon className="outdated" />
-                  </IconButton>
-                  <IconButton
-                    edge="end"
                     aria-label="schedule"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
-                    onClick={handleOption(value.name)}
+                    onClick={handleOption(value)}
                   >
-                    <ScheduleIcon className="outdated" />
+                    <ErrorIcon className="outdated" />
                   </IconButton>
                 </ListItemSecondaryAction>
               )}
@@ -317,7 +298,7 @@ const DashboardTodo = () => {
             onChange={firstEvent}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton className="AddBtn" onClick={item.name ? secondEvent : inputAlert}>
+                <IconButton className="AddBtn" onClick={item.name ? openAdd : inputAlert}>
                   <AddIcon className="Publish" />
                 </IconButton>
               </InputAdornment>
@@ -325,10 +306,18 @@ const DashboardTodo = () => {
             labelWidth={70}
           />
         </FormControl>
-        <form className={classes.datecontainer} noValidate>
+        <form
+          className={classes.datecontainer}
+          style={{
+            display: add ? 'block' : 'none',
+            alignItems: 'center',
+            textAlign: 'center',
+          }}
+          noValidate
+        >
           <TextField
             id="date"
-            label="Due date"
+            label=" Due date"
             type="date"
             value={dueDate}
             onChange={dateChange}
@@ -337,6 +326,12 @@ const DashboardTodo = () => {
               shrink: true,
             }}
           />
+          <Button color="secondary" onClick={closeAdd}>
+            Cancel
+          </Button>
+          <Button color="primary" onClick={secondEvent}>
+            Confirm
+          </Button>
         </form>
       </div>
       <Menu
@@ -350,6 +345,8 @@ const DashboardTodo = () => {
           textAlign: 'center',
         }}
       >
+        <MenuItem onClick={cancelevent}>Cancel</MenuItem>
+        <MenuItem onClick={deleteevent}>Delete</MenuItem>
         <MenuItem>
           <form className={classes.datecontainer} noValidate>
             <TextField
@@ -365,7 +362,7 @@ const DashboardTodo = () => {
             />
           </form>
         </MenuItem>
-        <Button variant="contained" color="primary" onClick={scheduleevent}>
+        <Button color="primary" onClick={scheduleevent}>
           Confirm
         </Button>
       </Menu>
