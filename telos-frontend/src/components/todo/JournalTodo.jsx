@@ -20,43 +20,40 @@ import {
 } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { useState } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import './JournalTodo.css';
 import ErrorIcon from '@material-ui/icons/Error';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    color: 'rgba(0, 0, 0, 0.6)',
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
-const listitems = [
-  {
-    name: 'OnGoing',
-    onGoing: true,
-  },
-  //   {
-  //     name: 'OutDated',
-  //     onGoing: false,
-  //   },
-];
-
 const outdated = {
   color: '#FF0000',
 };
 
-const options = ['Cancel', 'Reschedule'];
-
 const JournalTodo = () => {
-  const classes = useStyles();
+  // const listitems = [
+  //   {
+  //     name: 'OnGoing',
+  //     onGoing: true,
+  //     completed: false,
+  //   },
+  //   {
+  //     name: 'OutDated',
+  //     onGoing: false,
+  //     completed: true,
+  //   },
+  // ];
+
   const [checked, setChecked] = useState([0]);
   const [item, setItem] = useState('');
   const [newItem, setNewItem] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [cancel, setCancel] = useState([0]);
+  const [deleted, setDelete] = useState([0]);
+  const [reDate, setReDate] = useState('');
+  const [reEventName, setReEventName] = useState('');
+  const [reItem, setReItem] = useState('');
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -64,6 +61,31 @@ const JournalTodo = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const cancelevent = () => {
+    const currentIndex = cancel.indexOf(newItem[activeIndex]);
+    const newCancel = [...cancel];
+
+    if (currentIndex === -1) {
+      newCancel.push(newItem[activeIndex]);
+    } else {
+      newCancel.splice(currentIndex, 1);
+    }
+    setCancel(newCancel);
+  };
+
+  const deleteEvent = () => {
+    const currentIndex = deleted.indexOf(newItem[activeIndex]);
+    const newList = [...newItem];
+
+    if (currentIndex !== -1) {
+      newList.push(newItem[activeIndex]);
+    } else {
+      cancel.splice(currentIndex, 1);
+      newList.splice(currentIndex, 1);
+    }
+    setNewItem(newList);
   };
 
   const handleToggle = (value) => () => {
@@ -93,10 +115,9 @@ const JournalTodo = () => {
         <p className="title"> To Do </p>
       </div>
       <Divider />
-      <List className={classes.root}>
-        {newItem.map((value) => {
+      <List>
+        {newItem.map((value, index) => {
           const labelId = `checkbox-list-label-${value}`;
-
           return (
             <ListItem
               className="listItem"
@@ -110,7 +131,7 @@ const JournalTodo = () => {
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
-                    style={{ color: '#FF0000' }}
+                    style={{ color: '#EB5757' }}
                     checked={checked.indexOf(value) !== -1}
                     tabIndex={-1}
                     disableRipple
@@ -120,8 +141,9 @@ const JournalTodo = () => {
               ) : (
                 <ListItemIcon>
                   <Checkbox
+                    // checkedIcon={<ArrowForwardIcon />}
                     edge="start"
-                    style={{ color: '#6200EE' }}
+                    color="primary"
                     checked={checked.indexOf(value) !== -1}
                     tabIndex={-1}
                     disableRipple
@@ -131,12 +153,21 @@ const JournalTodo = () => {
               )}
               {value.onGoing ? (
                 <ListItemText
+                  style={{ color: 'rgba(0, 0, 0, 0.6)' }}
                   primaryTypographyProps={{ style: outdated }}
                   id={labelId}
                   primary={` ${value}`}
                 />
               ) : (
-                <ListItemText id={labelId} primary={` ${value}`} />
+                <ListItemText
+                  style={{
+                    textDecorationLine: cancel.indexOf(newItem[index]) !== -1 ? 'line-through' : '',
+                    textDecorationStyle: cancel.indexOf(newItem[index]) !== -1 ? 'solid' : '',
+                    color: 'rgba(0, 0, 0, 0.6)',
+                  }}
+                  id={labelId}
+                  primary={` ${value}`}
+                />
               )}
               {value.onGoing ? (
                 <ListItemSecondaryAction>
@@ -155,7 +186,10 @@ const JournalTodo = () => {
                     edge="end"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
-                    onClick={handleClick}
+                    onClick={(event) => {
+                      setActiveIndex(index);
+                      setAnchorEl(event.currentTarget);
+                    }}
                   >
                     <MoreVertIcon />
                   </IconButton>
@@ -190,11 +224,32 @@ const JournalTodo = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem className="menubar" onClick={handleClose}>
+        <MenuItem
+          className="menubar"
+          onClick={() => {
+            cancelevent();
+            setAnchorEl(null);
+          }}
+        >
           Cancel
         </MenuItem>
-        <MenuItem className="menubar" onClick={handleClose}>
-          Reschedule
+        <MenuItem
+          className="menubar"
+          onClick={() => {
+            setAnchorEl(null);
+          }}
+        >
+          Migrate
+        </MenuItem>
+        <MenuItem
+          id="delete"
+          className="menubar"
+          onClick={() => {
+            deleteEvent();
+            setAnchorEl(null);
+          }}
+        >
+          Delete
         </MenuItem>
       </Menu>
     </Box>
