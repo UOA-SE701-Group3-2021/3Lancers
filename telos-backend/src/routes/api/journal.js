@@ -3,14 +3,12 @@ const express = require('express');
 const router = express.Router();
 
 // get widgets which appear in the journal for a date range.
-// query params:
-// 'widget': type of widget i.e. 'all', 'calendar', etc.
-// 'startDate': start date
-// 'endDate': end date
-router.get('/:widget', (req, res) => {
+// params:
+// 'date': journal date to get widgets for
+router.get('/:date', (req, res) => {
   res.json({
     endpoint: '/journal',
-    request: `GET widget: ${req.params.widget}, start: ${req.query.startDate}, end: ${req.query.endDate}`,
+    request: `GET date: ${req.params.date}`,
   });
 });
 
@@ -18,7 +16,7 @@ router.get('/:widget', (req, res) => {
 // request body:
 // 'date': date to insert widget into
 // 'position': position of widget in journal for the specified date
-// 'widget': type of widget i.e. 'all', 'calendar', etc.
+// 'widget': type of widget i.e. 'calendar', etc.
 router.post('/', (req, res) => {
   res.json({
     endpoint: '/journal',

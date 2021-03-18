@@ -4,7 +4,7 @@ const router = express.Router();
 
 // get widgets which appear on the dashboard for a date range.
 // query params:
-// 'widget': type of widget i.e. 'all', 'calendar', etc.
+// 'widget': type of widget i.e. 'calendar', etc.
 // 'startDate': start date
 // 'endDate': end date
 router.get('/:widget', (req, res) => {
