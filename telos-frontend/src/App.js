@@ -1,4 +1,5 @@
 import './App.css';
+import JournalText from './components/text/JournalText';
 import Journal from './views/journal/Journal';
 
 function App() {
