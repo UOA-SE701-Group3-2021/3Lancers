@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-// get widgets which appear in the journal for a date range.
+// get widgets which appear in the journal for a single date.
 // params:
 // 'date': journal date to get widgets for
 router.get('/:date', (req, res) => {
