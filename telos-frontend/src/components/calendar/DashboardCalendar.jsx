@@ -116,7 +116,7 @@ const DashboardCalendar = () => {
             }}
             color="primary"
           >
-            Subscribe
+            Add
           </Button>
         </DialogActions>
       </Dialog>
