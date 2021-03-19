@@ -1,8 +1,6 @@
 .Journal-view {
   position: absolute;
   text-align: right;
-  min-height: 880px;
-  min-width: 1565px;
   width: 100%;
   height: 100%;
 }
