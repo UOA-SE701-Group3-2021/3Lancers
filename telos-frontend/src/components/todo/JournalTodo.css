@@ -39,3 +39,8 @@
   color: '#FF0000';
   font-weight: 500;
 }
+
+.MuiButton-text.Mui-text{
+  color: #6200ee;
+  font-weight: 500;
+}

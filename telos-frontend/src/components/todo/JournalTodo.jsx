@@ -14,12 +14,17 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   Menu,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  TextField,
+  DialogActions,
   Modal,
   MenuItem,
 } from '@material-ui/core';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { useState } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import './JournalTodo.css';
@@ -52,13 +57,25 @@ const JournalTodo = () => {
   const [reDate, setReDate] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
   const [input, inputEntered] = useState('');
+  const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date('2021-08-18T21:11:54'));
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setOpen(true);
+  };
+
+  const handleClickModal = (event) => {
+    setOpen(true);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+    setOpen(false);
   };
 
   const cancelEvent = () => {
@@ -118,7 +135,6 @@ const JournalTodo = () => {
               {value.onGoing ? (
                 <ListItemIcon>
                   <Checkbox
-                    // checkedIcon={<ArrowForwardIcon />}
                     edge="start"
                     color="primary"
                     checked={checked.indexOf(value) !== -1}
@@ -208,9 +224,50 @@ const JournalTodo = () => {
             onChange={firstEvent}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton className="AddBtn" onClick={secondEvent}>
-                  <AddIcon className="Publish" />
+                <IconButton
+                  className="AddBtn"
+                  variant="outlined"
+                  color="primary"
+                  onClick={handleClickModal}
+                  id="simple-modal"
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                >
+                  <AddIcon className="Publish" aria-controls="simple-modal" />
                 </IconButton>
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                  <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
+                  <DialogContent>
+                    {/* <DialogContentText>
+                      <p className="dialogText">Due Date</p>
+                    </DialogContentText> */}
+                    <TextField
+                      autoFocus
+                      margin="dense"
+                      id="name"
+                      label="Description"
+                      type="name"
+                      variant="outlined"
+                      fullWidth
+                    />
+                    <TextField
+                      id="date"
+                      label="Due Date"
+                      labelColour="black"
+                      type="date"
+                      defaultValue="2020-05-24"
+                      variant="outlined"
+                      fullWidth
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Confirm</Button>
+                  </DialogActions>
+                </Dialog>
               </InputAdornment>
             }
             labelWidth={70}
@@ -239,7 +296,7 @@ const JournalTodo = () => {
             setAnchorEl(null);
           }}
         >
-          Cancel
+          {cancel.indexOf(newItem[activeIndex]) !== -1 ? 'Uncancel' : 'Cancel'}
         </MenuItem>
         <MenuItem
           id="delete"
