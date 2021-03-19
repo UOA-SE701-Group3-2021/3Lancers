@@ -2,7 +2,7 @@ import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import './JournalHabitTracker.css';
 
-const DashboardHabitTracker = () => (
+const JournalHabitTracker = () => (
   <div className="container">
     <div className="HabitualsTitle">
       <h2 align="middle">Habituals</h2>
@@ -31,4 +31,4 @@ const DashboardHabitTracker = () => (
   </div>
 );
 
-export default DashboardHabitTracker;
+export default JournalHabitTracker;

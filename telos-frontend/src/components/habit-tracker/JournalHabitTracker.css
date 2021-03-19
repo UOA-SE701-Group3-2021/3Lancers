@@ -79,7 +79,7 @@
     align-items: center;
 }
 
-.Habituals ul div:first-child {
+.Habituals ul div:hover {
     background-color: #F1E4FD;
 }
 
