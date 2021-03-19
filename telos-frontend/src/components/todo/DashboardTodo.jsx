@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-alert */
 import { useState } from 'react';
@@ -24,6 +25,10 @@ import ErrorIcon from '@material-ui/icons/Error';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import './DashboardTodo.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,9 +42,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   datetextField: {
-    marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: '98%',
   },
 }));
 
@@ -78,13 +81,28 @@ const DashboardTodo = () => {
   const classes = useStyles();
   const [item, setItem] = useState('');
   const [dueDate, setDueDate] = useState('2021-01-01');
-  const [itemList, setItemList] = useState(listitems);
-  const [newItem, setNewItem] = useState(itemList);
+  const [newItem, setNewItem] = useState(listitems);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
   const [reDate, setReDate] = useState('');
   const [reItem, setReItem] = useState('');
   const [add, setAdd] = useState(false);
+  const [migrate, setMigrate] = useState(false);
+
+  function dateToTimestamp(endTime) {
+    const date = new Date();
+    date.setFullYear(endTime.substring(0, 4));
+    date.setMonth(endTime.substring(5, 7) - 1);
+    date.setDate(endTime.substring(8, 10));
+    return Date.parse(date) / 1000;
+  }
+
+  const sortEvent = () => {
+    const sorted = newItem.sort((a, b) => {
+      return dateToTimestamp(a.due) - dateToTimestamp(b.due);
+    });
+    setNewItem(sorted);
+  };
 
   const reDateChange = (event) => {
     setReDate(event.target.value);
@@ -94,13 +112,12 @@ const DashboardTodo = () => {
   const handleToggle = (value) => () => {
     const newList = [...newItem];
     for (const x of newList) {
-      if (x.name === value.name) {
+      if (x.name === value) {
         x.completed = !x.completed;
       }
     }
 
     setNewItem(newList);
-    setItemList(newList);
   };
 
   const firstEvent = (event) => {
@@ -118,6 +135,16 @@ const DashboardTodo = () => {
 
   const closeAdd = () => {
     setAdd(false);
+    sortEvent();
+  };
+
+  const openMigrate = () => {
+    setMigrate(true);
+  };
+
+  const closeMigrate = () => {
+    setMigrate(false);
+    sortEvent();
   };
 
   const secondEvent = () => {
@@ -139,11 +166,7 @@ const DashboardTodo = () => {
     setAnchorEl(null);
   };
 
-  const inputAlert = () => {
-    alert('Please enter something :)');
-  };
-
-  const cancelevent = () => {
+  const cancelEvent = () => {
     const currentIndex = cancel.indexOf(reItem.name);
     const newCancel = [...cancel];
 
@@ -156,7 +179,7 @@ const DashboardTodo = () => {
     setAnchorEl(null);
   };
 
-  const deleteevent = () => {
+  const deleteEvent = () => {
     const newList = [...newItem];
     for (const x of newList) {
       if (x.name === reItem.name) {
@@ -166,22 +189,20 @@ const DashboardTodo = () => {
     }
 
     setNewItem(newList);
-    setItemList(newList);
     setAnchorEl(null);
   };
 
-  const scheduleevent = () => {
+  const scheduleEvent = () => {
     const newList = [...newItem];
-    const reItemx = reItem;
+    const reItemInst = reItem;
 
     for (const x of newList) {
-      if (x.name === reItemx.name) {
-        x.due = reItemx.due;
+      if (x.name === reItemInst.name) {
+        x.due = reItemInst.due;
       }
     }
 
     setNewItem(newList);
-    setItemList(newList);
     setAnchorEl(null);
   };
 
@@ -202,7 +223,7 @@ const DashboardTodo = () => {
               role={undefined}
               dense
               button
-              onClick={handleToggle(value)}
+              onClick={handleToggle(value.name)}
             >
               {value.onGoing ? (
                 <ListItemIcon>
@@ -283,11 +304,11 @@ const DashboardTodo = () => {
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
           <OutlinedInput
             id="outlined-todo"
-            value={item.name}
+            value=""
             onChange={firstEvent}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton className="AddBtn" onClick={item.name ? openAdd : inputAlert}>
+                <IconButton className="AddBtn" onClick={openAdd}>
                   <AddIcon className="Publish" />
                 </IconButton>
               </InputAdornment>
@@ -295,33 +316,6 @@ const DashboardTodo = () => {
             labelWidth={70}
           />
         </FormControl>
-        <form
-          className={classes.datecontainer}
-          style={{
-            display: add ? 'block' : 'none',
-            alignItems: 'center',
-            textAlign: 'center',
-          }}
-          noValidate
-        >
-          <TextField
-            id="date"
-            label=" Due date"
-            type="date"
-            value={dueDate}
-            onChange={dateChange}
-            className={classes.datetextField}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <Button color="secondary" onClick={closeAdd}>
-            Cancel
-          </Button>
-          <Button color="primary" onClick={secondEvent}>
-            Confirm
-          </Button>
-        </form>
       </div>
       <Menu
         id="simple-menu"
@@ -334,9 +328,48 @@ const DashboardTodo = () => {
           textAlign: 'center',
         }}
       >
-        <MenuItem onClick={cancelevent}>Cancel</MenuItem>
-        <MenuItem onClick={deleteevent}>Delete</MenuItem>
-        <MenuItem>
+        <MenuItem onClick={cancelEvent}>Cancel/Uncancel</MenuItem>
+        <MenuItem onClick={deleteEvent}>Delete</MenuItem>
+        <MenuItem onClick={openMigrate}>Migrate</MenuItem>
+      </Menu>
+      <Dialog open={add} onClose={closeAdd} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
+        <DialogContent>
+          <form className={classes.datecontainer} noValidate>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Description"
+              value={item.name}
+              onChange={firstEvent}
+              fullWidth
+            />
+            <TextField
+              id="date"
+              label="Due date"
+              type="date"
+              value={dueDate}
+              onChange={dateChange}
+              className={classes.datetextField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button color="secondary" onClick={closeAdd}>
+            Cancel
+          </Button>
+          <Button color="primary" onClick={secondEvent}>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={migrate} onClose={closeMigrate} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
+        <DialogContent>
           <form className={classes.datecontainer} noValidate>
             <TextField
               id="reDated"
@@ -350,11 +383,16 @@ const DashboardTodo = () => {
               }}
             />
           </form>
-        </MenuItem>
-        <Button color="primary" onClick={scheduleevent}>
-          Confirm
-        </Button>
-      </Menu>
+        </DialogContent>
+        <DialogActions>
+          <Button color="secondary" onClick={closeMigrate}>
+            Cancel
+          </Button>
+          <Button color="primary" onClick={scheduleEvent}>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
