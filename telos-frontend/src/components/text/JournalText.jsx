@@ -10,12 +10,13 @@ const JournalText = () => {
 
   function onTextChange(text) {
     setTextContent(text);
+    
   }
 
 
   return (
   <Paper className={styles.paper} variant="outlined">
-    <textarea className={styles.textInput} value={textContent} onChange={e => onTextChange(e.target.value)} />
+    <textarea data-testid="textInput" className={styles.textInput} value={textContent} onChange={e => onTextChange(e.target.value)} />
   </Paper>
   );
   }
