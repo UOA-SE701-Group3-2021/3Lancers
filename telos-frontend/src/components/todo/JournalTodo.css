@@ -1,13 +1,6 @@
-.container {
-  background-color: white;
-  box-shadow: 3px 3px 3px darkgrey;
-  width: 221px;
-}
-
 .title {
   margin: 16px;
-  vertical-align: middle;
-  text-align: left;
+  margin-top: 16px;
   font-weight: 500;
 }
 
@@ -33,14 +26,4 @@
 .dateBox {
   display: 'flex';
   flex-wrap: 'wrap';
-}
-
-.outdated {
-  color: '#FF0000';
-  font-weight: 500;
-}
-
-.MuiButton-text.Mui-text{
-  color: #6200ee;
-  font-weight: 500;
 }
