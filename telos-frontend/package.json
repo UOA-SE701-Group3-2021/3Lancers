@@ -3,14 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@devexpress/dx-react-core": "^2.7.5",
+    "@devexpress/dx-react-scheduler": "^2.7.5",
+    "@devexpress/dx-react-scheduler-material-ui": "^2.7.5",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
     "fontsource-roboto": "^4.0.0",
+    "history": "^4.10.1",
+    "moment": "^2.29.1",
     "react": "^17.0.1",
+    "react-big-calendar": "^0.33.2",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.1"
   },
@@ -40,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@material-ui/styles": "^4.11.3",
     "eslint": "^7.22.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-node": "^4.1.0",

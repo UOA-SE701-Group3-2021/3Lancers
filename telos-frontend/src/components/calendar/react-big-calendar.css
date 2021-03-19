@@ -1,0 +1,16 @@
+.rbc-today {
+  background-color: #dbc7ff;
+}
+
+.rbc-event,
+.rbc-day-slot .rbc-background-event {
+  background-color: #590de5;
+}
+.rbc-event.rbc-selected,
+.rbc-day-slot .rbc-selected.rbc-background-event {
+  background-color: #4609b5;
+}
+.rbc-event:focus,
+.rbc-day-slot .rbc-background-event:focus {
+  outline: 5px auto #620dfc;
+}

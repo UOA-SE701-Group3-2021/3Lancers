@@ -76,7 +76,6 @@
     cursor: pointer;
 }
 
-
 .WeekSchedule ul li button:disabled, .disable {
     border: 1px solid #b0adb3 !important;
     background-color: #b0adb3 !important;
