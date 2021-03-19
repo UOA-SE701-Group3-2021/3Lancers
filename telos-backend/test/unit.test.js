@@ -26,13 +26,13 @@ describe('test schema creation', () => {
   it('can be created and save in memory', async () => {
     const testData = {
       name: 'Test event',
-      startTime: '2021-01-0Dasdfsaf',
+      startTime: '2021-01-01',
     };
     const validTestData = new TestModel(testData);
     const savedTestModel = await validTestData.save();
 
     expect(savedTestModel.name).toBe(validTestData.name);
-    expect(savedTestModel.startTime).toBe(validTestData.name);
+    expect(savedTestModel.startTime).toBe(validTestData.startTime);
 
     expect(savedTestModel._id).toBeDefined();
   });
