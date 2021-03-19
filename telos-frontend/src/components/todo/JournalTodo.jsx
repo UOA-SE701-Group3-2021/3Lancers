@@ -31,6 +31,19 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import './JournalTodo.css';
 import ErrorIcon from '@material-ui/icons/Error';
 
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: 'white',
+    boxShadow:
+      '0px 16px 24px rgba(0, 0, 0, 0.14), 0px 6px 30px rgba(0, 0, 0, 0.12), 0px 8px 10px rgba(0, 0, 0, 0.2)',
+    width: 221,
+  },
+  button: {
+    color: '#6200ee',
+    fontWeight: 'bold',
+  },
+});
+
 const outdated = {
   color: '#FF0000',
 };
@@ -61,6 +74,7 @@ const JournalTodo = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [input, inputEntered] = useState('');
   const [open, setOpen] = useState(false);
+  const classes = useStyles();
   const [migrate, setMigrate] = useState(false);
 
   const handleClick = (event) => {
@@ -132,7 +146,7 @@ const JournalTodo = () => {
   };
 
   return (
-    <Box className="container">
+    <Box className={classes.root}>
       <div>
         <p className="title"> To Do </p>
       </div>
@@ -174,6 +188,7 @@ const JournalTodo = () => {
               )}
               {value.onGoing ? (
                 <ListItemText
+                  className={classes.text}
                   style={{
                     textDecorationLine: cancel.indexOf(newItem[index]) !== -1 ? 'line-through' : '',
                     textDecorationStyle: cancel.indexOf(newItem[index]) !== -1 ? 'solid' : '',
@@ -273,12 +288,12 @@ const JournalTodo = () => {
                     />
                   </DialogContent>
                   <DialogActions>
-                    <Button styles={{ color: 'rgba(98,0,238,1)' }} onClick={handleClose}>
+                    <Button className={classes.button} onClick={handleClose}>
                       Cancel
                     </Button>
                     <Button
+                      className={classes.button}
                       label="Button"
-                      labelStyle={{ fontWeight: '500' }}
                       onClick={() => {
                         setNewItem((prev) => [...prev, item], setItem(''), handleClose());
                       }}
@@ -348,6 +363,7 @@ const JournalTodo = () => {
         </DialogContent>
         <DialogActions>
           <Button
+            className={classes.button}
             onClick={() => {
               setMigrate(false);
               setAnchorEl(null);
@@ -356,6 +372,7 @@ const JournalTodo = () => {
             Cancel
           </Button>
           <Button
+            className={classes.button}
             onClick={() => {
               deleteEvent();
               setMigrate(false);
