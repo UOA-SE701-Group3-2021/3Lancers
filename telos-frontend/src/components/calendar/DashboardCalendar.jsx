@@ -1,5 +1,6 @@
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import { useState } from 'react';
+import TextField from '@material-ui/core/TextField';
 import moment from 'moment';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -20,14 +21,18 @@ const sendAddEventRequest = () => {
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
 const DashboardCalendar = () => {
-  const [open, setOpen] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openAddGoalDialog, setOpenAddGoalDialog] = useState(false);
+  const [newGoalTitle, setNewGoalTitle] = useState('');
+  const [activeStart, setActiveStart] = useState(null);
+  const [activeEnd, setActiveEnd] = useState(null);
   const [selectedId, setSelectedId] = useState(0);
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpenDeleteDialog(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenDeleteDialog(false);
   };
 
   const [events, setEvents] = useState([
@@ -59,24 +64,59 @@ const DashboardCalendar = () => {
           handleClickOpen();
         }}
         onSelectSlot={({ start, end }) => {
-          // eslint-disable-next-line no-alert
-          const title = window.prompt('New Event name');
-          if (title) {
-            const id = getRandomInt(1000);
-            setEvents([
-              ...events,
-              {
-                id,
-                title,
-                start,
-                end,
-              },
-            ]);
-          }
+          setActiveStart(start);
+          setActiveEnd(end);
+          setOpenAddGoalDialog(true);
           sendAddEventRequest();
         }}
       />
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={openAddGoalDialog} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here. We will send updates
+            occasionally.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Event Name"
+            value={newGoalTitle}
+            onChange={(event) => {
+              setNewGoalTitle(event.target.value);
+            }}
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              if (activeStart && activeEnd) {
+                const id = getRandomInt(1000);
+                setEvents([
+                  ...events,
+                  {
+                    id,
+                    title: newGoalTitle,
+                    start: activeStart,
+                    end: activeEnd,
+                  },
+                ]);
+                setNewGoalTitle('');
+              }
+              setOpenAddGoalDialog(false);
+            }}
+            color="primary"
+          >
+            Subscribe
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={openDeleteDialog} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Delete Event</DialogTitle>
         <DialogContent>
           <DialogContentText>Are you sure you want to delete this event?</DialogContentText>

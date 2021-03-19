@@ -14,3 +14,7 @@
 .rbc-day-slot .rbc-background-event:focus {
   outline: 5px auto #620dfc;
 }
+
+.rbc-toolbar-label {
+  font-size: 30px;
+}
