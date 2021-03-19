@@ -37,11 +37,6 @@ describe('Test TodoTask Model', () => {
     const validTestData = new TodoTask(testTodoTaskData);
     const savedTestModel = await validTestData.save();
 
-    expect(savedTestModel.name).toBe(validTestData.name);
-    expect(savedTestModel.createdDate).toBe(validTestData.createdDate);
-    expect(savedTestModel.dueDate).toBe(validTestData.dueDate);
     expect(savedTestModel.completed).toBe(false);
-
-    expect(savedTestModel._id).toBeDefined();
   });
 });
