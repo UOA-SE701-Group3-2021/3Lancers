@@ -13,9 +13,8 @@ import {
   ListItemText,
   ListItemIcon,
   ListItemSecondaryAction,
-  TextField,
-  Select,
   Menu,
+  Modal,
   MenuItem,
 } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -75,18 +74,7 @@ const JournalTodo = () => {
   };
 
   const deleteEvent = () => {
-    const newList = [...newItem];
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const x of newList) {
-      if (x.name === toBeDel) {
-        const index = newList.indexOf(x);
-        newList.splice(index, 1);
-      }
-    }
-
-    setNewItem(newList);
-    setAnchorEl(null);
+    setNewItem(newItem.filter((_item, index) => index !== activeIndex));
   };
 
   const handleToggle = (value) => () => {
@@ -100,9 +88,7 @@ const JournalTodo = () => {
     }
     setChecked(newChecked);
   };
-  // const inputAlert = () => {
-  //   alert('Please enter something :)');
-  // };
+
   const firstEvent = (event) => {
     setItem({ name: event.target.value, onGoing: true, completed: false });
   };
@@ -158,7 +144,8 @@ const JournalTodo = () => {
                   style={{
                     textDecorationLine: cancel.indexOf(newItem[index]) !== -1 ? 'line-through' : '',
                     textDecorationStyle: cancel.indexOf(newItem[index]) !== -1 ? 'solid' : '',
-                    color: 'rgba(0, 0, 0, 0.6)',
+                    color:
+                      checked.indexOf(value) !== -1 ? 'rgba(98,0,238,1)' : 'rgba(0, 0, 0, 0.6)',
                   }}
                   id={labelId}
                   primary={` ${value.name}`}
@@ -214,10 +201,11 @@ const JournalTodo = () => {
         <FormControl variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
           <OutlinedInput
-            id="outlined-todo"
+            disabled
+            id="outlined-disabled"
+            label="Disabled"
             value={item.name}
             onChange={firstEvent}
-            disable
             endAdornment={
               <InputAdornment position="end">
                 <IconButton className="AddBtn" onClick={secondEvent}>
@@ -239,19 +227,19 @@ const JournalTodo = () => {
         <MenuItem
           className="menubar"
           onClick={() => {
+            setAnchorEl(null);
+          }}
+        >
+          Migrate
+        </MenuItem>
+        <MenuItem
+          className="menubar"
+          onClick={() => {
             cancelEvent();
             setAnchorEl(null);
           }}
         >
           Cancel
-        </MenuItem>
-        <MenuItem
-          className="menubar"
-          onClick={() => {
-            setAnchorEl(null);
-          }}
-        >
-          Migrate
         </MenuItem>
         <MenuItem
           id="delete"
