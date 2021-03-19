@@ -22,6 +22,7 @@ import {
   TextField,
   DialogActions,
   Modal,
+  makeStyles,
   MenuItem,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
@@ -47,6 +48,7 @@ const JournalTodo = () => {
       completed: true,
     },
   ];
+
   const [checked, setChecked] = useState([0]);
   const [item, setItem] = useState('');
   const [newItem, setNewItem] = useState(listitems);
@@ -54,15 +56,12 @@ const JournalTodo = () => {
   const [cancel, setCancel] = useState([0]);
   const [deleted, setDelete] = useState([0]);
   const [toBeDel, setToBeDel] = useState('');
-  const [reDate, setReDate] = useState('');
+  const [newDate, setNewDate] = useState('');
+  const [newItemDate, setItemDate] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
   const [input, inputEntered] = useState('');
   const [open, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date('2021-08-18T21:11:54'));
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
+  const [migrate, setMigrate] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -92,6 +91,24 @@ const JournalTodo = () => {
 
   const deleteEvent = () => {
     setNewItem(newItem.filter((_item, index) => index !== activeIndex));
+  };
+
+  const openMigrate = () => {
+    setMigrate(true);
+  };
+
+  const closeMigrate = () => {
+    setMigrate(false);
+  };
+
+  const newDateChange = (event) => {
+    setNewDate(event.target.value);
+    setItemDate({
+      name: newItemDate.name,
+      due: event.target.value,
+      onGoing: true,
+      completed: false,
+    });
   };
 
   const handleToggle = (value) => () => {
@@ -185,7 +202,6 @@ const JournalTodo = () => {
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                     onClick={(event) => {
-                      setToBeDel(value.name);
                       setActiveIndex(index);
                       setAnchorEl(event.currentTarget);
                     }}
@@ -200,7 +216,6 @@ const JournalTodo = () => {
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                     onClick={(event) => {
-                      setToBeDel(value.name);
                       setActiveIndex(index);
                       setAnchorEl(event.currentTarget);
                     }}
@@ -220,8 +235,6 @@ const JournalTodo = () => {
             disabled
             id="outlined-disabled"
             label="Disabled"
-            value={item.name}
-            onChange={firstEvent}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -238,16 +251,13 @@ const JournalTodo = () => {
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                   <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
                   <DialogContent>
-                    {/* <DialogContentText>
-                      <p className="dialogText">Due Date</p>
-                    </DialogContentText> */}
                     <TextField
                       autoFocus
                       margin="dense"
                       id="name"
+                      value={item.name}
+                      onChange={firstEvent}
                       label="Description"
-                      type="name"
-                      variant="outlined"
                       fullWidth
                     />
                     <TextField
@@ -256,7 +266,6 @@ const JournalTodo = () => {
                       labelColour="black"
                       type="date"
                       defaultValue="2020-05-24"
-                      variant="outlined"
                       fullWidth
                       InputLabelProps={{
                         shrink: true,
@@ -264,8 +273,18 @@ const JournalTodo = () => {
                     />
                   </DialogContent>
                   <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Confirm</Button>
+                    <Button styles={{ color: 'rgba(98,0,238,1)' }} onClick={handleClose}>
+                      Cancel
+                    </Button>
+                    <Button
+                      label="Button"
+                      labelStyle={{ fontWeight: '500' }}
+                      onClick={() => {
+                        setNewItem((prev) => [...prev, item], setItem(''), handleClose());
+                      }}
+                    >
+                      Confirm
+                    </Button>
                   </DialogActions>
                 </Dialog>
               </InputAdornment>
@@ -284,6 +303,7 @@ const JournalTodo = () => {
         <MenuItem
           className="menubar"
           onClick={() => {
+            openMigrate();
             setAnchorEl(null);
           }}
         >
@@ -309,6 +329,43 @@ const JournalTodo = () => {
           Delete
         </MenuItem>
       </Menu>
+      <Dialog open={migrate} onClose={closeMigrate} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
+        <DialogContent>
+          <form noValidate>
+            <TextField
+              id="date"
+              label="Due Date"
+              labelColour="black"
+              type="date"
+              defaultValue="2020-05-24"
+              fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setMigrate(false);
+              setAnchorEl(null);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              deleteEvent();
+              setMigrate(false);
+              setAnchorEl(null);
+            }}
+          >
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
