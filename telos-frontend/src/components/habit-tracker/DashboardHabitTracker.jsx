@@ -13,7 +13,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import './DashboardHabitTracker.css';
 
 const DashboardHabitTracker = () => {
-  // const [statusList, setStatusList] = useState([false, false, false, false, false, false, false]);
   const [habitTitle, setTitle] = useState('Habit1');
   const [tempTitle, setTempTitle] = useState(habitTitle);
   const [habitDes, setDes] = useState('Habit description, Do Task X, Y many times per week');
@@ -83,11 +82,6 @@ const DashboardHabitTracker = () => {
               <button
                 className={`${monStatus === true ? '' : 'unselect'}`}
                 onClick={() => {
-                  // setStatusList([(statusList[0] = !statusList[0])]);
-                  // console.log(statusList);
-                  // statusList[0] = !statusList[0];
-                  // setStatusList(statusList);
-                  // console.log(statusList);
                   setMonStatus(!monStatus);
                 }}
                 type="button"
@@ -99,10 +93,6 @@ const DashboardHabitTracker = () => {
               <button
                 className={`${tueStatus === true ? '' : 'unselect'}`}
                 onClick={() => {
-                  // console.log(statusList[1] === true);
-                  // statusList[1] = !statusList[1];
-                  // setStatusList(statusList);
-                  // console.log(statusList);
                   setTueStatus(!tueStatus);
                 }}
                 type="button"
