@@ -18,8 +18,8 @@ app.get('/', (req, res) => res.send('Telos app coming soon!'));
 // useNewUrlParser recommended set to true, but must specify a port (using the default 27017)
 // useUnifiedTopology recommended set to true (uses mongodb new connection management engine)
 mongoose.connect('mongodb://localhost:27017/telosdatabase', {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 const db = mongoose.connection;
 
