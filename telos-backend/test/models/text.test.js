@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const dbHelper = require('../db-helper');
 // Require the models from src/models
-const text = require('../../src/models/text');
+const Text = require('../../src/models/text');
 
 beforeAll(async () => await dbHelper.connectToDb());
 
@@ -16,7 +16,7 @@ describe('Test Text Model', () => {
       text: 'lorem ipsum',
       widgetId: '5d6ede6a0ba62570afcedd3a',
     };
-    const validTestData = new text(testTextData);
+    const validTestData = new Text(testTextData);
     const savedTestModel = await validTestData.save();
 
     expect(savedTestModel.text).toBe(validTestData.text);
@@ -30,16 +30,14 @@ describe('Test Text Model', () => {
       text: 'lorem ipsum',
       widgetId: 'fakeid',
     };
-    const invalidTestData = new text(testTextData);
+    const invalidTestData = new Text(testTextData);
     let err;
     try {
       await invalidTestData.save();
-    } catch(error) {
+    } catch (error) {
       err = error;
     }
 
     expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
   });
 });
-
-
