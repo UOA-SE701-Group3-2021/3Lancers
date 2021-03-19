@@ -22,17 +22,13 @@ const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
 const DashboardCalendar = () => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [openAddGoalDialog, setOpenAddGoalDialog] = useState(false);
-  const [newGoalTitle, setNewGoalTitle] = useState('');
+  const [openAddEventDialog, setOpenAddEventDialog] = useState(false);
+  const [newEventTitle, setNewEventTitle] = useState('');
   const [activeStart, setActiveStart] = useState(null);
   const [activeEnd, setActiveEnd] = useState(null);
   const [selectedId, setSelectedId] = useState(0);
   const handleClickOpen = () => {
     setOpenDeleteDialog(true);
-  };
-
-  const handleClose = () => {
-    setOpenDeleteDialog(false);
   };
 
   const [events, setEvents] = useState([
@@ -66,31 +62,39 @@ const DashboardCalendar = () => {
         onSelectSlot={({ start, end }) => {
           setActiveStart(start);
           setActiveEnd(end);
-          setOpenAddGoalDialog(true);
+          setOpenAddEventDialog(true);
           sendAddEventRequest();
         }}
       />
-      <Dialog open={openAddGoalDialog} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+      <Dialog
+        open={openAddEventDialog}
+        onClose={(event) => {
+          setNewEventTitle(event.target.value);
+        }}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Add new event</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
-          </DialogContentText>
+          <DialogContentText>Please specify the name of the event.</DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="name"
             label="Event Name"
-            value={newGoalTitle}
+            value={newEventTitle}
             onChange={(event) => {
-              setNewGoalTitle(event.target.value);
+              setNewEventTitle(event.target.value);
             }}
             fullWidth
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button
+            onClick={() => {
+              setOpenAddEventDialog(false);
+            }}
+            color="primary"
+          >
             Cancel
           </Button>
           <Button
@@ -101,14 +105,14 @@ const DashboardCalendar = () => {
                   ...events,
                   {
                     id,
-                    title: newGoalTitle,
+                    title: newEventTitle,
                     start: activeStart,
                     end: activeEnd,
                   },
                 ]);
-                setNewGoalTitle('');
+                setNewEventTitle('');
               }
-              setOpenAddGoalDialog(false);
+              setOpenAddEventDialog(false);
             }}
             color="primary"
           >
@@ -116,19 +120,30 @@ const DashboardCalendar = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Dialog open={openDeleteDialog} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={openDeleteDialog}
+        onClose={() => {
+          setOpenDeleteDialog(false);
+        }}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">Delete Event</DialogTitle>
         <DialogContent>
           <DialogContentText>Are you sure you want to delete this event?</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button
+            onClick={() => {
+              setOpenDeleteDialog(false);
+            }}
+            color="primary"
+          >
             Cancel
           </Button>
           <Button
             onClick={() => {
               setEvents(events.filter((e) => e.id !== selectedId));
-              handleClose();
+              setOpenDeleteDialog(false);
             }}
             color="primary"
           >
