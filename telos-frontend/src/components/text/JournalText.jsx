@@ -11,7 +11,7 @@ const JournalText = () => {
   function onTextChange(text) {
     setTextContent(text);
     
-  }
+  } 
 
 
   return (
