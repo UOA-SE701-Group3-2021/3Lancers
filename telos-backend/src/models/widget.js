@@ -1,5 +1,19 @@
 const mongoose = require('mongoose');
 
+const positionSchema = new mongoose.Schema(
+  {
+    row: {
+      type: Number,
+      required: true,
+    },
+    col: {
+      type: Number,
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
 const widgetSchema = new mongoose.Schema({
   // date of the journal page the widget is for
   date: {
@@ -8,7 +22,7 @@ const widgetSchema = new mongoose.Schema({
   },
   // position of widget on journal page as JSON
   position: {
-    type: { row: Number, col: Number },
+    type: positionSchema,
     required: true,
   },
   // type of widget, needs to match one of the given values

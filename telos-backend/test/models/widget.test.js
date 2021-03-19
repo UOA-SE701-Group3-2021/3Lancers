@@ -28,6 +28,7 @@ describe('Test Widget Model', () => {
     expect(savedTestModel.type).toBe(validTestData.type);
 
     expect(savedTestModel._id).toBeDefined();
+    expect(savedTestModel.position._id).toBe(undefined);
   });
 
   it('can validate invalid widget types', async () => {
@@ -38,6 +39,26 @@ describe('Test Widget Model', () => {
         col: 2,
       },
       type: 'fake widget',
+    };
+    const invalidTestData = new Widget(testWidgetData);
+    let err;
+    try {
+      await invalidTestData.save();
+    } catch (error) {
+      err = error;
+    }
+
+    expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
+  });
+
+  it('can validate invalid position', async () => {
+    const testWidgetData = {
+      date: '2021-03-19',
+      position: {
+        row: 'three',
+        col: 2,
+      },
+      type: 'calendar',
     };
     const invalidTestData = new Widget(testWidgetData);
     let err;
