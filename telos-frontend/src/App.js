@@ -8,11 +8,13 @@ import JournalHabitTracker from './components/habit-tracker/JournalHabitTracker'
 import DashboardTodo from './components/todo/DashboardTodo';
 import JournalTodo from './components/todo/JournalTodo';
 import TopBar from './components/top-bar/TopBar';
+import JournalText from './components/text/JournalText';
 
 function App() {
   return (
     <Router>
       <Switch>
+        {/* links for easy testing of components */}
         <Route path="/test/dashboard/calendar">
           <CalendarDashboard />
         </Route>
@@ -34,6 +36,10 @@ function App() {
         <Route path="/test/topbar">
           <TopBar />
         </Route>
+        <Route path="/test/text">
+          <JournalText />
+        </Route>
+
         <Route path="*">
           <div className="App" data-testid="test">
             <div className="Journal-view">
