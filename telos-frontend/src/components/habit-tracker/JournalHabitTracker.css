@@ -8,7 +8,7 @@
 .container {
     position: absolute;
     width: 289px;
-    height: 272px;
+    height: auto;
     left: 265px;
     top: 122px;
     background: #FFFFFF;
