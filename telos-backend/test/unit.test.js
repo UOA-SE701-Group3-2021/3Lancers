@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop, no-return-await */
 const mongoose = require('mongoose');
 const dbHelper = require('./db-helper');
 // Require the models from src/models

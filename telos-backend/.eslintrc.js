@@ -16,5 +16,6 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'func-names': 'off',
     'no-console': 'off',
+    'no-underscore-dangle': 'off',
   },
 };
