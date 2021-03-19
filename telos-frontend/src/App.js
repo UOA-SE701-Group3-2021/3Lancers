@@ -7,10 +7,6 @@ function App() {
     <div className="App" data-testid="test">
       <div className="Journal-view">
         <Journal />
-
-        <div style={{width: '100px', height: '100px'}}>
-        <JournalText />
-      </div>
       </div>
     </div>
   );
