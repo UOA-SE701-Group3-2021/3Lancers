@@ -297,8 +297,8 @@ const DashboardHabitTracker = () => {
               <InputLabel id="end">Ends:</InputLabel>
               <RadioGroup
                 row
-                aria-label="gender"
-                name="gender1"
+                aria-label="endType"
+                name="endType"
                 value={endType}
                 onChange={handleChangeOnEndType}
               >
