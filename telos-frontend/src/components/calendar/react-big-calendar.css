@@ -18,3 +18,15 @@
 .rbc-toolbar-label {
   font-size: 30px;
 }
+
+.rbc-time-content {
+  cursor: pointer;
+}
+
+.rbc-day-bg {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
