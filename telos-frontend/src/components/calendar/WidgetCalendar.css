@@ -2,12 +2,3 @@
   font-size: 10px;
   font-weight: bold;
 }
-
-.big-number {
-  --bigTextSize: 36px;
-  font-size: var(--bigTextSize);
-  height: var(--bigTextSize);
-  line-height: var(--bigTextSize);
-  font-weight: 600;
-  color: var(--iconColour);
-}
