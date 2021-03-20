@@ -1,12 +1,11 @@
 import * as React from "react";
 import Paper from "@material-ui/core/Paper";
-import { ViewState, EditingState } from "@devexpress/dx-react-scheduler";
+import { ViewState, EditingState, IntegratedEditing } from "@devexpress/dx-react-scheduler";
 import {
   Scheduler,
   DayView,
   Appointments,
   Resources,
-  DragDropProvider,
   EditRecurrenceMenu,
   AppointmentForm,
   AppointmentTooltip
@@ -118,13 +117,13 @@ export default class Demo extends React.PureComponent {
           <Scheduler data={data}>
             <ViewState defaultCurrentDate="2021-07-28" />
             <EditingState onCommitChanges={this.commitChanges} />
+            <IntegratedEditing />
             <EditRecurrenceMenu />
             <DayView startDayHour={0} endDayHour={24} />
             <Appointments />
-            <AppointmentTooltip showOpenButton showCloseButton />
+            <AppointmentTooltip showOpenButton showDeleteButton showCloseButton/>
             <AppointmentForm />
             <Resources data={resources} mainResourceName="priorityId" />
-            <DragDropProvider />
           </Scheduler>
         </Paper>
     );
