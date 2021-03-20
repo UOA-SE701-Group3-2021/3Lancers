@@ -26,7 +26,9 @@ import {
   DialogTitle,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { AddIcon, MoreVertIcon, ErrorIcon } from '@material-ui/icons';
+import AddIcon from '@material-ui/icons/Add';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ErrorIcon from '@material-ui/icons/Error';
 import './DashboardTodo.css';
 
 const useStyles = makeStyles((theme) => ({
