@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -13,6 +13,7 @@ import {
   AppointmentTooltip,
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import { purple } from '@material-ui/core/colors';
 
 const PUBLIC_KEY = 'AIzaSyBnNAISIUKe6xdhq1_rjor2rxoI3UlMY7k';
 const CALENDAR_ID = 'f7jnetm22dsjc3npc2lu3buvu4@group.calendar.google.com';
@@ -47,6 +48,12 @@ const styles = {
     left: 0,
   },
 };
+
+const theme = createMuiTheme({
+  palette: {
+    primary: purple,
+  },
+});
 
 const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
   ({ children, classes, ...restProps }) => (
@@ -132,22 +139,24 @@ export default () => {
 
   return (
     <Paper>
-      <Scheduler data={data} height="full">
-        <ViewState
-          currentDate={currentDate}
-          currentViewName={currentViewName}
-          onCurrentViewNameChange={setCurrentViewName}
-          onCurrentDateChange={setCurrentDate}
-        />
-        <DayView startDayHour={0} endDayHour={24} />
-        <Appointments />
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <Toolbar {...(loading ? { rootComponent: ToolbarWithLoading } : null)} />
-        <DateNavigator />
-        <TodayButton />
-        <AppointmentTooltip showOpenButton showCloseButton />
-        <AppointmentForm readOnly />
-      </Scheduler>
+      <ThemeProvider theme={theme}>
+        <Scheduler data={data} height="full">
+          <ViewState
+            currentDate={currentDate}
+            currentViewName={currentViewName}
+            onCurrentViewNameChange={setCurrentViewName}
+            onCurrentDateChange={setCurrentDate}
+          />
+          <DayView startDayHour={0} endDayHour={24} />
+          <Appointments />
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Toolbar {...(loading ? { rootComponent: ToolbarWithLoading } : null)} />
+          <DateNavigator />
+          <TodayButton />
+          <AppointmentTooltip showOpenButton showCloseButton />
+          <AppointmentForm readOnly />
+        </Scheduler>
+      </ThemeProvider>
     </Paper>
   );
 };
