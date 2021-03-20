@@ -39,4 +39,8 @@
 .Date-select {
   position: absolute;
   left: 0px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-size: 18px;
 }
