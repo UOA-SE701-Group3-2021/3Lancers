@@ -25,48 +25,50 @@ function App() {
       <div className="App" data-testid="test">
         <TopBar />
 
-        <Switch>
-          <Route path="/calendar">
-            <CalendarDashboard />
-          </Route>
-          <Route path="/habittracker">
-            <DashboardHabitTracker />
-          </Route>
-          <Route path="/todo">
-            <DashboardTodo />
-          </Route>
-          <Route path="/widget-drawer">
-            <div className="app-container">
-              <WidgetDrawer>
-                <WidgetCalendar />
-                <WidgetTodo />
-                <WidgetHabitTracker />
-                <WidgetText />
-              </WidgetDrawer>
-            </div>
-          </Route>
-          {/* links for easy testing of components */}
-          <Route path="/test/journal/calendar">
-            <CalendarJournal />
-          </Route>
-          <Route path="/test/journal/habittracker">
-            <JournalHabitTracker />
-          </Route>
-          <Route path="/test/journal/todo">
-            <JournalTodo />
-          </Route>
-          <Route path="/test/text">
-            <JournalText />
-          </Route>
-          <Route path="*">
-            <DndProvider backend={HTML5Backend}>
-              <div className="Journal-view">
-                <CustomDragLayer />
-                <Journal />
+        <div style={{ flex: 1 }}>
+          <Switch>
+            <Route path="/calendar">
+              <CalendarDashboard />
+            </Route>
+            <Route path="/habittracker">
+              <DashboardHabitTracker />
+            </Route>
+            <Route path="/todo">
+              <DashboardTodo />
+            </Route>
+            <Route path="/widget-drawer">
+              <div className="app-container">
+                <WidgetDrawer>
+                  <WidgetCalendar />
+                  <WidgetTodo />
+                  <WidgetHabitTracker />
+                  <WidgetText />
+                </WidgetDrawer>
               </div>
-            </DndProvider>
-          </Route>
-        </Switch>
+            </Route>
+            {/* links for easy testing of components */}
+            <Route path="/test/journal/calendar">
+              <CalendarJournal />
+            </Route>
+            <Route path="/test/journal/habittracker">
+              <JournalHabitTracker />
+            </Route>
+            <Route path="/test/journal/todo">
+              <JournalTodo />
+            </Route>
+            <Route path="/test/text">
+              <JournalText />
+            </Route>
+            <Route path="*">
+              <DndProvider backend={HTML5Backend}>
+                <div className="Journal-view">
+                  <CustomDragLayer />
+                  <Journal />
+                </div>
+              </DndProvider>
+            </Route>
+          </Switch>
+        </div>
       </div>
     </Router>
   );
