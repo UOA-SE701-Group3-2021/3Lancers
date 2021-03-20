@@ -17,18 +17,16 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   TextField,
+  Dialog,
+  Button,
+  Menu,
+  MenuItem,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ErrorIcon from '@material-ui/icons/Error';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { AddIcon, MoreVertIcon, ErrorIcon } from '@material-ui/icons';
 import './DashboardTodo.css';
 
 const useStyles = makeStyles((theme) => ({
