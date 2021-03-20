@@ -1,12 +1,16 @@
-const routes = require('../../src/routes');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const express = require('express');
 const mongoose = require('mongoose');
 const axios = require('axios');
+const routes = require('../../src/routes');
 const CalendarEvent = require('../../src/models/calendar_event');
 
-let mongod, app, server;
-let event1, event2, event3;
+let mongod;
+let app; 
+let server;
+let event1;
+let event2;
+let event3;
 
 beforeAll(async done => {
     mongod = new MongoMemoryServer();
@@ -120,8 +124,9 @@ it('can delete a thing', async () => {
 
 
 it('GET not defined', async () => {
+    let err;
     try{
-        const response = await axios.get('http://localhost:3000/api/calendar')
+        await axios.get('http://localhost:3000/api/calendar')
     } catch (error) {
         err = error;
     }

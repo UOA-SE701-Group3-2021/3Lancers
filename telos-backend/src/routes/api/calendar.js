@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
     if (err) {
       return res.status(400).json({error: err});
     }
-    res.status(201).json(newCalendarEvent);
+    return res.status(201).json(newCalendarEvent);
   });
 });
 
@@ -38,10 +38,5 @@ router.delete('/:id', async (req, res) => {
     return res.sendStatus(204);
   });
 });
-
-// router.get('/', async (req, res) => {
-//   const calEvents = await CalendarEvent.find();
-//   res.json(calEvents);
-// });
 
 module.exports = router;
