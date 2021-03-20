@@ -11,7 +11,7 @@ const WidgetTodo = () => {
       <div className="small-month">{thisMonth}</div>
       <div className="big-number">{thisDay}</div>
     </div>
-  )
-}
+  );
+};
 
 export default WidgetTodo;
