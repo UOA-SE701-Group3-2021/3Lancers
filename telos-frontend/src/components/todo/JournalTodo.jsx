@@ -42,6 +42,9 @@ const useStyles = makeStyles({
     color: '#6200ee',
     fontWeight: 'bold',
   },
+  migrate: {
+    width: 280,
+  },
 });
 
 const JournalTodo = () => {
@@ -273,7 +276,7 @@ const JournalTodo = () => {
                     />
                     <TextField
                       id="date"
-                      label="Due Date"
+                      label="Due Date:"
                       labelColour="black"
                       type="date"
                       defaultValue="2020-05-24"
@@ -342,11 +345,26 @@ const JournalTodo = () => {
       </Menu>
       <Dialog open={migrate} onClose={closeMigrate} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
+        <DialogContent className={classes.migrate}>
+          <form noValidate>
+            <TextField
+              id="date"
+              label="Move to:"
+              labelColour="black"
+              type="date"
+              defaultValue="2020-05-24"
+              fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </form>
+        </DialogContent>
         <DialogContent>
           <form noValidate>
             <TextField
               id="date"
-              label="Due Date"
+              label="Edit Due Date(optional):"
               labelColour="black"
               type="date"
               defaultValue="2020-05-24"
