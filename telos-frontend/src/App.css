@@ -16,6 +16,13 @@
   pointer-events: none;
 }
 
+/* todo Temporary! Remove upon submission */
+.app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
