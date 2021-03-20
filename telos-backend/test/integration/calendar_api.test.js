@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const axios = require('axios');
 
 let mongod, app, server;
+let event1, event2, event3;
 
 /**
  * Before all tests, create an in-memory MongoDB instance so we don't have to test on a real database,
@@ -20,22 +21,40 @@ beforeAll(async done => {
     await mongoose.connect(connectionString, { useNewUrlParser: true });
 
     app = express();
+    app.use(express.json());
     app.use('/', routes);
     server = app.listen(3000, () => done());
 });
 
-/**
- * Before each test, intialize the database with some data
- */
 beforeEach(async () => {
-    const coll = await mongoose.connection.db.createCollection('calendar_events');
+    const coll = await mongoose.connection.db.createCollection('calendarevents');
+
+    event1 = {
+        name: 'test1',
+        startTime: '2021-01-01T00:00:00',
+        endTime: '2021-01-01T05:00:00'
+    };
+
+    event2 = {
+        name: 'test2',
+        startTime: '2021-01-01T00:00:00',
+        endTime: '2021-01-01T05:00:00'
+    };
+
+    event3 = {
+        name: 'test3',
+        startTime: '2021-01-01T00:00:00',
+        endTime: '2021-01-01T05:00:00'
+    };
+
+    await coll.insertMany([event1, event2, event3]);
 });
 
 /**
  * After each test, clear the database entirely
  */
 afterEach(async () => {
-    await mongoose.connection.db.dropCollection('calendar_events');
+    await mongoose.connection.db.dropCollection('calendarevents');
 });
 
 /**
@@ -58,14 +77,14 @@ it('can post a thing', async () => {
         "startTime": "2021-01-01T02:00:00",
         "endTime": "2021-01-01T05:00:00"
     };
-    axios.post('http://localhost:3000/api/calendar/', {
+    const response = await axios.post('http://localhost:3000/api/calendar', {
         name: 'Test calendar',
         startTime: '2021-01-01T02:00:00',
         endTime: '2021-01-01T05:00:00'
     });
-    //const returnEvent = response.data;
+    const returnEvent = response.data;
 
-    //expect(returnEvent._id).toBeDefined();
+    expect(returnEvent._id).toBeDefined();
 });
 
 // it('can post a thing', async () => {
@@ -81,10 +100,16 @@ it ('works', () => {
 });
 
 it('get not defined', async () => {
-    try{
-        const response = await axios.get('http://localhost:3000/api/calendar')
-    } catch (error) {
-        err = error;
-    }
-    expect(err).toBeDefined();
+    // try{
+    //     const response = await axios.get('http://localhost:3000/api/calendar')
+    // } catch (error) {
+    //     err = error;
+    // }
+    // expect(err).toBeDefined();
+    const response = await axios.get('http://localhost:3000/api/calendar');
+    const calevents = response.data;
+
+    expect(calevents.length).toBe(3);
+
+    expect(calevents[0].name).toBe('test1')
 });

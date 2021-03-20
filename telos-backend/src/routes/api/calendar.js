@@ -38,4 +38,9 @@ router.delete('/:id', async (req, res) => {
   res.sendStatus(201);
 });
 
+router.get('/', async (req, res) => {
+  const calEvents = await CalendarEvent.find();
+  res.json(calEvents);
+});
+
 module.exports = router;
