@@ -1,4 +1,4 @@
-import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import { useState } from 'react';
 import styles from './TextWidget.module.css';
 
@@ -12,14 +12,14 @@ const JournalText = () => {
   }
 
   return (
-    <Paper className={styles.paper} variant="outlined">
+    <Box className={styles.box}>
       <textarea
         data-testid="textInput"
         className={styles.textInput}
         value={textContent}
         onChange={(e) => onTextChange(e.target.value)}
       />
-    </Paper>
+    </Box>
   );
 };
 
