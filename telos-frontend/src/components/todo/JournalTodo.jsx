@@ -44,10 +44,6 @@ const useStyles = makeStyles({
   },
 });
 
-const outdated = {
-  color: '#FF0000',
-};
-
 const JournalTodo = () => {
   const listitems = [
     {
@@ -146,7 +142,7 @@ const JournalTodo = () => {
   };
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} display="flex" flexDirection="column" alignItems="stretch">
       <div>
         <p className="title"> To Do </p>
       </div>
@@ -188,7 +184,7 @@ const JournalTodo = () => {
               )}
               {value.onGoing ? (
                 <ListItemText
-                  className={classes.text}
+                  primaryTypographyProps={{ style: { fontWeight: 'bold' } }}
                   style={{
                     textDecorationLine: cancel.indexOf(newItem[index]) !== -1 ? 'line-through' : '',
                     textDecorationStyle: cancel.indexOf(newItem[index]) !== -1 ? 'solid' : '',
@@ -203,9 +199,9 @@ const JournalTodo = () => {
                   style={{
                     textDecorationLine: cancel.indexOf(newItem[index]) !== -1 ? 'line-through' : '',
                     textDecorationStyle: cancel.indexOf(newItem[index]) !== -1 ? 'solid' : '',
-                    color: '#EB5757',
+                    color: '#FF0000',
                   }}
-                  primaryTypographyProps={{ style: outdated }}
+                  primaryTypographyProps={{ style: { fontWeight: 'bold' } }}
                   id={labelId}
                   primary={` ${value.name}`}
                 />
