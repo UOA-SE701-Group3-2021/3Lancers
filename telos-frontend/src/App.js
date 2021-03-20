@@ -1,5 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import Journal from './views/journal/Journal';
 import WidgetCalendar from './components/calendar/WidgetCalendar';
 import WidgetText from './components/text/WidgetText';
@@ -15,6 +17,7 @@ import DashboardTodo from './components/todo/DashboardTodo';
 import JournalTodo from './components/todo/JournalTodo';
 import TopBar from './components/top-bar/TopBar';
 import JournalText from './components/text/JournalText';
+import CustomDragLayer from './dnd/CustomDragLayer';
 
 function App() {
   return (
@@ -56,9 +59,12 @@ function App() {
             <JournalText />
           </Route>
           <Route path="*">
-            <div className="Journal-view">
-              <Journal />
-            </div>
+            <DndProvider backend={HTML5Backend}>
+              <div className="Journal-view">
+                <CustomDragLayer />
+                <Journal />
+              </div>
+            </DndProvider>
           </Route>
         </Switch>
       </div>
