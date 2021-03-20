@@ -9,7 +9,7 @@ const WidgetTodo = () => {
   return (
     <div className="widget-icon vertical">
       <div className="small-month">{thisMonth}</div>
-      <div className="big-number">{thisDay}</div>
+      <div className="big-text">{thisDay}</div>
     </div>
   );
 };

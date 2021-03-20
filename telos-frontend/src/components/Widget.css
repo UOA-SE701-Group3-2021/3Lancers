@@ -33,3 +33,12 @@
 .widget-icon:hover {
   background-color: rgba(122,0,244,0.08);
 }
+
+.big-text {
+  --bigTextSize: 36px;
+  font-size: var(--bigTextSize);
+  height: var(--bigTextSize);
+  line-height: var(--bigTextSize);
+  font-weight: 600;
+  color: var(--iconColour);
+}
