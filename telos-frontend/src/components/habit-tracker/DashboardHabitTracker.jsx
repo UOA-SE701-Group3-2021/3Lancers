@@ -12,6 +12,7 @@ import {
   RadioGroup,
   FormControlLabel,
 } from '@material-ui/core';
+import WeekScheduleBar from './WeekScheduleBarHabitTracker';
 import './DashboardHabitTracker.css';
 
 const DashboardHabitTracker = () => {
@@ -19,14 +20,6 @@ const DashboardHabitTracker = () => {
   const [tempTitle, setTempTitle] = useState(habitTitle);
   const [habitDes, setDes] = useState('Habit description, Do Task X, Y many times per week');
   const [tempDes, setTempDes] = useState(habitDes);
-
-  const [monStatus, setMonStatus] = useState(false);
-  const [tueStatus, setTueStatus] = useState(false);
-  const [wedStatus, setWedStatus] = useState(false);
-  const [thuStatus, setThuStatus] = useState(false);
-  const [friStatus, setFriStatus] = useState(false);
-  const [satStatus, setSatStatus] = useState(false);
-  const [sunStatus, setSunStatus] = useState(false);
 
   const [weeks, setWeeks] = useState('1');
   const [startDate, setStartDate] = useState('2021-01-01');
@@ -78,77 +71,7 @@ const DashboardHabitTracker = () => {
         <div className="HabitContent">
           <p>{habitDes}</p>
         </div>
-        <div className="WeekSchedule">
-          <ul>
-            <li>
-              <button
-                className={`${monStatus === true ? '' : 'unselect'}`}
-                onClick={() => {
-                  setMonStatus(!monStatus);
-                }}
-                type="button"
-              >
-                M
-              </button>
-            </li>
-            <li>
-              <button
-                className={`${tueStatus === true ? '' : 'unselect'}`}
-                onClick={() => {
-                  setTueStatus(!tueStatus);
-                }}
-                type="button"
-              >
-                T
-              </button>
-            </li>
-            <li>
-              <button
-                className={`${wedStatus === true ? '' : 'unselect'}`}
-                onClick={() => setWedStatus(!wedStatus)}
-                type="button"
-              >
-                W
-              </button>
-            </li>
-            <li>
-              <button
-                className={`${thuStatus === true ? '' : 'unselect'}`}
-                onClick={() => setThuStatus(!thuStatus)}
-                type="button"
-              >
-                T
-              </button>
-            </li>
-            <li>
-              <button
-                className={`${friStatus === true ? '' : 'unselect'}`}
-                onClick={() => setFriStatus(!friStatus)}
-                type="button"
-              >
-                F
-              </button>
-            </li>
-            <li>
-              <button
-                className={`${satStatus === true ? '' : 'unselect'}`}
-                onClick={() => setSatStatus(!satStatus)}
-                type="button"
-              >
-                S
-              </button>
-            </li>
-            <li>
-              <button
-                className={`${sunStatus === true ? '' : 'unselect'}`}
-                onClick={() => setSunStatus(!sunStatus)}
-                type="button"
-              >
-                S
-              </button>
-            </li>
-          </ul>
-        </div>
+        <WeekScheduleBar />
       </div>
       <Box className={`${isEdit === true ? 'menuContainer' : 'hidden'}`}>
         <div className="menuHeader">
@@ -198,73 +121,7 @@ const DashboardHabitTracker = () => {
           </div>
           <div className="weekInfo">
             <InputLabel id="repeatsOn">Repeats on</InputLabel>
-            <div className="WeekSchedule">
-              <ul>
-                <li>
-                  <button
-                    className={`${monStatus === true ? '' : 'unselect'}`}
-                    onClick={() => setMonStatus(!monStatus)}
-                    type="button"
-                  >
-                    M
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={`${tueStatus === true ? '' : 'unselect'}`}
-                    onClick={() => setTueStatus(!tueStatus)}
-                    type="button"
-                  >
-                    T
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={`${wedStatus === true ? '' : 'unselect'}`}
-                    onClick={() => setWedStatus(!wedStatus)}
-                    type="button"
-                  >
-                    W
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={`${thuStatus === true ? '' : 'unselect'}`}
-                    onClick={() => setThuStatus(!thuStatus)}
-                    type="button"
-                  >
-                    T
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={`${friStatus === true ? '' : 'unselect'}`}
-                    onClick={() => setFriStatus(!friStatus)}
-                    type="button"
-                  >
-                    F
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={`${satStatus === true ? '' : 'unselect'}`}
-                    onClick={() => setSatStatus(!satStatus)}
-                    type="button"
-                  >
-                    S
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={`${sunStatus === true ? '' : 'unselect'}`}
-                    onClick={() => setSunStatus(!sunStatus)}
-                    type="button"
-                  >
-                    S
-                  </button>
-                </li>
-              </ul>
-            </div>
+            <WeekScheduleBar />
           </div>
           <div className="timeSetting">
             <div className="startDate">
