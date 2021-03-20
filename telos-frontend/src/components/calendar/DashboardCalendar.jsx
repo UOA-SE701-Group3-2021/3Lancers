@@ -8,6 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import 'fontsource-roboto';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './react-big-calendar.css';
 
@@ -54,7 +55,7 @@ const DashboardCalendar = () => {
         events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: window.screen.height - 110, width: '100%' }}
+        style={{ height: window.screen.height - 110, width: '100%', fontFamily: 'Roboto' }}
         onSelectEvent={(event) => {
           setSelectedId(event.id);
           handleClickOpen();
