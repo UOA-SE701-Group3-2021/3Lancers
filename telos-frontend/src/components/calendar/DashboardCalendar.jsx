@@ -50,14 +50,14 @@ const DashboardCalendar = () => {
   ]);
 
   return (
-    <div>
+    <>
       <Calendar
         selectable
         localizer={localizer}
         events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: window.screen.height - 110, width: '100%', fontFamily: 'Roboto' }}
+        style={{ height: '100%', width: '100%', fontFamily: 'Roboto' }}
         onSelectEvent={(event) => {
           setSelectedId(event.id);
           handleClickOpen();
@@ -155,7 +155,7 @@ const DashboardCalendar = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };
 
