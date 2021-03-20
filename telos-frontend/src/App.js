@@ -57,10 +57,12 @@ function App() {
             <JournalText />
           </Route>
           <Route path="*">
-            <div className="Journal-view">
-              <CustomDragLayer />
-              <Journal />
-            </div>
+            <DndProvider backend={HTML5Backend}>
+              <div className="Journal-view">
+                <CustomDragLayer />
+                <Journal />
+              </div>
+            </DndProvider>
           </Route>
         </Switch>
       </div>
