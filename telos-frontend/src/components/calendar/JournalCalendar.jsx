@@ -62,12 +62,12 @@ export const typeData = [
   {
     text: 'Home',
     id: 1,
-    color: '#b6d623',
+    color: 'ADADFF',
   },
   {
     text: 'Work',
     id: 2,
-    color: '#679ec5',
+    color: '0000DE',
   },
 ];
 export default class Demo extends React.PureComponent {
