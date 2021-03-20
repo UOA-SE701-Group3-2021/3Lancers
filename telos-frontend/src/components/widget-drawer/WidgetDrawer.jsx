@@ -21,7 +21,7 @@ const WidgetDrawer = ({ children }) => {
       <div className={`closer ${isHidden ? 'flipped' : BLANK}`} onClick={handleOnClick}>
         <Arrow />
       </div>
-      <div className={`WidgetDrawer ${isHidden ? 'hidden' : BLANK}`}>{children}</div>
+      <div className={`WidgetDrawer ${isHidden ? 'technically-hidden' : BLANK}`}>{children}</div>
     </div>
   );
 };
