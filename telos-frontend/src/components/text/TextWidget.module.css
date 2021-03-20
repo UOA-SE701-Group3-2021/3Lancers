@@ -7,10 +7,13 @@
     outline: none;
 }
 
-.paper {
+.box {
+    box-shadow: 3px 3px 3px darkgrey;
     resize: none;
     position: relative;
     width: calc(100% - 10px);
     height: calc(100% - 10px);
-    background-color:rgba(0, 0, 0, 0.096) !important;
+    border: 2px solid #7a00f4;
+    border-radius: 5px;
+    background-color:white !important;
 }
