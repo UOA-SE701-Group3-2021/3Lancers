@@ -18,50 +18,48 @@ import JournalText from './components/text/JournalText';
 function App() {
   return (
     <Router>
-      <Switch>
-        {/* links for easy testing of components */}
-        <Route path="/test/dashboard/calendar">
-          <CalendarDashboard />
-        </Route>
-        <Route path="/test/journal/calendar">
-          <CalendarJournal />
-        </Route>
-        <Route path="/test/dashboard/habittracker">
-          <DashboardHabitTracker />
-        </Route>
-        <Route path="/test/journal/habittracker">
-          <JournalHabitTracker />
-        </Route>
-        <Route path="/test/dashboard/todo">
-          <DashboardTodo />
-        </Route>
-        <Route path="/test/journal/todo">
-          <JournalTodo />
-        </Route>
-        <Route path="/test/topbar">
-          <TopBar />
-        </Route>
-        <Route path="/test/text">
-          <JournalText />
-        </Route>
-        <Route path="/widget-drawer">
-          <div className="app-container">
-            <WidgetDrawer>
-              <WidgetCalendar />
-              <WidgetTodo />
-              <WidgetHabitTracker />
-            </WidgetDrawer>
-          </div>
-        </Route>
+      <div className="App" data-testid="test">
+        <TopBar />
 
-        <Route path="*">
-          <div className="App" data-testid="test">
+        <Switch>
+          <Route path="/calendar">
+            <CalendarDashboard />
+          </Route>
+          <Route path="/habittracker">
+            <DashboardHabitTracker />
+          </Route>
+          <Route path="/todo">
+            <DashboardTodo />
+          </Route>
+          <Route path="/widget-drawer">
+            <div className="app-container">
+              <WidgetDrawer>
+                <WidgetCalendar />
+                <WidgetTodo />
+                <WidgetHabitTracker />
+              </WidgetDrawer>
+            </div>
+          </Route>
+          {/* links for easy testing of components */}
+          <Route path="/test/journal/calendar">
+            <CalendarJournal />
+          </Route>
+          <Route path="/test/journal/habittracker">
+            <JournalHabitTracker />
+          </Route>
+          <Route path="/test/journal/todo">
+            <JournalTodo />
+          </Route>
+          <Route path="/test/text">
+            <JournalText />
+          </Route>
+          <Route path="*">
             <div className="Journal-view">
               <Journal />
             </div>
-          </div>
-        </Route>
-      </Switch>
+          </Route>
+        </Switch>
+      </div>
     </Router>
   );
 }
