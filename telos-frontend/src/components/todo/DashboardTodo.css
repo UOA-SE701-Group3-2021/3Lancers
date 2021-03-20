@@ -1,7 +1,7 @@
 .container{
     background-color: white;
     box-shadow: 3px 3px 3px darkgrey;
-    width: 221px;
+    width: 360px;
     border-radius: 5px;
 
 }
@@ -11,6 +11,10 @@
     height: 24px;
     font-weight: 500;
 
+}
+
+.inputbox{
+    width: 100%;
 }
 
 .Publish {
