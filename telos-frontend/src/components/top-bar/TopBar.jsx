@@ -3,18 +3,17 @@ import { useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Menu from '@material-ui/core/Menu';
 import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import SettingsIcon from '@material-ui/icons/Settings';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import MenuItem from '@material-ui/core/MenuItem';
-import ImportContactsIcon from '@material-ui/icons/ImportContacts';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import CancelIcon from '@material-ui/icons/Cancel';
+import { Toolbar, Typography, IconButton, MenuItem } from '@material-ui/core';
+import {
+  Menu as MenuIcon,
+  Settings as SettingsIcon,
+  AccountCircle as AccountCircleIcon,
+  ImportContacts as ImportContactsIcon,
+  CalendarToday as CalendarTodayIcon,
+  CheckBox as CheckBoxIcon,
+  MoreHoriz as MoreHorizIcon,
+  Cancel as CancelIcon,
+} from '@material-ui/icons';
 
 //  Used to define styles of MUI components.
 const useStyles = makeStyles(() => ({
