@@ -155,7 +155,7 @@ const JournalHabitTracker = () => {
                 setTempDes(habitDes);
               }}
             >
-              x
+              ×
             </Button>
           </div>
           <div className="menuBody">
