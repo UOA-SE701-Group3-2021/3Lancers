@@ -1,0 +1,35 @@
+.widget-icon {
+  --size: 50px;
+  --spacing: 10px;
+  --iconColour: #210043;
+
+  width: var(--size);
+  height: var(--size);
+
+  cursor: pointer;
+  user-select: none;
+
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.14), 0px 3px 14px rgba(0, 0, 0, 0.12), 0px 5px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing);
+}
+
+.widget-icon:first-child {
+  margin-top: var(--spacing);
+}
+
+.widget-icon.vertical {
+  flex-flow: column nowrap;
+}
+
+.widget-icon svg {
+  fill: var(--iconColour);
+}
+
+.widget-icon:hover {
+  background-color: rgba(122,0,244,0.08);
+}

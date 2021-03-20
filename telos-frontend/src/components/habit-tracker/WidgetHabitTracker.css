@@ -1,0 +1,17 @@
+.widget-habit-tracker {
+  display: flex;
+  align-items: center;
+}
+
+.circle {
+  --size: 8px;
+  height: var(--size);
+  width: var(--size);
+  border: 2px solid var(--iconColour);
+  border-radius: 50%;
+  margin-left: 2px;
+}
+
+.circle.filled {
+  background-color: var(--iconColour);
+}

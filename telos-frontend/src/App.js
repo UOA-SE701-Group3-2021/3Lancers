@@ -1,6 +1,11 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Journal from './views/journal/Journal';
+import WidgetCalendar from './components/calendar/WidgetCalendar';
+import WidgetTodo from './components/todo/WidgetTodo';
+import WidgetDrawer from './components/widget-drawer/WidgetDrawer';
+import WidgetHabitTracker from './components/habit-tracker/WidgetHabitTracker';
+
 import CalendarDashboard from './components/calendar/DashboardCalendar';
 import CalendarJournal from './components/calendar/JournalCalendar';
 import DashboardHabitTracker from './components/habit-tracker/DashboardHabitTracker';
@@ -38,6 +43,15 @@ function App() {
         </Route>
         <Route path="/test/text">
           <JournalText />
+        </Route>
+        <Route path="/widget-drawer">
+          <div className="app-container">
+            <WidgetDrawer>
+              <WidgetCalendar />
+              <WidgetTodo />
+              <WidgetHabitTracker />
+            </WidgetDrawer>
+          </div>
         </Route>
 
         <Route path="*">
