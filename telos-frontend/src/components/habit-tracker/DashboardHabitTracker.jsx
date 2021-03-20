@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {
+  IconButton,
+  Box,
+  Button,
+  TextField,
+  InputLabel,
+  MenuItem,
+  Select,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+} from '@material-ui/core';
 import './DashboardHabitTracker.css';
 
 const DashboardHabitTracker = () => {
@@ -20,7 +22,7 @@ const DashboardHabitTracker = () => {
 
   const [monStatus, setMonStatus] = useState(false);
   const [tueStatus, setTueStatus] = useState(false);
-  const [wenStatus, setWenStatus] = useState(false);
+  const [wedStatus, setWedStatus] = useState(false);
   const [thuStatus, setThuStatus] = useState(false);
   const [friStatus, setFriStatus] = useState(false);
   const [satStatus, setSatStatus] = useState(false);
@@ -102,8 +104,8 @@ const DashboardHabitTracker = () => {
             </li>
             <li>
               <button
-                className={`${wenStatus === true ? '' : 'unselect'}`}
-                onClick={() => setWenStatus(!wenStatus)}
+                className={`${wedStatus === true ? '' : 'unselect'}`}
+                onClick={() => setWedStatus(!wedStatus)}
                 type="button"
               >
                 W
@@ -148,7 +150,7 @@ const DashboardHabitTracker = () => {
           </ul>
         </div>
       </div>
-      <Box className={`${isEdit === true ? 'muneContainer' : 'hidden'}`}>
+      <Box className={`${isEdit === true ? 'menuContainer' : 'hidden'}`}>
         <div className="menuHeader">
           <Button
             id="saveButton"
@@ -218,8 +220,8 @@ const DashboardHabitTracker = () => {
                 </li>
                 <li>
                   <button
-                    className={`${wenStatus === true ? '' : 'unselect'}`}
-                    onClick={() => setWenStatus(!wenStatus)}
+                    className={`${wedStatus === true ? '' : 'unselect'}`}
+                    onClick={() => setWedStatus(!wedStatus)}
                     type="button"
                   >
                     W
