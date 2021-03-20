@@ -11,6 +11,7 @@ module.exports.connectToDb = async () => {
   await mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: true,
   });
 };
 
