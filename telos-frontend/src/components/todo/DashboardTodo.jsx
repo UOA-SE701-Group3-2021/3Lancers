@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable no-alert */
+// these eslint rules are disabled to allow  sortEvent() function properly.
 import { useState } from 'react';
 import {
   Checkbox,
@@ -97,6 +97,7 @@ const DashboardTodo = () => {
     return Date.parse(date) / 1000;
   }
 
+  // Sort event in order of time line
   const sortEvent = () => {
     const sorted = newItem.sort((a, b) => {
       return dateToTimestamp(a.due) - dateToTimestamp(b.due);
@@ -104,11 +105,13 @@ const DashboardTodo = () => {
     setNewItem(sorted);
   };
 
+  // Change date for reschedule
   const reDateChange = (event) => {
     setReDate(event.target.value);
     setReItem({ name: reItem.name, due: event.target.value, onGoing: true, completed: false });
   };
 
+  // handle checkbox
   const handleToggle = (value) => () => {
     const newList = [...newItem];
     for (const x of newList) {
@@ -152,6 +155,7 @@ const DashboardTodo = () => {
     // setItem('');
   };
 
+  // Open menu
   const handleOption = (value) => (event) => {
     setReItem({
       name: value.name,
@@ -330,7 +334,7 @@ const DashboardTodo = () => {
       >
         <MenuItem onClick={cancelEvent}>Cancel/Uncancel</MenuItem>
         <MenuItem onClick={deleteEvent}>Delete</MenuItem>
-        <MenuItem onClick={openMigrate}>Migrate</MenuItem>
+        <MenuItem onClick={openMigrate}>Reschedule</MenuItem>
       </Menu>
       <Dialog open={add} onClose={closeAdd} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
