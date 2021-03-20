@@ -19,7 +19,7 @@ beforeAll(async (done) => {
   await mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: true,
+    useFindAndModify: false,
   });
 
   app = express();
@@ -71,11 +71,7 @@ it('Can post a calendar event', async () => {
     startTime: '2021-01-01T02:00:00',
     endTime: '2021-01-01T05:00:00',
   };
-  const response = await axios.post('http://localhost:3000/api/calendar', {
-    name: 'Test calendar',
-    startTime: '2021-01-01T02:00:00',
-    endTime: '2021-01-01T05:00:00',
-  });
+  const response = await axios.post('http://localhost:3000/api/calendar', body);
   const returnEvent = response.data;
 
   expect(returnEvent._id).toBeDefined();
