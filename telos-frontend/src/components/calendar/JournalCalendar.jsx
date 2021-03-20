@@ -1,15 +1,17 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import {
+  ViewState, EditingState
+} from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
-  Resources,
-  MonthView,
+  WeekView,
+  DayView,
   Appointments,
-  AppointmentTooltip,
-  AppointmentForm,
-  EditRecurrenceMenu,
+  Resources,
   DragDropProvider,
+  AppointmentForm,
+  AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 const calendarData = [
@@ -47,12 +49,12 @@ export const priorityData = [
   {
     text: 'Low Priority',
     id: 1,
-    color: '#fcb65e',
+    color: '#D6ADFF',
   },
   {
     text: 'High Priority',
     id: 2,
-    color: '#e18e92',
+    color: '#7A00F4',
   },
 ];
 
@@ -68,7 +70,6 @@ export const typeData = [
     color: '#679ec5',
   },
 ];
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -120,25 +121,32 @@ export default class Demo extends React.PureComponent {
               data={data}
           >
             <ViewState
-                defaultCurrentDate="2021-07-25"
+                defaultCurrentDate="2021-07-28"
             />
             <EditingState
                 onCommitChanges={this.commitChanges}
             />
-            <EditRecurrenceMenu />
-            <MonthView />
+            <DayView
+                startDayHour={0}
+                endDayHour={24}
+            />
+            <WeekView
+                startDayHour={7.5}
+                endDayHour={17.5}
+            />
             <Appointments />
             <AppointmentTooltip
                 showOpenButton
+                showCloseButton
             />
             <AppointmentForm />
             <Resources
                 data={resources}
-                mainResourceName="typeId"
+                mainResourceName="priorityId"
             />
             <DragDropProvider />
           </Scheduler>
         </Paper>
     );
-  }
+  };
 }
