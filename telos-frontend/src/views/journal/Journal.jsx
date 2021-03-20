@@ -25,13 +25,23 @@ const Journal = () => {
     setDateRightPage(dateRightPage + DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
   }
 
+  function handleLeftDatePick(selectedDate) {
+    setDateLeftPage(selectedDate.getTime());
+    setDateRightPage(selectedDate.getTime() + DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
+  }
+
+  function handleRightDatePick(selectedDate) {
+    setDateRightPage(selectedDate.getTime());
+    setDateLeftPage(selectedDate.getTime() - DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
+  }
+
   return (
     <div className="Journal">
       <div className="Half-journal">
         <ArrowBackIcon className="Arrow-left" onClick={handleLeftNav} />
         <DatePicker
           selected={dateLeftPage}
-          onChange={(selectedDate) => setDateLeftPage(selectedDate.getTime())}
+          onChange={(selectedDate) => handleLeftDatePick(selectedDate)}
           dateFormat="MMMM d, yyyy"
           className="Date-select"
         />
@@ -40,7 +50,7 @@ const Journal = () => {
       <div className="Half-journal">
         <DatePicker
           selected={dateRightPage}
-          onChange={(selectedDate) => setDateLeftPage(selectedDate.getTime())}
+          onChange={(selectedDate) => handleRightDatePick(selectedDate)}
           dateFormat="MMMM d, yyyy"
           className="Date-select"
         />
