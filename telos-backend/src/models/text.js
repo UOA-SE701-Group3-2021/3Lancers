@@ -13,4 +13,4 @@ const textSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('TextEvent', textSchema);
+module.exports = mongoose.model('Text', textSchema);

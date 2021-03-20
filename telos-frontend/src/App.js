@@ -4,6 +4,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Journal from './views/journal/Journal';
 import WidgetCalendar from './components/calendar/WidgetCalendar';
+import WidgetText from './components/text/WidgetText';
 import WidgetTodo from './components/todo/WidgetTodo';
 import WidgetDrawer from './components/widget-drawer/WidgetDrawer';
 import WidgetHabitTracker from './components/habit-tracker/WidgetHabitTracker';
@@ -40,6 +41,7 @@ function App() {
                 <WidgetCalendar />
                 <WidgetTodo />
                 <WidgetHabitTracker />
+                <WidgetText />
               </WidgetDrawer>
             </div>
           </Route>
