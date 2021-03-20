@@ -10,37 +10,38 @@ router.post('/', async (req, res) => {
     endTime: req.body.endTime,
   });
 
-  await newCalendarEvent.save();
-  res.status(201).json(newCalendarEvent);
+  await newCalendarEvent.save((err) => {
+    if (err) {
+      return res.status(400).json({error: err});
+    }
+    res.status(201).json(newCalendarEvent);
+  });
 });
 
 router.put('/:id', async (req, res) => {
-  const { id } = req.params;
-  const calEvent = req.body;
-  calEvent._id = id;
+  const query = {_id: req.params.id };
 
-  const currentCalEvent = await CalendarEvent.findById(calEvent._id);
-  if (currentCalEvent){
-    currentCalEvent.name = calEvent.name
-    currentCalEvent.startTime = calEvent.startTime
-    currentCalEvent.endTime = calEvent.endTime
-    await currentCalEvent.save();
-
-    res.sendStatus(201);
-  } else {
-    res.sendStatus(404);
-  }
+  CalendarEvent.findOneAndUpdate(query, req.body, (err) =>{
+    if (err) {
+      return res.status(400).json({error: err});
+    }
+    return res.sendStatus(204);
+  });
 });
 
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
-  await CalendarEvent.deleteOne({ _id: id});
-  res.sendStatus(201);
+  CalendarEvent.deleteOne({ _id: id}, (err) => {
+    if (err) {
+      return res.status(400).json({error: err});
+    }
+    return res.sendStatus(204);
+  });
 });
 
-router.get('/', async (req, res) => {
-  const calEvents = await CalendarEvent.find();
-  res.json(calEvents);
-});
+// router.get('/', async (req, res) => {
+//   const calEvents = await CalendarEvent.find();
+//   res.json(calEvents);
+// });
 
 module.exports = router;

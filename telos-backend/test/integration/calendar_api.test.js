@@ -3,18 +3,12 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 const express = require('express');
 const mongoose = require('mongoose');
 const axios = require('axios');
+const CalendarEvent = require('../../src/models/calendar_event');
 
 let mongod, app, server;
 let event1, event2, event3;
 
-/**
- * Before all tests, create an in-memory MongoDB instance so we don't have to test on a real database,
- * then establish a mongoose connection to it.
- * 
- * Also, start an express server running on port 3000, hosting the routes we wish to test.
- */
 beforeAll(async done => {
-
     mongod = new MongoMemoryServer();
 
     const connectionString = await mongod.getUri();
@@ -50,18 +44,10 @@ beforeEach(async () => {
     await coll.insertMany([event1, event2, event3]);
 });
 
-/**
- * After each test, clear the database entirely
- */
 afterEach(async () => {
     await mongoose.connection.db.dropCollection('calendarevents');
 });
 
-/**
- * After all tests, gracefully terminate the in-memory MongoDB instance and mongoose connection.
- * 
- * Also, stop the express server
- */
 afterAll(done => {
     server.close(async () => {
         await mongoose.disconnect();
@@ -71,7 +57,7 @@ afterAll(done => {
     });
 });
 
-it('can post a thing', async () => {
+it('Can post a calendar event', async () => {
     const body = {
         "name": "Test calendar",
         "startTime": "2021-01-01T02:00:00",
@@ -85,31 +71,59 @@ it('can post a thing', async () => {
     const returnEvent = response.data;
 
     expect(returnEvent._id).toBeDefined();
+    expect(new Date(returnEvent.startTime)).toStrictEqual(new Date(body.startTime));
+
+    // Response same as what is in database.
+    const calEvent = await CalendarEvent.findById(returnEvent._id);
+    expect(new Date(returnEvent.startTime)).toStrictEqual(calEvent.startTime);
+    expect(new Date(returnEvent.endTime)).toStrictEqual(calEvent.endTime);
+    expect(returnEvent.name).toBe(calEvent.name);
 });
 
-// it('can post a thing', async () => {
-//     await axios.put('http://localhost:3000/api/calendar/')
-// });
+it('Can put a calendar event to update it', async () => {
+    await axios.put(`http://localhost:3000/api/calendar/${event1._id}`, {
+        _id: event1._id,
+        name: 'Updated test1',
+        startTime: '2021-01-01T00:00:00',
+        endTime: '2021-01-01T06:00:00'
+    });
 
-// it('can delete a thing', async () => {
-//     await axios.delete('http://localhost:3000/api/calendar/')
-// });
-
-it ('works', () => {
-    expect("one").toBe("one")
+    // Check 1 remains same, others change.
+    const calEvent = await CalendarEvent.findById(event1._id);
+    expect(calEvent.name).toBe('Updated test1');
+    
+    expect(calEvent.startTime).toStrictEqual(new Date('2021-01-01T00:00:00'));
+    expect(calEvent.endTime).toStrictEqual(new Date('2021-01-01T06:00:00'));
 });
 
-it('get not defined', async () => {
-    // try{
-    //     const response = await axios.get('http://localhost:3000/api/calendar')
-    // } catch (error) {
-    //     err = error;
-    // }
-    // expect(err).toBeDefined();
-    const response = await axios.get('http://localhost:3000/api/calendar');
-    const calevents = response.data;
+it('can delete a thing', async () => {
+    const calEventsBeforeDelete = await CalendarEvent.find();
+    expect(calEventsBeforeDelete.length).toBe(3);
 
-    expect(calevents.length).toBe(3);
+    await axios.delete(`http://localhost:3000/api/calendar/${event1._id}`);
+    const calEvents = await CalendarEvent.find();
 
-    expect(calevents[0].name).toBe('test1')
+    expect(calEvents.length).toBe(2);
+    
+    // Check event2 is the same
+    expect(new Date(event2.startTime)).toStrictEqual(calEvents[0].startTime);
+    expect(new Date(event2.endTime)).toStrictEqual(calEvents[0].endTime);
+    expect(calEvents[0].name).toBe(event2.name);
+    expect(calEvents[0]._id).toStrictEqual(event2._id);
+    
+    // Check event3 is the same
+    expect(new Date(event3.startTime)).toStrictEqual(calEvents[1].startTime);
+    expect(new Date(event3.endTime)).toStrictEqual(calEvents[1].endTime);
+    expect(calEvents[1].name).toBe(event3.name);
+    expect(calEvents[1]._id).toStrictEqual(event3._id);
+});
+
+
+it('GET not defined', async () => {
+    try{
+        const response = await axios.get('http://localhost:3000/api/calendar')
+    } catch (error) {
+        err = error;
+    }
+    expect(err).toBeDefined();
 });
