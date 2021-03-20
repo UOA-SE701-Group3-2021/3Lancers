@@ -16,30 +16,30 @@ import {
 
 const calendarData = [
   {
-    text: 'Test 1',
     priorityId: 1,
     typeId: 1,
+    text: 'Test 1',
     startDate: new Date('2021-07-27T16:30:00.000Z'),
     endDate: new Date('2021-07-27T18:30:00.000Z'),
   },
   {
-    text: 'Test 2',
     priorityId: 1,
     typeId: 2,
+    text: 'Test 2',
     startDate: new Date('2021-08-05T16:30:00.000Z'),
     endDate: new Date('2021-08-06T18:30:00.000Z'),
   },
   {
-    text: 'Test 3',
     priorityId: 2,
     typeId: 1,
+    text: 'Test 3',
     startDate: new Date('2021-07-28T16:30:00.000Z'),
     endDate: new Date('2021-07-28T18:30:00.000Z'),
   },
   {
-    text: 'Test 4',
     priorityId: 2,
     typeId: 2,
+    text: 'Test 4',
     startDate: new Date('2021-07-28T16:30:00.000Z'),
     endDate: new Date('2021-07-28T18:30:00.000Z'),
   },
