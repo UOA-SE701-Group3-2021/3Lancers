@@ -1,74 +1,72 @@
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import {
-  ViewState, EditingState
-} from '@devexpress/dx-react-scheduler';
+import * as React from "react";
+import Paper from "@material-ui/core/Paper";
+import { ViewState, EditingState } from "@devexpress/dx-react-scheduler";
 import {
   Scheduler,
-  WeekView,
   DayView,
   Appointments,
   Resources,
   DragDropProvider,
+  EditRecurrenceMenu,
   AppointmentForm,
-  AppointmentTooltip,
-} from '@devexpress/dx-react-scheduler-material-ui';
+  AppointmentTooltip
+} from "@devexpress/dx-react-scheduler-material-ui";
 
 const calendarData = [
   {
     priorityId: 1,
     typeId: 1,
-    title: 'Test 1',
-    startDate: new Date('2021-07-27T16:30:00.000Z'),
-    endDate: new Date('2021-07-27T18:30:00.000Z'),
+    title: "Test 1",
+    startDate: new Date("2021-07-27T16:30:00.000Z"),
+    endDate: new Date("2021-07-27T18:30:00.000Z")
   },
   {
     priorityId: 1,
     typeId: 2,
-    title: 'Test 2',
-    startDate: new Date('2021-08-05T16:30:00.000Z'),
-    endDate: new Date('2021-08-06T18:30:00.000Z'),
+    title: "Test 2",
+    startDate: new Date("2021-08-05T16:30:00.000Z"),
+    endDate: new Date("2021-08-06T18:30:00.000Z")
   },
   {
     priorityId: 2,
     typeId: 1,
-    title: 'Test 3',
-    startDate: new Date('2021-07-28T16:30:00.000Z'),
-    endDate: new Date('2021-07-28T18:30:00.000Z'),
+    title: "Test 3",
+    startDate: new Date("2021-07-28T16:30:00.000Z"),
+    endDate: new Date("2021-07-28T18:30:00.000Z")
   },
   {
     priorityId: 2,
     typeId: 2,
-    title: 'Test 4',
-    startDate: new Date('2021-07-28T16:30:00.000Z'),
-    endDate: new Date('2021-07-28T18:30:00.000Z'),
-  },
+    title: "Test 4",
+    startDate: new Date("2021-07-28T16:30:00.000Z"),
+    endDate: new Date("2021-07-28T18:30:00.000Z")
+  }
 ];
 
 export const priorityData = [
   {
-    text: 'Low Priority',
+    text: "Low Priority",
     id: 1,
-    color: '#D6ADFF',
+    color: "#D6ADFF"
   },
   {
-    text: 'High Priority',
+    text: "High Priority",
     id: 2,
-    color: '#7A00F4',
-  },
+    color: "#7A00F4"
+  }
 ];
 
 export const typeData = [
   {
-    text: 'Home',
+    text: "Home",
     id: 1,
-    color: 'ADADFF',
+    color: "ADADFF"
   },
   {
-    text: 'Work',
+    text: "Work",
     id: 2,
-    color: '0000DE',
-  },
+    color: "0000DE"
+  }
 ];
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -77,18 +75,18 @@ export default class Demo extends React.PureComponent {
       data: calendarData,
       resources: [
         {
-          fieldName: 'priorityId',
-          title: 'Priority',
+          fieldName: "priorityId",
+          title: "Priority",
           instances: priorityData,
-          allowMultiple: false,
+          allowMultiple: false
         },
         {
-          fieldName: 'typeId',
-          title: 'Type',
+          fieldName: "typeId",
+          title: "Type",
           instances: typeData,
-          allowMultiple: false,
-        },
-      ],
+          allowMultiple: false
+        }
+      ]
     };
 
     this.commitChanges = this.commitChanges.bind(this);
@@ -117,36 +115,18 @@ export default class Demo extends React.PureComponent {
 
     return (
         <Paper>
-          <Scheduler
-              data={data}
-          >
-            <ViewState
-                defaultCurrentDate="2021-07-28"
-            />
-            <EditingState
-                onCommitChanges={this.commitChanges}
-            />
-            <DayView
-                startDayHour={0}
-                endDayHour={24}
-            />
-            <WeekView
-                startDayHour={7.5}
-                endDayHour={17.5}
-            />
+          <Scheduler data={data}>
+            <ViewState defaultCurrentDate="2021-07-28" />
+            <EditingState onCommitChanges={this.commitChanges} />
+            <EditRecurrenceMenu />
+            <DayView startDayHour={0} endDayHour={24} />
             <Appointments />
-            <AppointmentTooltip
-                showOpenButton
-                showCloseButton
-            />
+            <AppointmentTooltip showOpenButton showCloseButton />
             <AppointmentForm />
-            <Resources
-                data={resources}
-                mainResourceName="priorityId"
-            />
+            <Resources data={resources} mainResourceName="priorityId" />
             <DragDropProvider />
           </Scheduler>
         </Paper>
     );
-  };
+  }
 }
