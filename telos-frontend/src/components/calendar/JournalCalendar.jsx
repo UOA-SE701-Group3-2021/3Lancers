@@ -139,7 +139,7 @@ export default () => {
 
   return (
     <Paper>
-      <ThemeProvider theme = {theme}>
+      <ThemeProvider theme={theme}>
         <Scheduler data={data} height="full">
           <ViewState
             currentDate={currentDate}
