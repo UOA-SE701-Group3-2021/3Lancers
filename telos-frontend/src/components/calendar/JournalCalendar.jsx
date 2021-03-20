@@ -1,6 +1,10 @@
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
+import * as React from "react";
+import Paper from "@material-ui/core/Paper";
+import {
+  ViewState,
+  EditingState,
+  IntegratedEditing
+} from "@devexpress/dx-react-scheduler";
 import {
   Scheduler,
   DayView,
@@ -8,64 +12,85 @@ import {
   Resources,
   EditRecurrenceMenu,
   AppointmentForm,
-  AppointmentTooltip,
-} from '@devexpress/dx-react-scheduler-material-ui';
+  AppointmentTooltip
+} from "@devexpress/dx-react-scheduler-material-ui";
 
 const calendarData = [
   {
-    priorityId: 1,
-    typeId: 1,
-    title: 'Test 1',
-    startDate: new Date('2021-07-27T16:30:00.000Z'),
-    endDate: new Date('2021-07-27T18:30:00.000Z'),
-  },
-  {
-    priorityId: 1,
-    typeId: 2,
-    title: 'Test 2',
-    startDate: new Date('2021-08-05T16:30:00.000Z'),
-    endDate: new Date('2021-08-06T18:30:00.000Z'),
-  },
-  {
     priorityId: 2,
     typeId: 1,
-    title: 'Test 3',
-    startDate: new Date('2021-07-28T16:30:00.000Z'),
-    endDate: new Date('2021-07-28T18:30:00.000Z'),
+    title: "Coffee",
+    startDate: new Date("2021-03-21T20:00:00.000Z"),
+    endDate: new Date("2021-03-21T20:30:00.000Z")
   },
   {
     priorityId: 2,
     typeId: 2,
-    title: 'Test 4',
-    startDate: new Date('2021-07-28T16:30:00.000Z'),
-    endDate: new Date('2021-07-28T18:30:00.000Z'),
+    title: "SOFTENG 754",
+    startDate: new Date("2021-03-21T21:00:00.000Z"),
+    endDate: new Date("2021-03-21T23:00:00.000Z")
   },
+  {
+    priorityId: 2,
+    typeId: 2,
+    title: "SOFTENG 701",
+    startDate: new Date("2021-03-21T23:00:00.000Z"),
+    endDate: new Date("2021-03-22T01:00:00.000Z")
+  },
+  {
+    priorityId:1,
+    typeId: 1,
+    title: "Lunch",
+    startDate: new Date("2021-03-22T01:00:00.000Z"),
+    endDate: new Date("2021-03-22T02:30:00.000Z")
+  },
+  {
+    priorityId: 1,
+    typeId: 2,
+    title: "701 Meeting",
+    startDate: new Date("2021-03-22T03:30:00.000Z"),
+    endDate: new Date("2021-03-22T04:30:00.000Z")
+  },
+  {
+    priorityId: 1,
+    typeId: 2,
+    title: "754 Meeting",
+    startDate: new Date("2021-03-22T04:30:00.000Z"),
+    endDate: new Date("2021-03-22T05:30:00.000Z")
+  },
+  {
+    priorityId: 2,
+    typeId: 2,
+    title: "Work",
+    startDate: new Date("2021-03-22T06:00:00.000Z"),
+    endDate: new Date("2021-03-22T08:00:00.000Z")
+  }
 ];
 
 export const priorityData = [
   {
-    text: 'Low Priority',
+    text: "Low Priority",
     id: 1,
-    color: '#D6ADFF',
+    color: "#D6ADFF"
   },
   {
-    text: 'High Priority',
+    text: "High Priority",
     id: 2,
-    color: '#7A00F4',
-  },
+    color: "#7A00F4"
+  }
 ];
 
 export const typeData = [
   {
-    text: 'Home',
+    text: "Home",
     id: 1,
-    color: '#ADADFF',
+    color: "#ADADFF"
   },
   {
-    text: 'Work',
+    text: "University",
     id: 2,
-    color: '#0000DE',
-  },
+    color: "#0000de"
+  }
 ];
 export default class Calendar extends React.PureComponent {
   constructor(props) {
@@ -74,18 +99,18 @@ export default class Calendar extends React.PureComponent {
       data: calendarData,
       resources: [
         {
-          fieldName: 'priorityId',
-          title: 'Priority',
+          fieldName: "priorityId",
+          title: "Priority",
           instances: priorityData,
-          allowMultiple: false,
+          allowMultiple: false
         },
         {
-          fieldName: 'typeId',
-          title: 'Type',
+          fieldName: "typeId",
+          title: "Type",
           instances: typeData,
-          allowMultiple: false,
-        },
-      ],
+          allowMultiple: false
+        }
+      ]
     };
 
     this.commitChanges = this.commitChanges.bind(this);
@@ -95,12 +120,15 @@ export default class Calendar extends React.PureComponent {
     this.setState((state) => {
       let { data } = state;
       if (added) {
-        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+        const startingAddedId =
+            data.length > 0 ? data[data.length - 1].id + 1 : 0;
         data = [...data, { id: startingAddedId, ...added }];
       }
       if (changed) {
         data = data.map((appointment) =>
-          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment
+            changed[appointment.id]
+                ? { ...appointment, ...changed[appointment.id] }
+                : appointment
         );
       }
       if (deleted !== undefined) {
@@ -114,19 +142,19 @@ export default class Calendar extends React.PureComponent {
     const { data, resources } = this.state;
 
     return (
-      <Paper>
-        <Scheduler data={data}>
-          <ViewState defaultCurrentDate="2021-07-28" />
-          <EditingState onCommitChanges={this.commitChanges} />
-          <IntegratedEditing />
-          <EditRecurrenceMenu />
-          <DayView startDayHour={0} endDayHour={24} />
-          <Appointments />
-          <AppointmentTooltip showOpenButton showDeleteButton showCloseButton />
-          <AppointmentForm />
-          <Resources data={resources} mainResourceName="priorityId" />
-        </Scheduler>
-      </Paper>
+        <Paper>
+          <Scheduler data={data}>
+            <ViewState defaultCurrentDate="2021-03-22" />
+            <EditingState onCommitChanges={this.commitChanges} />
+            <IntegratedEditing />
+            <EditRecurrenceMenu />
+            <DayView startDayHour={0} endDayHour={24} />
+            <Appointments />
+            <AppointmentTooltip showOpenButton showDeleteButton showCloseButton />
+            <AppointmentForm />
+            <Resources data={resources} mainResourceName="priorityId" />
+          </Scheduler>
+        </Paper>
     );
   }
 }
