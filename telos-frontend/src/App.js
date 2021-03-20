@@ -14,6 +14,7 @@ import DashboardTodo from './components/todo/DashboardTodo';
 import JournalTodo from './components/todo/JournalTodo';
 import TopBar from './components/top-bar/TopBar';
 import JournalText from './components/text/JournalText';
+import CustomDragLayer from './dnd/CustomDragLayer';
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
           </Route>
           <Route path="*">
             <div className="Journal-view">
+              <CustomDragLayer />
               <Journal />
             </div>
           </Route>
