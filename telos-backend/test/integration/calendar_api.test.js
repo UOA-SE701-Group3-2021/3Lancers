@@ -11,6 +11,7 @@ let server;
 let event1;
 let event2;
 let event3;
+let port;
 
 beforeAll(async (done) => {
   mongod = new MongoMemoryServer();
@@ -25,7 +26,10 @@ beforeAll(async (done) => {
   app = express();
   app.use(express.json());
   app.use('/', routes);
-  server = app.listen(3000, () => done());
+  server = app.listen(0, () => {
+    port = server.address().port;
+    done();
+  });
 });
 
 beforeEach(async () => {
@@ -71,7 +75,7 @@ it('Can post a calendar event', async () => {
     startTime: '2021-01-01T02:00:00',
     endTime: '2021-01-01T05:00:00',
   };
-  const response = await axios.post('http://localhost:3000/api/calendar', body);
+  const response = await axios.post(`http://localhost:${port}/api/calendar`, body);
   const returnEvent = response.data;
 
   expect(returnEvent._id).toBeDefined();
@@ -85,7 +89,7 @@ it('Can post a calendar event', async () => {
 });
 
 it('Can put a calendar event to update it', async () => {
-  await axios.put(`http://localhost:3000/api/calendar/${event1._id}`, {
+  await axios.put(`http://localhost:${port}/api/calendar/${event1._id}`, {
     _id: event1._id,
     name: 'Updated test1',
     startTime: '2021-01-01T00:00:00',
@@ -104,7 +108,7 @@ it('can delete a thing', async () => {
   const calEventsBeforeDelete = await CalendarEvent.find();
   expect(calEventsBeforeDelete.length).toBe(3);
 
-  await axios.delete(`http://localhost:3000/api/calendar/${event1._id}`);
+  await axios.delete(`http://localhost:${port}/api/calendar/${event1._id}`);
   const calEvents = await CalendarEvent.find();
 
   expect(calEvents.length).toBe(2);
@@ -125,7 +129,7 @@ it('can delete a thing', async () => {
 it('GET not defined', async () => {
   let err;
   try {
-    await axios.get('http://localhost:3000/api/calendar');
+    await axios.get(`http://localhost:${port}/api/calendar`);
   } catch (error) {
     err = error;
   }

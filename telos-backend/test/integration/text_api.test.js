@@ -11,6 +11,7 @@ let server;
 let text1;
 let text2;
 let text3;
+let port;
 
 beforeAll(async (done) => {
   mongod = new MongoMemoryServer();
@@ -25,7 +26,10 @@ beforeAll(async (done) => {
   app = express();
   app.use(express.json());
   app.use('/', routes);
-  server = app.listen(3000, () => done());
+  server = app.listen(0, () => {
+    port = server.address().port;
+    done();
+  });
 });
 
 beforeEach(async () => {
@@ -67,7 +71,7 @@ it('can post a text instance', async () => {
     text: 'test lorem ipsum',
     widgetId: 'abcd1e6a0ba62570afcedd3a',
   };
-  const response = await axios.post('http://localhost:3000/api/text', body);
+  const response = await axios.post(`http://localhost:${port}/api/text`, body);
   const returnData = response.data;
 
   expect(returnData._id).toBeDefined();
@@ -81,7 +85,7 @@ it('can post a text instance', async () => {
 });
 
 it('Can put text to update it', async () => {
-  await axios.put(`http://localhost:3000/api/text/${text1._id}`, {
+  await axios.put(`http://localhost:${port}/api/text/${text1._id}`, {
     _id: text1._id,
     text: 'changed lorem ipsum',
     widgetId: 'abcdee6a0ba62570afcedd3a',
@@ -99,7 +103,7 @@ it('can delete a thing', async () => {
   const textBeforeDelete = await Text.find();
   expect(textBeforeDelete.length).toBe(3);
 
-  await axios.delete(`http://localhost:3000/api/text/${text1._id}`);
+  await axios.delete(`http://localhost:${port}/api/text/${text1._id}`);
   const textData = await Text.find();
 
   expect(textData.length).toBe(2);
@@ -118,7 +122,7 @@ it('can delete a thing', async () => {
 it('GET not defined', async () => {
   let err;
   try {
-    await axios.get('http://localhost:3000/api/text');
+    await axios.get(`http://localhost:${port}/api/text`);
   } catch (error) {
     err = error;
   }
