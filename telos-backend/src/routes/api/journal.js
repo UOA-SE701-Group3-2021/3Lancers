@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose')
 const CalendarEvent = require('../../models/calendar_event');
 const Habit = require('../../models/habit');
 const Text = require('../../models/text');
@@ -42,21 +43,30 @@ function getStringDayOfWeek(dayNum) {
 
 async function getTodosForDay(date){
   // Todos should return either what is made today, or all overdue tasks.
+  //console.log("In todos")
+  //console.log(date)
   const todos = await TodoTask.find({
     $or:[
-      { createdDate: { $gte: date + 'T00:00:00', $lte: date + 'T23:59:59' } }, 
-      { dueDate: {$gte: date + 'T00:00:00'} }
+      { createdDate: { $gte: date + 'T00:00:00', $lte: date + 'T23:59:59' } },
+      { dueDate: {$gte: date + 'T00:00:00', $lte: date + 'T23:59:59' } },
+      { dueDate: {$lt: date + 'T00:00:00'}, completed: false}
     ] 
   });
   return todos;
 }
 
-// Param: date, of type date, parsed from url path param.
+// Param: date, of type date, parsed from url path param. Given as yyyy-mm-dd
 async function getHabitsForDay(date){
   // Create habit objects to return. These are not stored directly (since technically could be unlimited)
   // Must find all habits that are between the requested day, but before end date, then check if they fall
   // on the current day.
-  const habits = await Habit.find({ startDate: {$gte: date + 'T00:00:00'}, endDate: {$lte: date + 'T23:59:59'}});
+  //console.log(date)
+  const habits = await Habit.find({
+    startDate: {$lte: date + 'T23:59:59'}, 
+    endDate: {$gte: date + 'T00:00:00'},
+  }); //endDate: {$lte: date + 'T23:59:59'} 
+  //{startDate: {$lte: new Date('2000-01-01T00:00:00Z')}}
+  //console.log(habits);
   // Habit objects returned in array as following:
   // {
   //    name: String
@@ -64,14 +74,22 @@ async function getHabitsForDay(date){
   // }
   // Note: The Date.getDay() method returns an integer for day of week: 0 for sunday, 1 for monday etc.
   const day = new Date(date).getDay();
-  const dayOfWeek = getStringDayOfWeek(day)
-  const habitDataToSend = []
-  for (const h in habits){
+  const dayOfWeek = getStringDayOfWeek(day);
+  const habitDataToSend = [];
+  for (var i = 0; i < habits.length; i++) {
     // Check if habit falls on day of week.
-    if (h.daysOfWeek.includes(dayOfWeek)){ 
+    //console.log(new Date(date))
+    const compDates = habits[i].completedDates;
+
+    // We must cast to string because the compDates array has Strings in it! 
+    // (try console.log this value without it)
+    const completedValue = compDates.includes(String(new Date(date)))
+    if (habits[i].daysOfWeek.includes(dayOfWeek)){ 
       habitDataToSend.push({
-        name: h.name,
-        completed: h.completedDates.includes(new Date(date))
+        _id: habits[i]._id,
+        date: date,
+        name: habits[i].name,
+        completed: completedValue
       })
     }
   }
@@ -99,11 +117,15 @@ router.get('/:date', async (req, res) => {
   const widgets = await Widget.find({ date: date });
 
   // Must find all text widgets based on the widget Ids retrieved.
-  const widgetIds = []
-  for (const w in widgets) {
-    widgetIds.push(w.widgetId);
+  const textWidgetIds = []
+  for (var i = 0; i < widgets.length; i++) {
+    if (widgets[i].type === 'text'){
+      console.log(widgets[i]._id)
+      textWidgetIds.push(widgets[i]._id);
+    }
   }
-  const texts = await Text.find({ _id: { $in: widgetIds }});
+
+  const texts = await Text.find({ widgetId: { $in: textWidgetIds }});
   const calendarData = await getCalendarDataForDay(date);
   const habitData = await getHabitsForDay(date);
   const todoData = await getTodosForDay(date);
@@ -132,6 +154,7 @@ router.post('/', async (req, res) => {
     },
     type: req.body.type,
   });
+  var isText = false;
   newWidget.save(async (err) => {
     if (err) {
       return res.status(400).json({ error: err });
@@ -149,13 +172,41 @@ router.post('/', async (req, res) => {
         data = await getHabitsForDay(date);
         break
       case 'text':
-        data = await Text.findById(newWidget._id);
+        // Create the new text widget - only a visual element, unlike the others.
+        // Can only be associated with a created widget, won't be in db before this.
+        // const newText = new Text({
+        //   text: '',
+        //   widgetId: newWidget._id,
+        // });
+        // // TODO: Fix this? We need to save a new text but only after widget is made.
+        // // Likely some better, safer way to do this...
+        // newText.save((err) => {
+        //   // It doesn't just work.
+        // });
+        // data = [newText];
+        isText = true;
         break
     }
-    return res.status(201).json({
-      widget: newWidget,
-      data: data,
-    });
+    // Handle if text widget, let the widget save to db first, then make text in db.
+    if (isText){
+      const newText = new Text({
+        text: '',
+        widgetId: newWidget._id,
+      });
+      console.log("about to save")
+      const toSend = await newText.save();
+      console.log("finish saving")
+      return res.status(201).json({
+            widget: newWidget,
+            data: toSend,
+      });
+    } else {
+      // Send in other cases that doesn't require second database action
+      return res.status(201).json({
+        widget: newWidget,
+        data: data,
+      });
+    }
   });
 });
 
@@ -175,6 +226,7 @@ router.put('/:id', (req, res) => {
 });
 
 // delete widget in journal page (but not any associated data)
+// TODO: delete text widget with it.
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
   Widget.deleteOne({ _id: id }, (err) => {
@@ -186,3 +238,12 @@ router.delete('/:id', (req, res) => {
 });
 
 module.exports = router;
+
+// (err) => {
+//   if (err) {
+//     return res.status(400).json({ error: err });
+//   }
+//   return res.status(201).json({
+//     widget: newWidget,
+//     data: newText,
+//   }
