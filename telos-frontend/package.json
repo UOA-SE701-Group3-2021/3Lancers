@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.10.8",
+    "@devexpress/dx-core": "^2.7.5",
     "@devexpress/dx-react-core": "^2.7.5",
     "@devexpress/dx-react-scheduler": "^2.7.5",
     "@devexpress/dx-react-scheduler-material-ui": "^2.7.5",
@@ -19,6 +20,7 @@
     "bootstrap": "^4.6.0",
     "fontsource-roboto": "^4.0.0",
     "from": "^0.1.7",
+    "immutability-helper": "^3.1.1",
     "react": "^17.0.1",
     "react-big-calendar": "^0.33.2",
     "react-datepicker": "^3.6.0",
