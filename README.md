@@ -1,4 +1,4 @@
-# Telos - *The Highly customisable Bullet Journal Web App*
+# Telos - *The Highly Customisable Bullet Journal Web App*
 
 ## Abstract
 Bullet journals are the blank canvas to organise your life! Record your thoughts, ideas and goals.
