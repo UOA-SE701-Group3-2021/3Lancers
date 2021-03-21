@@ -120,7 +120,6 @@ router.get('/:date', async (req, res) => {
   const textWidgetIds = []
   for (var i = 0; i < widgets.length; i++) {
     if (widgets[i].type === 'text'){
-      console.log(widgets[i]._id)
       textWidgetIds.push(widgets[i]._id);
     }
   }
@@ -222,12 +221,3 @@ router.delete('/:id', (req, res) => {
 });
 
 module.exports = router;
-
-// (err) => {
-//   if (err) {
-//     return res.status(400).json({ error: err });
-//   }
-//   return res.status(201).json({
-//     widget: newWidget,
-//     data: newText,
-//   }

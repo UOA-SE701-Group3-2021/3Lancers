@@ -9,14 +9,12 @@ const Widget = require('../../src/models/widget');
 const Habit = require('../../src/models/habit');
 const Todo = require('../../src/models/todo_task');
 
-let mongod;
-let app;
-let server;
-let event1;
-let event2;
-let widget1, widget2, widget3;
+let mongod, app, server;
+let newEvent1, newEvent2;
+let event1, event2;
+let newWidget1, newWidget2, newWidget3;
 let habit1, habit2;
-let text1, text2;
+let newText1, text2;
 let todo1, todo2;
 let port;
 
@@ -66,14 +64,14 @@ beforeEach(async () => {
     type: 'text'
   };
   // Note: Doing this way because of how times are saved.
-  // When .save(), converts auto to UTC. This is the way we intend it to worl
-  const newWidget1 = new Widget(widget1)
+  // When .save(), converts auto to UTC. This is the way we intend it to work
+  newWidget1 = new Widget(widget1)
   await newWidget1.save()
-  const newWidget2 = new Widget(widget2)
+  newWidget2 = new Widget(widget2)
   await newWidget2.save()
-  const newWidget3 = new Widget(widget3)
+  newWidget3 = new Widget(widget3)
   await newWidget3.save()
- // await widgetColl.insertMany([widget1, widget2, widget3]);
+  // await widgetColl.insertMany([widget1, widget2, widget3]);
 
   //const calendarColl = await mongoose.connection.db.createCollection('calendarevents');
   event1 = {
@@ -87,7 +85,7 @@ beforeEach(async () => {
     endTime: '2020-12-31T05:00:00',
   };
   
-  const newEvent1 = new CalendarEvent(event1)
+  newEvent1 = new CalendarEvent(event1)
   await newEvent1.save()
   const newEvent2 = new CalendarEvent(event2)
   await newEvent2.save()
@@ -119,7 +117,7 @@ beforeEach(async () => {
     text: 'text1',
     widgetId: newWidget3._id // maybe just widget3._id
   };
-  const newText1 = new Text(text1)
+  newText1 = new Text(text1)
   await newText1.save()
   //await textColl.insertMany([text1]);
 
@@ -160,8 +158,6 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-  //await mongoose.connection.db.dropCollection('calendarevents');
-  //await mongoose.connection.db.dropCollection('widgets');
   await mongoose.connection.db.dropDatabase();
 });
 
@@ -173,6 +169,7 @@ afterAll((done) => {
     done();
   });
 });
+
 // Post for text
 // delete for text
 it('Can post to create a new widget and receive widget data in response', async () => {
@@ -186,22 +183,23 @@ it('Can post to create a new widget and receive widget data in response', async 
       };
     const response = await axios.post(`http://localhost:${port}/api/journal`, body);
     const returnData = response.data;
-    //console.log(returnData)
-    // calevents = await CalendarEvent.find()
-    // console.log(calevents)
+    // Expect a response of the form: {
+    // widget: {(same as above, but with _id field)}
+    // data: {same as making data above eg. for calendar, but with an _id field}
+    //}
+    // Expect to get the first calendar event only
+    expect(returnData.data.length).toBe(1);
+    expect(returnData.data[0].name).toBe(newEvent1.name);
     
-    //   expect(returnEvent._id).toBeDefined();
-    //   expect(new Date(returnEvent.startTime)).toStrictEqual(new Date(body.startTime));
-    
-    //   // Response same as what is in database.
-    //   const calEvent = await CalendarEvent.findById(returnEvent._id);
-    //   expect(new Date(returnEvent.startTime)).toStrictEqual(calEvent.startTime);
-    //   expect(new Date(returnEvent.endTime)).toStrictEqual(calEvent.endTime);
-    //   expect(returnEvent.name).toBe(calEvent.name);
+    expect(returnData.widget._id).toBeDefined();
+    expect(returnData.widget.type).toBe('calendar');
+    expect(returnData.widget.position.row).toBe(body.position.row)
 });
 
 
 it('Can post to create a new text widget and receive widget data in response', async () => {
+    // This test is made as creating a text widget must also create a Text object in db with 
+    // empty string.
     const body = {
         date: '2021-02-03',
         position: {
@@ -212,34 +210,79 @@ it('Can post to create a new text widget and receive widget data in response', a
       };
     const response = await axios.post(`http://localhost:${port}/api/journal`, body);
     const returnData = response.data;
-    console.log(returnData)
+    expect(returnData.data.length).toBe(1);
+    expect(returnData.data[0].text).toBe(''); // Expect the empty string for new Text
+    
+    expect(returnData.widget._id).toBeDefined();
+    expect(returnData.widget.type).toBe('text');
+    expect(returnData.widget.position.row).toBe(body.position.row)
+    
 });
 
 it('Can PUT to update position of widget', async () => {
+    await axios.put(`http://localhost:${port}/api/journal/${newWidget1._id}`, {
+        position: {
+            row: 3, //Change row and col
+            col: 4,
+        },
+    });
+    
+  const widgetData = await Widget.findById(newWidget1._id);
+  expect(widgetData.position.row).toBe(3);
+  expect(widgetData.position.col).toBe(4);
 
+  expect(widgetData._id).toStrictEqual(newWidget1._id);
+  expect(widgetData.type).toBe(newWidget1.type);
+  expect(widgetData.name).toBe(newWidget1.name);
 });
 
 it('Can delete a widget', async () => {
+    await axios.delete(`http://localhost:${port}/api/journal/${newWidget2._id}`);
+    const widgets = await Widget.find();
+    expect(widgets.length).toBe(2);
 
+    expect(widgets[0].name).toBe(newWidget1.name);
+    expect(widgets[1].name).toBe(newWidget3.name);
 });
 
 it('Can GET all widgets for a day, with all the widget data for the day', async () => {
   const response = await axios.get(`http://localhost:${port}/api/journal/2021-01-01`);
   const returnData = response.data;
+  // Expect a response as follows:
+//   {
+//       widgetData: [array of widgets like above, with _id fields]
+//       calendarData: [array of all calendar data on day, regardless if widget present]
+//       habitData: [array of habit data on day, regardless if widget present]
+//       textData: []
+//       todoData: []
+//   }
+// Idea is that all info is given and used as necessary.
+  expect(returnData.widgetData.length).toBe(2);
+  expect(returnData.widgetData[0].position.row).toBe(2); //position defined
+  expect(returnData.widgetData[0].type).toBe('habit_tracker');
+
+  expect(returnData.calendarData.length).toBe(1);
+  expect(returnData.textData.length).toBe(0);
+  expect(returnData.habitData.length).toBe(1);
+  expect(returnData.todoData.length).toBe(3); // Either overdue or present for all of them
   
-  expect(returnData.widgetData.length).toBe(2)
-  expect(returnData.widgetData.length).toBe(2)
-  //console.log(returnData)
 });
 
 it('Can GET a text widget', async () => {
   const response = await axios.get(`http://localhost:${port}/api/journal/2021-02-03`);
   const returnData = response.data;
-  //console.log(returnData)
+  expect(returnData.calendarData.length).toBe(0);
+  expect(returnData.textData.length).toBe(1);
+  expect(returnData.textData[0].text).toBe(newText1.text);
+  expect(returnData.textData[0].widgetId).toBe(newWidget3.id);
+  expect(returnData.habitData.length).toBe(0);
+  expect(returnData.todoData.length).toBe(1);
+  
 });
 
 it('Can GET a habit widget using the no enddate/unlimted option', async () => {
     const response = await axios.get(`http://localhost:${port}/api/journal/2022-02-07`);
     const returnData = response.data;
-    //console.log(returnData)
+    expect(returnData.habitData.length).toBe(1);
+    expect(returnData.habitData[0].date).toBe('2022-02-07');
 });
