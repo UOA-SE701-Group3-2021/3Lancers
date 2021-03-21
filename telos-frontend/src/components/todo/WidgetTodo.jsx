@@ -1,4 +1,4 @@
-import styles from'../Widget.module.css';
+import styles from '../Widget.module.css';
 
 const WidgetTodo = () => (
   <div className={styles.widgetIcon}>
