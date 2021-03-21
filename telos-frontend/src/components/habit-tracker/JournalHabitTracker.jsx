@@ -128,7 +128,7 @@ const JournalHabitTracker = () => {
         }}
         aria-labelledby="form-dialog-title"
       >
-        <Box className={`${isEdit === true ? journalStyles.muneContainer : journalStyles.hidden}`}>
+        <Box className={`${isEdit === true ? journalStyles.muneContainer : 'hidden'}`}>
           <div className={journalStyles.menuHeader}>
             <Button
               id="saveButton"
