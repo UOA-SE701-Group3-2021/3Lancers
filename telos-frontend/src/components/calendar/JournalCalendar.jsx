@@ -138,7 +138,7 @@ export default () => {
   }, [setData, currentViewName, currentDate]);
 
   return (
-    <Paper>
+    <Paper style={{ height: '100%' }}>
       <ThemeProvider theme={theme}>
         <Scheduler data={data} height="full">
           <ViewState

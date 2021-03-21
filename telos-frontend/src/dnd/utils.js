@@ -9,11 +9,19 @@ export const renderWidget = (widgetType, props) => {
     case WidgetTypes.TODO_LIST:
       return <JournalTodo {...props} />;
     case WidgetTypes.CALENDAR:
-      return <JournalCalendar {...props} />;
+      return (
+        <div style={{ height: 400, maxWidth: 350 }}>
+          <JournalCalendar {...props} />
+        </div>
+      );
     case WidgetTypes.HABIT_TRACKER:
       return <JournalHabitTracker {...props} />;
     case WidgetTypes.TEXT:
-      return <JournalText {...props} />;
+      return (
+        <div style={{ height: 300, width: 250 }}>
+          <JournalText {...props} />
+        </div>
+      );
     default:
       return null;
   }
