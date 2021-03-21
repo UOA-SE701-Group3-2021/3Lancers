@@ -29,7 +29,7 @@ db.once('open', () => {
   console.log('Connected to local database');
 });
 
-const demo = require("./demo");
+require('./demo');
 
 // Launch app (start server running), with a simple logging statement, based on SE750 example
 app.listen(port, () => console.log(`App server litening on port number: ${port}`));

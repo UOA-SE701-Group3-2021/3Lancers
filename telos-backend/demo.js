@@ -1,15 +1,15 @@
-const todoTask = require('./src/models/todo_task');
+const TodoTask = require('./src/models/todo_task');
 
-todoTask.find().countDocuments(function(err, count) {
+TodoTask.find().countDocuments((err, count) => {
   if (count === 0) {
-    console.log("Empty");
-    var entry = new todoTask({
-      name: "Lorem",
+    console.log('Empty');
+    const entry = new TodoTask({
+      name: 'Lorem',
       createdDate: new Date(2021, 1, 1),
       dueDate: new Date(2022, 1, 1),
-      completed: false
+      completed: false,
     });
-    
+
     entry.save();
   }
 });
