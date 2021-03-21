@@ -15,6 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { useState } from 'react';
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
 import journalStyles from './JournalHabitTracker.module.css';
+import './JournalHabitTracker.css';
 
 const JournalHabitTracker = () => {
   const [habitTitle, setTitle] = useState('');

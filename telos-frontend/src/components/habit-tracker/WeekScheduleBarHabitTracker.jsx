@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import habitStyles from './JournalHabitTracker.module.css'
+import habitStyles from './JournalHabitTracker.module.css';
 
 const WeekScheduleBarHabitTracker = () => {
   const [monStatus, setMonStatus] = useState(false);

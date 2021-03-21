@@ -12,7 +12,7 @@ import {
 import moment from 'moment';
 import 'fontsource-roboto';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import './react-big-calendar.module.css';
+import './react-big-calendar.css';
 
 const localizer = momentLocalizer(moment);
 
