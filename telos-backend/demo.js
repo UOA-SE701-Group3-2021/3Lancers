@@ -5,8 +5,8 @@ TodoTask.find().countDocuments((err, count) => {
     console.log('Empty');
     const entry = new TodoTask({
       name: 'Lorem',
-      createdDate: new Date(2021, 1, 1),
-      dueDate: new Date(2022, 1, 1),
+      createdDate: '2021-01-01',
+      dueDate: '2021-01-01',
       completed: false,
     });
 
