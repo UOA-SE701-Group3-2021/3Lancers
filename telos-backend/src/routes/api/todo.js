@@ -8,7 +8,7 @@ router.post('/', (req, res) => {
     name: req.body.name,
     createdDate: req.body.createdDate,
     dueDate: req.body.dueDate,
-    completed: false,
+    completed: req.body.completed,
   });
   newTodoTask.save((err) => {
     if (err) {
