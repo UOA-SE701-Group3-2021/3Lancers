@@ -40,8 +40,10 @@ const Journal = () => {
   }
 
   const [widgets, setWidgets] = useState([
-    { widgetType: 'todo', id: 0, top: 200, left: 200 },
-    { widgetType: 'habit_tracker', id: 1, top: 300, left: 300 },
+    { widgetType: 'todo', id: 0, top: 0, left: 0 },
+    { widgetType: 'habit_tracker', id: 1, top: 200, left: 200 },
+    { widgetType: 'text', id: 2, top: 100, left: 100 },
+    { widgetType: 'calendar', id: 3, top: 300, left: 300 },
   ]);
 
   const moveWidget = useCallback(
