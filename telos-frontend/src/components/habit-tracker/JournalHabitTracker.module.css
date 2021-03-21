@@ -9,8 +9,6 @@
     position: absolute;
     width: 500px;
     height: auto;
-    left: 600px;
-    top: 122px;
     background: #FFFFFF;
     mix-blend-mode: normal;
     border: 2px solid #7A00F4;
@@ -226,13 +224,4 @@
 
 #name, #description, #repeatsOn, #start, #selectWeeks, #end {
     padding-right: 6px;
-}
-
-.MuiSvgIcon-root {
-    font-size: 2rem !important;
-}
-
-.MuiIconButton-root {
-    color: white !important;
-    padding: 0px !important;
 }
