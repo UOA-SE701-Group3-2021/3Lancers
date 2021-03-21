@@ -154,11 +154,11 @@ router.post('/', async (req, res) => {
     },
     type: req.body.type,
   });
-  var isText = false;
   newWidget.save(async (err) => {
     if (err) {
       return res.status(400).json({ error: err });
     }
+    let error;
     let data;
     const type = req.body.type;
     switch(type){
@@ -172,44 +172,28 @@ router.post('/', async (req, res) => {
         data = await getHabitsForDay(date);
         break
       case 'text':
-        // Create the new text widget - only a visual element, unlike the others.
-        // Can only be associated with a created widget, won't be in db before this.
-        // const newText = new Text({
-        //   text: '',
-        //   widgetId: newWidget._id,
-        // });
-        // // TODO: Fix this? We need to save a new text but only after widget is made.
-        // // Likely some better, safer way to do this...
-        // newText.save((err) => {
-        //   // It doesn't just work.
-        // });
-        // data = [newText];
-        isText = true;
+        const newText = new Text({
+          text: '',
+          widgetId: newWidget._id,
+        });
+        await newText.save((err) => {
+          if (err) {
+            error = err;
+          }
+        });
+        data = [newText];
         break
     }
-    // Handle if text widget, let the widget save to db first, then make text in db.
-    if (isText){
-      const newText = new Text({
-        text: '',
-        widgetId: newWidget._id,
-      });
-      console.log("about to save")
-      const toSend = await newText.save();
-      console.log("finish saving")
-      return res.status(201).json({
-            widget: newWidget,
-            data: toSend,
-      });
-    } else {
-      // Send in other cases that doesn't require second database action
-      return res.status(201).json({
-        widget: newWidget,
-        data: data,
-      });
+    if (error) {
+      return res.status(400).json({ error: error });
     }
+    return res.status(201).json({
+      widget: newWidget,
+      data: data,
+    });
   });
 });
-
+  
 // update widget in journal (e.g. change date, change position)
 // request body:
 // 'date': date to insert widget into
