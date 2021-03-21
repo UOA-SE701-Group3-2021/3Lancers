@@ -27,6 +27,10 @@
   cursor: pointer;
 }
 
+.rbc-row-content {
+  cursor: pointer;
+}
+
 button {
   cursor: pointer;
 }
