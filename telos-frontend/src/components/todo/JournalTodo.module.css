@@ -14,8 +14,12 @@
   color: white;
 }
 
-.MuiCheckbox-colorPrimary.Mui-checked {
-  color: #6200ee !important;
+.checkbox {
+  color: #828282 !important;
+}
+
+.checkboxOverdue {
+  color: #eb5757 !important;
 }
 
 .tasks:hover {
@@ -31,6 +35,6 @@
   flex-wrap: 'wrap';
 }
 
-.checkbox {
-  color: rgba(0, 0, 0, 0.6);
+.moreButton {
+  color: #828282 !important;
 }

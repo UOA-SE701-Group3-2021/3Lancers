@@ -30,6 +30,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import { useState } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import styles from './JournalTodo.module.css';
+import './checkbox.css';
 
 const useStyles = makeStyles({
   root: {
@@ -166,6 +167,7 @@ const JournalTodo = () => {
                 <ListItemIcon>
                   <Checkbox
                     className={styles.checkbox}
+                    color="primary"
                     edge="start"
                     checked={checked.indexOf(value) !== -1}
                     tabIndex={-1}
@@ -177,7 +179,7 @@ const JournalTodo = () => {
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
-                    style={{ color: '#EB5757' }}
+                    className={styles.checkboxOverdue}
                     checked={checked.indexOf(value) !== -1}
                     tabIndex={-1}
                     disableRipple
@@ -212,6 +214,7 @@ const JournalTodo = () => {
               {value.onGoing ? (
                 <ListItemSecondaryAction>
                   <IconButton
+                    className={styles.moreButton}
                     edge="end"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
