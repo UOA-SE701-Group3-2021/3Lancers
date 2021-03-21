@@ -135,7 +135,7 @@ export default class Calendar extends React.PureComponent {
     const { data, resources } = this.state;
 
     return (
-      <Paper>
+      <Paper style={{ height: '100%' }}>
         <Scheduler data={data}>
           <ViewState defaultCurrentDate="2021-03-22" />
           <EditingState onCommitChanges={this.commitChanges} />
