@@ -26,10 +26,10 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import ErrorIcon from '@material-ui/icons/Error';
 import { useState } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import './JournalTodo.css';
-import ErrorIcon from '@material-ui/icons/Error';
+import styles from './JournalTodo.module.css';
 
 const useStyles = makeStyles({
   root: {
@@ -147,7 +147,7 @@ const JournalTodo = () => {
   return (
     <Box className={classes.root} display="flex" flexDirection="column" alignItems="stretch">
       <div>
-        <p className="title"> To Do </p>
+        <p className={styles.title}> To Do </p>
       </div>
       <Divider />
       <List>
@@ -155,7 +155,7 @@ const JournalTodo = () => {
           const labelId = `checkbox-list-label-${value}`;
           return (
             <ListItem
-              className="listItem"
+              className={styles.tasks}
               key={value.name}
               role={undefined}
               dense
@@ -165,8 +165,8 @@ const JournalTodo = () => {
               {value.onGoing ? (
                 <ListItemIcon>
                   <Checkbox
+                    className={styles.checkbox}
                     edge="start"
-                    color="primary"
                     checked={checked.indexOf(value) !== -1}
                     tabIndex={-1}
                     disableRipple
@@ -252,7 +252,7 @@ const JournalTodo = () => {
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
-                  className="AddBtn"
+                  className={styles.AddBtn}
                   variant="outlined"
                   color="primary"
                   onClick={handleClickModal}
@@ -260,7 +260,7 @@ const JournalTodo = () => {
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                 >
-                  <AddIcon className="Publish" aria-controls="simple-modal" />
+                  <AddIcon className={styles.Publish} aria-controls="simple-modal" />
                 </IconButton>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                   <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
@@ -315,7 +315,7 @@ const JournalTodo = () => {
         onClose={handleClose}
       >
         <MenuItem
-          className="menubar"
+          className={styles.menubar}
           onClick={() => {
             openMigrate();
             setAnchorEl(null);
@@ -324,7 +324,7 @@ const JournalTodo = () => {
           Migrate
         </MenuItem>
         <MenuItem
-          className="menubar"
+          className={styles.menubar}
           onClick={() => {
             cancelEvent();
             setAnchorEl(null);
@@ -334,7 +334,7 @@ const JournalTodo = () => {
         </MenuItem>
         <MenuItem
           id="delete"
-          className="menubar"
+          className={styles.menubar}
           onClick={() => {
             deleteEvent();
             setAnchorEl(null);

@@ -2,7 +2,9 @@
   margin: 16px;
   margin-top: 16px;
   height: 24px;
+  width: fit-content;
   font-weight: 500;
+  align-items: left;
 }
 
 .Publish {
@@ -16,7 +18,7 @@
   color: #6200ee !important;
 }
 
-.listItem:hover {
+.tasks:hover {
   background-color: rgba(98, 0, 238, 0.08) !important;
 }
 
@@ -27,4 +29,8 @@
 .dateBox {
   display: 'flex';
   flex-wrap: 'wrap';
+}
+
+.checkbox {
+  color: rgba(0, 0, 0, 0.6);
 }
