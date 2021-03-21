@@ -7,7 +7,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import DraggableWidget from '../../dnd/DraggableWidget';
 import { WidgetTypes } from '../../dnd/WidgetTypes';
 import Page from './Page';
-import './Journal.css';
+import journalStyles from './Journal.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const Journal = () => {
@@ -81,29 +81,29 @@ const Journal = () => {
   );
 
   return (
-    <div className="Journal" ref={drop}>
+    <div className={journalStyles.Journal} ref={drop}>
       {widgets.map((widget) => (
         <DraggableWidget {...widget} />
       ))}
-      <div className="Half-journal">
-        <ArrowBackIcon className="Arrow-left" onClick={handleLeftNav} />
+      <div className={journalStyles.HalfJournal}>
+        <ArrowBackIcon className={journalStyles.ArrowLeft} onClick={handleLeftNav} />
         <DatePicker
           selected={dateLeftPage}
           onChange={(selectedDate) => handleLeftDatePick(selectedDate)}
           dateFormat="MMMM d, yyyy"
-          className="Date-select"
+          className={journalStyles.DateSelect}
         />
-        <Page newDate={dateLeftPage} className="Page" />
+        <Page newDate={dateLeftPage} className={journalStyles.Page} />
       </div>
-      <div className="Half-journal">
+      <div className={journalStyles.HalfJournal}>
         <DatePicker
           selected={dateRightPage}
           onChange={(selectedDate) => handleRightDatePick(selectedDate)}
           dateFormat="MMMM d, yyyy"
-          className="Date-select"
+          className={journalStyles.DateSelect}
         />
-        <Page newDate={dateRightPage} className="Page" />
-        <ArrowForwardIcon className="Arrow-right" onClick={handleRightNav} />
+        <Page newDate={dateRightPage} className={journalStyles.Page} />
+        <ArrowForwardIcon className={journalStyles.ArrowRight} onClick={handleRightNav} />
       </div>
     </div>
   );

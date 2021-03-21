@@ -1,15 +1,15 @@
-import '../Widget.css';
-import './WidgetCalendar.css';
 import moment from 'moment';
+import widgetStyles from '../Widget.module.css';
+import calendarWidgetStyles from './WidgetCalendar.module.css';
 
 const WidgetTodo = () => {
   const today = moment();
   const thisMonth = today.format('MMMM');
   const thisDay = today.format('DD');
   return (
-    <div className="widget-icon vertical">
-      <div className="small-month">{thisMonth}</div>
-      <div className="big-text">{thisDay}</div>
+    <div className={`${widgetStyles.widgetIcon} ${widgetStyles.vertical}`}>
+      <div className={calendarWidgetStyles.smallMonth}>{thisMonth}</div>
+      <div className={widgetStyles.bigText}>{thisDay}</div>
     </div>
   );
 };

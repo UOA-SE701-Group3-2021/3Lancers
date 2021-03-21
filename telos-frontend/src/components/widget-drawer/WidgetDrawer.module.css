@@ -45,7 +45,7 @@
   right: 0;
 }
 
-.technically-hidden {
+.technicallyHidden {
   opacity: 0;
   visibility: hidden;
   width: 0;

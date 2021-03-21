@@ -1,7 +1,7 @@
-import './Page.css';
+import pageStyles from './Page.module.css';
 
 const Page = () => (
-  <div className="Page">
+  <div className={pageStyles.Page}>
     <textarea />
   </div>
 );

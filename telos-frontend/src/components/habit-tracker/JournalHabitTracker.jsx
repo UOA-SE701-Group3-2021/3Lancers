@@ -14,7 +14,7 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import { useState } from 'react';
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
-import './JournalHabitTracker.css';
+import journalStyles from './JournalHabitTracker.module.css';
 
 const JournalHabitTracker = () => {
   const [habitTitle, setTitle] = useState('');
@@ -93,16 +93,16 @@ const JournalHabitTracker = () => {
   };
 
   return (
-    <div className="container">
-      <div className="HabitualsTitle">
+    <div className={journalStyles.container}>
+      <div className={journalStyles.HabitualsTitle}>
         <h2 align="middle">Habituals</h2>
-        <span className="AddIcon">
+        <span className={journalStyles.AddIcon}>
           <IconButton onClick={() => setEditStatus(true)}>
             <AddIcon />
           </IconButton>
         </span>
       </div>
-      <div className="Habituals">
+      <div className={journalStyles.Habituals}>
         <ul>
           {newhabit.map(
             (item, index) =>
@@ -128,8 +128,8 @@ const JournalHabitTracker = () => {
         }}
         aria-labelledby="form-dialog-title"
       >
-        <Box className={`${isEdit === true ? 'muneContainer' : 'hidden'}`}>
-          <div className="menuHeader">
+        <Box className={`${isEdit === true ? journalStyles.muneContainer : journalStyles.hidden}`}>
+          <div className={journalStyles.menuHeader}>
             <Button
               id="saveButton"
               variant="contained"
@@ -153,9 +153,9 @@ const JournalHabitTracker = () => {
               ×
             </Button>
           </div>
-          <div className="menuBody">
-            <div className="habitInfo">
-              <div className="habitName">
+          <div className={journalStyles.menuBody}>
+            <div className={journalStyles.habitInfo}>
+              <div className={journalStyles.habitName}>
                 <InputLabel id="name">Name:</InputLabel>
                 <TextField
                   id="standard-basic"
@@ -164,7 +164,7 @@ const JournalHabitTracker = () => {
                   fullWidth
                 />
               </div>
-              <div className="habitDetail">
+              <div className={journalStyles.habitDetail}>
                 <InputLabel id="description">Description:</InputLabel>
                 <TextField
                   id="standard-basic"
@@ -174,12 +174,12 @@ const JournalHabitTracker = () => {
                 />
               </div>
             </div>
-            <div className="weekInfo">
+            <div className={journalStyles.weekInfo}>
               <InputLabel id="repeatsOn">Repeats on</InputLabel>
               <WeekScheduleBar />
             </div>
-            <div className="timeSetting">
-              <div className="startDate">
+            <div className={journalStyles.timeSetting}>
+              <div className={journalStyles.startDate}>
                 <InputLabel id="start">Starts:</InputLabel>
                 <TextField
                   id="date"
@@ -191,7 +191,7 @@ const JournalHabitTracker = () => {
                   }}
                 />
               </div>
-              <div className="repeat">
+              <div className={journalStyles.repeat}>
                 <InputLabel id="selectWeeks">Repeats every</InputLabel>
                 <Select
                   labelId="selectWeeks"
@@ -205,7 +205,7 @@ const JournalHabitTracker = () => {
                   <MenuItem value={6}>6 weeks</MenuItem>
                 </Select>
               </div>
-              <div className="endDate">
+              <div className={journalStyles.endDate}>
                 <InputLabel id="end">Ends:</InputLabel>
                 <RadioGroup
                   row

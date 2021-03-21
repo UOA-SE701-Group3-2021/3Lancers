@@ -22,8 +22,8 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import { useState } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import './JournalTodo.css';
 import ErrorIcon from '@material-ui/icons/Error';
+import journalStyles from './JournalTodo.module.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,9 +88,9 @@ const JournalTodo = () => {
   };
 
   return (
-    <Box className="container">
+    <Box className={journalStyles.container}>
       <div>
-        <p className="title"> To Do </p>
+        <p className={journalStyles.title}> To Do </p>
       </div>
       <Divider />
       <List className={classes.root}>
@@ -99,7 +99,7 @@ const JournalTodo = () => {
 
           return (
             <ListItem
-              className="listItem"
+              className={journalStyles.listItem}
               key={value}
               role={undefined}
               dense
@@ -174,8 +174,8 @@ const JournalTodo = () => {
             onChange={firstEvent}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton className="AddBtn" onClick={secondEvent}>
-                  <AddIcon className="Publish" />
+                <IconButton className={journalStyles.AddBtn} onClick={secondEvent}>
+                  <AddIcon className={journalStyles.Publish} />
                 </IconButton>
               </InputAdornment>
             }
@@ -190,10 +190,10 @@ const JournalTodo = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem className="menubar" onClick={handleClose}>
+        <MenuItem className={journalStyles.menubar} onClick={handleClose}>
           Cancel
         </MenuItem>
-        <MenuItem className="menubar" onClick={handleClose}>
+        <MenuItem className={journalStyles.menubar} onClick={handleClose}>
           Reschedule
         </MenuItem>
       </Menu>
