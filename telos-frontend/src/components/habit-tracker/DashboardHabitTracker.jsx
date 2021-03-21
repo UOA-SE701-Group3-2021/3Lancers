@@ -13,7 +13,7 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
-import './DashboardHabitTracker.css';
+import habitStyle from './DashboardHabitTracker.module.css';
 
 const DashboardHabitTracker = () => {
   const [habitTitle, setTitle] = useState('Habit1');
@@ -59,22 +59,22 @@ const DashboardHabitTracker = () => {
 
   return (
     <div>
-      <div className="container">
-        <div className="HabitTitle">
+      <div className={habitStyle.container}>
+        <div className={habitStyle.HabitTitle}>
           <h2>{habitTitle}</h2>
-          <span className="AddIcon">
+          <span className={habitStyle.AddIcon}>
             <IconButton onClick={() => setEditStatus(true)}>
               <AddIcon />
             </IconButton>
           </span>
         </div>
-        <div className="HabitContent">
+        <div className={habitStyle.HabitContent}>
           <p>{habitDes}</p>
         </div>
         <WeekScheduleBar />
       </div>
-      <Box className={`${isEdit === true ? 'menuContainer' : 'hidden'}`}>
-        <div className="menuHeader">
+      <Box className={`${isEdit === true ? habitStyle.menuContainer : habitStyle.hidden}`}>
+        <div className={habitStyle.menuHeader}>
           <Button
             id="saveButton"
             variant="contained"
@@ -98,9 +98,9 @@ const DashboardHabitTracker = () => {
             x
           </Button>
         </div>
-        <div className="menuBody">
-          <div className="habitInfo">
-            <div className="habitName">
+        <div className={habitStyle.menuBody}>
+          <div className={habitStyle.habitInfo}>
+            <div className={habitStyle.habitName}>
               <InputLabel id="name">Name:</InputLabel>
               <TextField
                 id="standard-basic"
@@ -109,7 +109,7 @@ const DashboardHabitTracker = () => {
                 fullWidth
               />
             </div>
-            <div className="habitDetail">
+            <div className={habitStyle.habitDetail}>
               <InputLabel id="description">Description:</InputLabel>
               <TextField
                 id="standard-basic"
@@ -119,12 +119,12 @@ const DashboardHabitTracker = () => {
               />
             </div>
           </div>
-          <div className="weekInfo">
+          <div className={habitStyle.weekInfo}>
             <InputLabel id="repeatsOn">Repeats on</InputLabel>
             <WeekScheduleBar />
           </div>
-          <div className="timeSetting">
-            <div className="startDate">
+          <div className={habitStyle.timeSetting}>
+            <div className={habitStyle.startDate}>
               <InputLabel id="start">Starts:</InputLabel>
               <TextField
                 id="date"
@@ -136,7 +136,7 @@ const DashboardHabitTracker = () => {
                 }}
               />
             </div>
-            <div className="repeat">
+            <div className={habitStyle.repeat}>
               <InputLabel id="selectWeeks">Repeats every</InputLabel>
               <Select
                 labelId="selectWeeks"
@@ -150,7 +150,7 @@ const DashboardHabitTracker = () => {
                 <MenuItem value={6}>6 weeks</MenuItem>
               </Select>
             </div>
-            <div className="endDate">
+            <div className={habitStyle.endDate}>
               <InputLabel id="end">Ends:</InputLabel>
               <RadioGroup
                 row

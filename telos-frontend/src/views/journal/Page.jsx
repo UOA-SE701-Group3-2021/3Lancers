@@ -63,7 +63,7 @@ const Page = ({ date, leftPage }) => {
   );
 
   return (
-    <div className="Page" ref={drop}>
+    <div className={pageStyles.Page} ref={drop}>
       {Object.keys(widgets).map((key) => (
         <DraggableWidget id={key} {...widgets[key]} />
       ))}

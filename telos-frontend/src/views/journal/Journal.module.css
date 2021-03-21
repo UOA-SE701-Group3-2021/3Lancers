@@ -7,7 +7,7 @@
   display: flex;
 }
 
-.Half-journal {
+.HalfJournal {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -15,28 +15,28 @@
   margin-bottom: 15px;
 }
 
-.Half-journal:first-child {
+.HalfJournal:first-child {
   margin-left: 25px;
 }
 
-.Half-journal:last-child {
+.HalfJournal:last-child {
   margin-right: 18px;
 }
 
-.Arrow-left {
+.ArrowLeft {
   position: absolute;
   bottom: 25px;
   left: 28px;
   cursor: pointer;
 }
-.Arrow-right {
+.ArrowRight {
   position: absolute;
   bottom: 25px;
   right: 28px;
   cursor: pointer;
 }
 
-.Date-select {
+.DateSelect {
   position: absolute;
   left: 0px;
   border: none;
