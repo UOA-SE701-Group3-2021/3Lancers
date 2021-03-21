@@ -121,7 +121,7 @@ export default class Calendar extends React.PureComponent {
       }
       if (changed) {
         data = data.map((appointment) =>
-            changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment
+          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment
         );
       }
       if (deleted !== undefined) {
@@ -135,19 +135,19 @@ export default class Calendar extends React.PureComponent {
     const { data, resources } = this.state;
 
     return (
-        <Paper>
-          <Scheduler data={data}>
-            <ViewState defaultCurrentDate="2021-03-22" />
-            <EditingState onCommitChanges={this.commitChanges} />
-            <IntegratedEditing />
-            <EditRecurrenceMenu />
-            <DayView startDayHour={0} endDayHour={24} />
-            <Appointments />
-            <AppointmentTooltip showOpenButton showDeleteButton showCloseButton />
-            <AppointmentForm />
-            <Resources data={resources} mainResourceName="priorityId" />
-          </Scheduler>
-        </Paper>
+      <Paper>
+        <Scheduler data={data}>
+          <ViewState defaultCurrentDate="2021-03-22" />
+          <EditingState onCommitChanges={this.commitChanges} />
+          <IntegratedEditing />
+          <EditRecurrenceMenu />
+          <DayView startDayHour={0} endDayHour={24} />
+          <Appointments />
+          <AppointmentTooltip showOpenButton showDeleteButton showCloseButton />
+          <AppointmentForm />
+          <Resources data={resources} mainResourceName="priorityId" />
+        </Scheduler>
+      </Paper>
     );
   }
 }
