@@ -78,7 +78,7 @@ const mapAppointmentData = (appointment) => ({
 const initialState = {
   data: [],
   loading: false,
-  currentDate: '2017-05-23',
+  currentDate: '2021-03-22',
   currentViewName: 'Day',
 };
 
