@@ -1,4 +1,4 @@
-.widget-icon {
+.widgetIcon {
   --size: 50px;
   --spacing: 10px;
   --iconColour: #210043;
@@ -32,7 +32,7 @@
 }
 
 .widgetIcon:hover {
-  background-color: rgba(122,0,244,0.08);
+  background-color: rgba(122, 0, 244, 0.08);
 }
 
 .bigText {

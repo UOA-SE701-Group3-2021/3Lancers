@@ -18,10 +18,19 @@ const WidgetDrawer = ({ children }) => {
 
   return (
     <div className={drawerStyle.WidgetDrawerParent}>
-      <div className={`${drawerStyle.closer} ${isHidden ? drawerStyle.flipped : BLANK}`} onClick={handleOnClick}>
+      <div
+        className={`${drawerStyle.closer} ${isHidden ? drawerStyle.flipped : BLANK}`}
+        onClick={handleOnClick}
+      >
         <Arrow />
       </div>
-      <div className={`${drawerStyle.WidgetDrawer} ${isHidden ? drawerStyle.technicallyHidden : BLANK}`}>{children}</div>
+      <div
+        className={`${drawerStyle.WidgetDrawer} ${
+          isHidden ? drawerStyle.technicallyHidden : BLANK
+        }`}
+      >
+        {children}
+      </div>
     </div>
   );
 };

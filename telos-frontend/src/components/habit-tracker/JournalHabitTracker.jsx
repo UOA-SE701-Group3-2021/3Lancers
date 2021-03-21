@@ -15,7 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { useState } from 'react';
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
 import journalStyles from './JournalHabitTracker.module.css';
-import './JournalHabitTracker.css'
+import './JournalHabitTracker.css';
 
 const JournalHabitTracker = () => {
   const [habitTitle, setTitle] = useState('');
@@ -129,7 +129,7 @@ const JournalHabitTracker = () => {
         }}
         aria-labelledby="form-dialog-title"
       >
-        <Box className={`${isEdit === true ? journalStyles.muneContainer : 'hidden'}`}>
+        <Box className={isEdit === true ? journalStyles.muneContainer : journalStyles.hidden}>
           <div className={journalStyles.menuHeader}>
             <Button
               id="saveButton"
