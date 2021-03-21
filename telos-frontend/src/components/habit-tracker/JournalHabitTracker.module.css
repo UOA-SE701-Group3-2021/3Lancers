@@ -1,0 +1,239 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  position: absolute;
+  width: 500px;
+  height: auto;
+  background: #ffffff;
+  mix-blend-mode: normal;
+  border: 2px solid #7a00f4;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 19px;
+}
+
+.HabitualsTitle {
+  display: block;
+  height: 20%;
+  width: auto;
+  padding: 10px;
+  color: #ffffff;
+  background-color: #7a00f4;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.AddIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.HabitContent {
+  height: 20%;
+  padding: 10px;
+}
+
+.Habituals {
+  display: block;
+  height: 40%;
+  width: 100%;
+  margin: auto;
+}
+
+.Habituals ul {
+  display: grid;
+  width: 100%;
+  list-style: none;
+  align-items: left;
+}
+
+.Habituals ul div li {
+  display: flex;
+  margin: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid #7a00f4;
+  background-color: #ffffff;
+  color: #7a00f4;
+}
+
+.Habituals ul div:hover li {
+  border: 1px solid #9933ff;
+  background-color: #7a00f4;
+  color: #ffffff;
+}
+
+.Habituals ul div {
+  display: flex;
+  align-items: center;
+}
+
+.Habituals ul div:hover {
+  background-color: #f1e4fd;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.Habituals ul div p {
+  font-size: 30px;
+  padding: 0 0 0 23px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.HabitTitle {
+  display: block;
+  height: 20%;
+  padding: 10px;
+}
+
+.AddIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.HabitContent {
+  height: 20%;
+  padding: 10px;
+}
+
+.WeekSchedule {
+  display: block;
+  height: 40%;
+  width: 100%;
+  margin: auto;
+}
+
+.WeekSchedule ul {
+  display: flex;
+  width: 100%;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.unselect {
+  border: 1px solid #7a00f4 !important;
+  background-color: #ffffff !important;
+  color: #7a00f4 !important;
+}
+
+.WeekSchedule ul li button {
+  display: inline-flex;
+  margin: 10px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #9933ff;
+  border-radius: 50%;
+  background-color: #7a00f4;
+  color: #ffffff;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+}
+
+.WeekSchedule ul li button:disabled,
+.disable {
+  border: 1px solid #b0adb3 !important;
+  background-color: #b0adb3 !important;
+  color: #ffffff !important;
+}
+
+.muneContainer {
+  display: block;
+  width: 562px;
+  height: 408px;
+}
+
+.menuHeader {
+  display: inline-flex;
+  width: 100%;
+  height: 16%;
+  color: #ffffff;
+  background: #210043;
+  border: 2px solid #210043;
+  box-sizing: border-box;
+  /* border-radius: 19px 19px 0px 0px; */
+  align-items: center;
+}
+
+.menuHeader h2 {
+  left: 50%;
+}
+
+.menuBody {
+  width: 100%;
+  height: 84%;
+
+  background: #ffffff;
+  mix-blend-mode: normal;
+  border: 2px solid #210043;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  /* border-radius: 0px 0px 19px 19px; */
+}
+
+#saveButton {
+  width: 77px;
+  height: 22px;
+  left: 20px;
+  margin-right: 146px;
+  background: #ffffff;
+  border-radius: 19px;
+}
+
+#closeButton {
+  width: 20px !important;
+  min-width: 0 !important;
+  height: 20px;
+  left: 170px;
+  padding: 0;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+.habitInfo {
+  display: block;
+}
+
+.habitInfo,
+.weekInfo,
+.timeSetting {
+  width: 96%;
+  padding: 0 2%;
+  display: block;
+}
+
+.habitName,
+.habitDetail,
+.startDate,
+.repeat,
+.endDate {
+  width: 100%;
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+}
+
+#name,
+#description,
+#repeatsOn,
+#start,
+#selectWeeks,
+#end {
+  padding-right: 6px;
+}
