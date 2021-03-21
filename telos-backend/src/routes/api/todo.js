@@ -6,8 +6,8 @@ const router = express.Router();
 router.post('/', (req, res) => {
   const newTodoTask = new TodoTask({
     name: req.body.name,
-    createdDate: new Date(),
-    dueDate: new Date(req.body.dueDate),
+    createdDate: req.body.createdDate,
+    dueDate: req.body.dueDate,
     completed: false,
   });
   newTodoTask.save((err) => {
