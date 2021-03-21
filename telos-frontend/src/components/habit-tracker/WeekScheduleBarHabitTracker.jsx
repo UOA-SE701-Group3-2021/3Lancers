@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import journalStyles from './JournalHabitTracker.module.css';
 
 const WeekScheduleBarHabitTracker = () => {
   const [monStatus, setMonStatus] = useState(false);
@@ -10,7 +11,7 @@ const WeekScheduleBarHabitTracker = () => {
   const [sunStatus, setSunStatus] = useState(false);
 
   return (
-    <div className="WeekSchedule">
+    <div className={journalStyles.WeekSchedule}>
       <ul>
         <li>
           <button

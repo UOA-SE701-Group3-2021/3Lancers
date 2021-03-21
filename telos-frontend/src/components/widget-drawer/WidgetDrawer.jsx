@@ -1,5 +1,5 @@
-import './WidgetDrawer.css';
 import { useState } from 'react';
+import drawerStyle from './WidgetDrawer.module.css';
 
 const Arrow = () => (
   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
@@ -17,11 +17,11 @@ const WidgetDrawer = ({ children }) => {
   }
 
   return (
-    <div className="WidgetDrawerParent">
-      <div className={`closer ${isHidden ? 'flipped' : BLANK}`} onClick={handleOnClick}>
+    <div className={drawerStyle.WidgetDrawerParent}>
+      <div className={`${drawerStyle.closer} ${isHidden ? drawerStyle.flipped : BLANK}`} onClick={handleOnClick}>
         <Arrow />
       </div>
-      <div className={`WidgetDrawer ${isHidden ? 'technically-hidden' : BLANK}`}>{children}</div>
+      <div className={`${drawerStyle.WidgetDrawer} ${isHidden ? drawerStyle.technicallyHidden : BLANK}`}>{children}</div>
     </div>
   );
 };

@@ -19,23 +19,23 @@
   margin-bottom: var(--spacing);
 }
 
-.widget-icon:first-child {
+.widgetIcon:first-child {
   margin-top: var(--spacing);
 }
 
-.widget-icon.vertical {
+.widgetIcon.vertical {
   flex-flow: column nowrap;
 }
 
-.widget-icon svg {
+.widgetIcon svg {
   fill: var(--iconColour);
 }
 
-.widget-icon:hover {
-  background-color: rgba(122, 0, 244, 0.08);
+.widgetIcon:hover {
+  background-color: rgba(122,0,244,0.08);
 }
 
-.big-text {
+.bigText {
   --bigTextSize: 36px;
   font-size: var(--bigTextSize);
   height: var(--bigTextSize);

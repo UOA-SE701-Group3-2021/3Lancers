@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   Checkbox,
   Divider,
@@ -18,10 +17,8 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   TextField,
   DialogActions,
-  Modal,
   makeStyles,
   MenuItem,
 } from '@material-ui/core';
@@ -30,7 +27,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import { useState } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import styles from './JournalTodo.module.css';
-import './checkbox.css';
+import './JournalTodoCheckbox.css';
 
 const useStyles = makeStyles({
   root: {
@@ -67,22 +64,22 @@ const JournalTodo = () => {
   const [newItem, setNewItem] = useState(listitems);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
-  const [deleted, setDelete] = useState([0]);
-  const [toBeDel, setToBeDel] = useState('');
-  const [newDate, setNewDate] = useState('');
-  const [newItemDate, setItemDate] = useState('');
+  // const [deleted, setDelete] = useState([0]);
+  // const [toBeDel, setToBeDel] = useState('');
+  // const [newDate, setNewDate] = useState('');
+  // const [newItemDate, setItemDate] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
-  const [input, inputEntered] = useState('');
+  // const [input, inputEntered] = useState('');
   const [open, setOpen] = useState(false);
   const classes = useStyles();
   const [migrate, setMigrate] = useState(false);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    setOpen(true);
-  };
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  //   setOpen(true);
+  // };
 
-  const handleClickModal = (event) => {
+  const handleClickModal = () => {
     setOpen(true);
   };
 
@@ -115,15 +112,15 @@ const JournalTodo = () => {
     setMigrate(false);
   };
 
-  const newDateChange = (event) => {
-    setNewDate(event.target.value);
-    setItemDate({
-      name: newItemDate.name,
-      due: event.target.value,
-      onGoing: true,
-      completed: false,
-    });
-  };
+  // const newDateChange = (event) => {
+  //   setNewDate(event.target.value);
+  //   setItemDate({
+  //     name: newItemDate.name,
+  //     due: event.target.value,
+  //     onGoing: true,
+  //     completed: false,
+  //   });
+  // };
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -141,9 +138,9 @@ const JournalTodo = () => {
     setItem({ name: event.target.value, onGoing: true, completed: false });
   };
 
-  const secondEvent = () => {
-    setNewItem((prev) => [...prev, item]);
-  };
+  // const secondEvent = () => {
+  //   setNewItem((prev) => [...prev, item]);
+  // };
 
   return (
     <Box className={classes.root} display="flex" flexDirection="column" alignItems="stretch">

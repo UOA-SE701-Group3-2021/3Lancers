@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Page from './Page';
-import './Journal.css';
+import journalStyles from './Journal.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -42,26 +42,26 @@ const Journal = () => {
   }
 
   return (
-    <div className="Journal">
-      <div className="Half-journal">
-        <ArrowBackIcon className="Arrow-left" onClick={handleLeftNav} />
+    <div className={journalStyles.Journal}>
+      <div className={journalStyles.HalfJournal}>
+        <ArrowBackIcon className={journalStyles.ArrowLeft} onClick={handleLeftNav} />
         <DatePicker
           selected={dateLeftPage}
           onChange={(selectedDate) => handleLeftDatePick(selectedDate)}
           dateFormat="MMMM d, yyyy"
-          className="Date-select"
+          className={journalStyles.DateSelect}
         />
         <Page date={formatDateString(dateLeftPage)} leftPage />
       </div>
-      <div className="Half-journal">
+      <div className={journalStyles.HalfJournal}>
         <DatePicker
           selected={dateRightPage}
           onChange={(selectedDate) => handleRightDatePick(selectedDate)}
           dateFormat="MMMM d, yyyy"
-          className="Date-select"
+          className={journalStyles.DateSelect}
         />
         <Page date={formatDateString(dateRightPage)} />
-        <ArrowForwardIcon className="Arrow-right" onClick={handleRightNav} />
+        <ArrowForwardIcon className={journalStyles.ArrowRight} onClick={handleRightNav} />
       </div>
     </div>
   );

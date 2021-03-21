@@ -1,7 +1,7 @@
 .WidgetDrawerParent {
   --parentMinWidth: 20px;
   --parentMaxWidth: 80px;
-  --background: #E7E7E7;
+  --background: #e7e7e7;
   min-width: var(--parentMinWidth);
   max-width: var(--parentMaxWidth);
   position: relative;
@@ -13,9 +13,7 @@
   background-color: var(--background);
   transition: all 0.3s ease;
 
-  box-shadow: 
-    0px 16px 24px rgba(0, 0, 0, 0.14), 
-    0px 6px 30px rgba(0, 0, 0, 0.12), 
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.14), 0px 6px 30px rgba(0, 0, 0, 0.12),
     0px 8px 10px rgba(0, 0, 0, 0.2);
 
   display: flex;
@@ -45,7 +43,7 @@
   right: 0;
 }
 
-.technically-hidden {
+.technicallyHidden {
   opacity: 0;
   visibility: hidden;
   width: 0;

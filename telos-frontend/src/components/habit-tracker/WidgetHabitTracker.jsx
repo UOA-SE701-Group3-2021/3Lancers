@@ -1,11 +1,11 @@
-import '../Widget.css';
-import './WidgetHabitTracker.css';
+import '../Widget.module.css';
+import habitStyle from './WidgetHabitTracker.module.css';
 
 const WidgetHabitTracker = () => (
-  <div className="widget-icon widget-habit-tracker">
-    <div className="circle filled" />
-    <div className="circle" />
-    <div className="circle" />
+  <div className={`${habitStyle.widgetIcon} ${habitStyle.widgetHabitTracker}`}>
+    <div className={`${habitStyle.circle} ${habitStyle.filled}`} />
+    <div className={habitStyle.circle} />
+    <div className={habitStyle.circle} />
   </div>
 );
 

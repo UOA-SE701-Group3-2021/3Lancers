@@ -1,7 +1,7 @@
-import '../Widget.css';
+import styles from'../Widget.module.css';
 
 const WidgetTodo = () => (
-  <div className="widget-icon">
+  <div className={styles.widgetIcon}>
     <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"

@@ -1,8 +1,8 @@
-import '../Widget.css';
+import styles from '../Widget.module.css';
 
 const WidgetText = () => (
-  <div className="widget-icon vertical">
-    <div className="big-text">T</div>
+  <div className={`${styles.widgetIcon} ${styles.vertical}`}>
+    <div className={styles.bigText}>T</div>
   </div>
 );
 

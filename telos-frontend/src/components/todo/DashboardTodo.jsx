@@ -29,7 +29,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ErrorIcon from '@material-ui/icons/Error';
-import './DashboardTodo.css';
+import dashboardStyles from './DashboardTodo.module.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -211,8 +211,8 @@ const DashboardTodo = () => {
   };
 
   return (
-    <Box className="container">
-      <div className="header">
+    <Box className={dashboardStyles.container}>
+      <div className={dashboardStyles.header}>
         <p> To Do </p>
       </div>
       <Divider />
@@ -222,7 +222,7 @@ const DashboardTodo = () => {
 
           return (
             <ListItem
-              className="listItem"
+              className={dashboardStyles.listItem}
               key={value.name}
               role={undefined}
               dense
@@ -295,7 +295,7 @@ const DashboardTodo = () => {
                     aria-haspopup="true"
                     onClick={handleOption(value)}
                   >
-                    <ErrorIcon className="outdated" />
+                    <ErrorIcon className={dashboardStyles.outdated} />
                   </IconButton>
                 </ListItemSecondaryAction>
               )}
@@ -304,7 +304,7 @@ const DashboardTodo = () => {
         })}
       </List>
       <div>
-        <FormControl className="inputbox" variant="outlined">
+        <FormControl className={dashboardStyles.inputbox} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
           <OutlinedInput
             id="outlined-todo"
@@ -312,8 +312,8 @@ const DashboardTodo = () => {
             onChange={firstEvent}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton className="AddBtn" onClick={openAdd}>
-                  <AddIcon className="Publish" />
+                <IconButton className={dashboardStyles.AddBtn} onClick={openAdd}>
+                  <AddIcon className={dashboardStyles.Publish} />
                 </IconButton>
               </InputAdornment>
             }

@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 import DraggableWidget from '../../dnd/DraggableWidget';
 import { WidgetTypes } from '../../dnd/WidgetTypes';
-import './Page.css';
+import pageStyles from './Page.module.css';
 
 const Page = ({ date, leftPage }) => {
   const [widgets, setWidgets] = useState({});
@@ -63,7 +63,7 @@ const Page = ({ date, leftPage }) => {
   );
 
   return (
-    <div className="Page" ref={drop}>
+    <div className={pageStyles.Page} ref={drop}>
       {Object.keys(widgets).map((key) => (
         <DraggableWidget id={key} {...widgets[key]} />
       ))}
