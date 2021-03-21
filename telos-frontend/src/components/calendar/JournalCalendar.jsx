@@ -1,162 +1,153 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { ViewState } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   DayView,
   Appointments,
-  Toolbar,
-  DateNavigator,
+  Resources,
+  EditRecurrenceMenu,
   AppointmentForm,
   AppointmentTooltip,
-  TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { purple } from '@material-ui/core/colors';
 
-const PUBLIC_KEY = 'AIzaSyBnNAISIUKe6xdhq1_rjor2rxoI3UlMY7k';
-const CALENDAR_ID = 'f7jnetm22dsjc3npc2lu3buvu4@group.calendar.google.com';
-
-const getData = (setData, setLoading) => {
-  const dataUrl = [
-    'https://www.googleapis.com/calendar/v3/calendars/',
-    CALENDAR_ID,
-    '/events?key=',
-    PUBLIC_KEY,
-  ].join('');
-  setLoading(true);
-
-  return fetch(dataUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      setTimeout(() => {
-        setData(data.items);
-        setLoading(false);
-      }, 600);
-    });
-};
-
-const styles = {
-  toolbarRoot: {
-    position: 'relative',
+const calendarData = [
+  {
+    priorityId: 2,
+    typeId: 1,
+    title: 'Coffee',
+    startDate: new Date('2021-03-21T20:00:00.000Z'),
+    endDate: new Date('2021-03-21T20:30:00.000Z'),
   },
-  progress: {
-    position: 'absolute',
-    width: '100%',
-    bottom: 0,
-    left: 0,
+  {
+    priorityId: 2,
+    typeId: 2,
+    title: 'SOFTENG 754',
+    startDate: new Date('2021-03-21T21:00:00.000Z'),
+    endDate: new Date('2021-03-21T23:00:00.000Z'),
   },
-};
-
-const theme = createMuiTheme({
-  palette: {
-    primary: purple,
+  {
+    priorityId: 2,
+    typeId: 2,
+    title: 'SOFTENG 701',
+    startDate: new Date('2021-03-21T23:00:00.000Z'),
+    endDate: new Date('2021-03-22T01:00:00.000Z'),
   },
-});
+  {
+    priorityId: 1,
+    typeId: 1,
+    title: 'Lunch',
+    startDate: new Date('2021-03-22T01:00:00.000Z'),
+    endDate: new Date('2021-03-22T02:30:00.000Z'),
+  },
+  {
+    priorityId: 1,
+    typeId: 2,
+    title: '701 Meeting',
+    startDate: new Date('2021-03-22T03:30:00.000Z'),
+    endDate: new Date('2021-03-22T04:30:00.000Z'),
+  },
+  {
+    priorityId: 1,
+    typeId: 2,
+    title: '754 Meeting',
+    startDate: new Date('2021-03-22T04:30:00.000Z'),
+    endDate: new Date('2021-03-22T05:30:00.000Z'),
+  },
+  {
+    priorityId: 2,
+    typeId: 2,
+    title: 'Work',
+    startDate: new Date('2021-03-22T06:00:00.000Z'),
+    endDate: new Date('2021-03-22T08:00:00.000Z'),
+  },
+];
 
-const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
-  ({ children, classes, ...restProps }) => (
-    <div className={classes.toolbarRoot}>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <Toolbar.Root {...restProps}>{children}</Toolbar.Root>
-      <LinearProgress className={classes.progress} />
-    </div>
-  )
-);
+export const priorityData = [
+  {
+    text: 'Low Priority',
+    id: 1,
+    color: '#D6ADFF',
+  },
+  {
+    text: 'High Priority',
+    id: 2,
+    color: '#7A00F4',
+  },
+];
 
-const usaTime = (date) =>
-  new Date(date).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
+export const typeData = [
+  {
+    text: 'Home',
+    id: 1,
+    color: '#ADADFF',
+  },
+  {
+    text: 'University',
+    id: 2,
+    color: '#0000de',
+  },
+];
+export default class Calendar extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: calendarData,
+      resources: [
+        {
+          fieldName: 'priorityId',
+          title: 'Priority',
+          instances: priorityData,
+          allowMultiple: false,
+        },
+        {
+          fieldName: 'typeId',
+          title: 'Type',
+          instances: typeData,
+          allowMultiple: false,
+        },
+      ],
+    };
 
-const mapAppointmentData = (appointment) => ({
-  id: appointment.id,
-  startDate: usaTime(appointment.start.dateTime),
-  endDate: usaTime(appointment.end.dateTime),
-  title: appointment.summary,
-});
-
-const initialState = {
-  data: [],
-  loading: false,
-  currentDate: '2017-05-23',
-  currentViewName: 'Day',
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'setLoading':
-      return { ...state, loading: action.payload };
-    case 'setData':
-      return { ...state, data: action.payload.map(mapAppointmentData) };
-    case 'setCurrentViewName':
-      return { ...state, currentViewName: action.payload };
-    case 'setCurrentDate':
-      return { ...state, currentDate: action.payload };
-    default:
-      return state;
+    this.commitChanges = this.commitChanges.bind(this);
   }
-};
 
-export default () => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-  const { data, loading, currentViewName, currentDate } = state;
-  const setCurrentViewName = React.useCallback(
-    (nextViewName) =>
-      dispatch({
-        type: 'setCurrentViewName',
-        payload: nextViewName,
-      }),
-    [dispatch]
-  );
-  const setData = React.useCallback(
-    (nextData) =>
-      dispatch({
-        type: 'setData',
-        payload: nextData,
-      }),
-    [dispatch]
-  );
-  const setCurrentDate = React.useCallback(
-    (nextDate) =>
-      dispatch({
-        type: 'setCurrentDate',
-        payload: nextDate,
-      }),
-    [dispatch]
-  );
-  const setLoading = React.useCallback(
-    (nextLoading) =>
-      dispatch({
-        type: 'setLoading',
-        payload: nextLoading,
-      }),
-    [dispatch]
-  );
+  commitChanges({ added, changed, deleted }) {
+    this.setState((state) => {
+      let { data } = state;
+      if (added) {
+        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+        data = [...data, { id: startingAddedId, ...added }];
+      }
+      if (changed) {
+        data = data.map((appointment) =>
+            changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment
+        );
+      }
+      if (deleted !== undefined) {
+        data = data.filter((appointment) => appointment.id !== deleted);
+      }
+      return { data };
+    });
+  }
 
-  React.useEffect(() => {
-    getData(setData, setLoading);
-  }, [setData, currentViewName, currentDate]);
+  render() {
+    const { data, resources } = this.state;
 
-  return (
-    <Paper style={{ height: '100%' }}>
-      <ThemeProvider theme={theme}>
-        <Scheduler data={data} height="full">
-          <ViewState
-            currentDate={currentDate}
-            currentViewName={currentViewName}
-            onCurrentViewNameChange={setCurrentViewName}
-            onCurrentDateChange={setCurrentDate}
-          />
-          <DayView startDayHour={0} endDayHour={24} />
-          <Appointments />
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Toolbar {...(loading ? { rootComponent: ToolbarWithLoading } : null)} />
-          <DateNavigator />
-          <TodayButton />
-          <AppointmentTooltip showOpenButton showCloseButton />
-          <AppointmentForm readOnly />
-        </Scheduler>
-      </ThemeProvider>
-    </Paper>
-  );
-};
+    return (
+        <Paper>
+          <Scheduler data={data}>
+            <ViewState defaultCurrentDate="2021-03-22" />
+            <EditingState onCommitChanges={this.commitChanges} />
+            <IntegratedEditing />
+            <EditRecurrenceMenu />
+            <DayView startDayHour={0} endDayHour={24} />
+            <Appointments />
+            <AppointmentTooltip showOpenButton showDeleteButton showCloseButton />
+            <AppointmentForm />
+            <Resources data={resources} mainResourceName="priorityId" />
+          </Scheduler>
+        </Paper>
+    );
+  }
+}
