@@ -14,20 +14,17 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import { useState } from 'react';
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
-import journalStyles from './JournalHabitTracker.module.css';
-import './JournalHabitTracker.css';
+import habitStyle from './JournalHabitTracker.module.css';
 
 const JournalHabitTracker = () => {
   const [habitTitle, setTitle] = useState('');
   const [tempTitle, setTempTitle] = useState(habitTitle);
   const [habitDes, setDes] = useState('');
   const [tempDes, setTempDes] = useState(habitDes);
-
   const [weeks, setWeeks] = useState('1');
   const [startDate, setStartDate] = useState('2021-01-01');
   const [endType, setEndType] = useState('Never');
   const [endDate, setEndDate] = useState('');
-
   const [isEdit, setEditStatus] = useState(false);
 
   const habitList = [
@@ -94,16 +91,16 @@ const JournalHabitTracker = () => {
   };
 
   return (
-    <div className={journalStyles.container}>
-      <div className={journalStyles.HabitualsTitle}>
+    <div className={habitStyle.container}>
+      <div className={habitStyle.HabitualsTitle}>
         <h2 align="middle">Habituals</h2>
-        <span className={journalStyles.AddIcon}>
-          <IconButton onClick={() => setEditStatus(true)}>
-            <AddIcon />
+        <span className={habitStyle.AddIcon}>
+          <IconButton onClick={() => setEditStatus(true)} className={habitStyle.addIconButton}>
+            <AddIcon className={habitStyle.addIconButtonSvg} />
           </IconButton>
         </span>
       </div>
-      <div className={journalStyles.Habituals}>
+      <div className={habitStyle.Habituals}>
         <ul>
           {newhabit.map(
             (item, index) =>
@@ -129,10 +126,10 @@ const JournalHabitTracker = () => {
         }}
         aria-labelledby="form-dialog-title"
       >
-        <Box className={isEdit === true ? journalStyles.muneContainer : journalStyles.hidden}>
-          <div className={journalStyles.menuHeader}>
+        <Box className={`${isEdit === true ? habitStyle.menuContainer : habitStyle.hidden}`}>
+          <div className={habitStyle.menuHeader}>
             <Button
-              id="saveButton"
+              id={habitStyle.saveButton}
               variant="contained"
               onClick={() => {
                 saveChange();
@@ -143,7 +140,7 @@ const JournalHabitTracker = () => {
             </Button>
             <h2>New Habit</h2>
             <Button
-              id="closeButton"
+              id={habitStyle.closeButton}
               variant="contained"
               onClick={() => {
                 setEditStatus(false);
@@ -154,10 +151,10 @@ const JournalHabitTracker = () => {
               ×
             </Button>
           </div>
-          <div className={journalStyles.menuBody}>
-            <div className={journalStyles.habitInfo}>
-              <div className={journalStyles.habitName}>
-                <InputLabel id="name">Name:</InputLabel>
+          <div className={habitStyle.menuBody}>
+            <div className={habitStyle.habitInfo}>
+              <div className={habitStyle.habitName}>
+                <InputLabel id={habitStyle.name}>Name:</InputLabel>
                 <TextField
                   id="standard-basic"
                   value={tempTitle}
@@ -165,8 +162,8 @@ const JournalHabitTracker = () => {
                   fullWidth
                 />
               </div>
-              <div className={journalStyles.habitDetail}>
-                <InputLabel id="description">Description:</InputLabel>
+              <div className={habitStyle.habitDetail}>
+                <InputLabel id={habitStyle.description}>Description:</InputLabel>
                 <TextField
                   id="standard-basic"
                   value={tempDes}
@@ -175,13 +172,13 @@ const JournalHabitTracker = () => {
                 />
               </div>
             </div>
-            <div className={journalStyles.weekInfo}>
-              <InputLabel id="repeatsOn">Repeats on</InputLabel>
+            <div className={habitStyle.weekInfo}>
+              <InputLabel id={habitStyle.repeatsOn}>Repeats on</InputLabel>
               <WeekScheduleBar />
             </div>
-            <div className={journalStyles.timeSetting}>
-              <div className={journalStyles.startDate}>
-                <InputLabel id="start">Starts:</InputLabel>
+            <div className={habitStyle.timeSetting}>
+              <div className={habitStyle.startDate}>
+                <InputLabel id={habitStyle.start}>Starts:</InputLabel>
                 <TextField
                   id="date"
                   type="date"
@@ -192,8 +189,8 @@ const JournalHabitTracker = () => {
                   }}
                 />
               </div>
-              <div className={journalStyles.repeat}>
-                <InputLabel id="selectWeeks">Repeats every</InputLabel>
+              <div className={habitStyle.repeat}>
+                <InputLabel id={habitStyle.selectWeeks}>Repeats every</InputLabel>
                 <Select
                   labelId="selectWeeks"
                   id="demo-simple-select"
@@ -206,12 +203,12 @@ const JournalHabitTracker = () => {
                   <MenuItem value={6}>6 weeks</MenuItem>
                 </Select>
               </div>
-              <div className={journalStyles.endDate}>
-                <InputLabel id="end">Ends:</InputLabel>
+              <div className={habitStyle.endDate}>
+                <InputLabel id={habitStyle.end}>Ends:</InputLabel>
                 <RadioGroup
                   row
-                  aria-label="gender"
-                  name="gender1"
+                  aria-label="endType"
+                  name="endType"
                   value={endType}
                   onChange={handleChangeOnEndType}
                 >
