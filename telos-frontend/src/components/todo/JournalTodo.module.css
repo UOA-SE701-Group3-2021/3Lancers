@@ -1,14 +1,10 @@
-.container {
-  background-color: white;
-  box-shadow: 3px 3px 3px darkgrey;
-  width: 221px;
-}
-
 .title {
   margin: 16px;
-  vertical-align: middle;
-  text-align: left;
+  margin-top: 16px;
+  height: 24px;
+  width: fit-content;
   font-weight: 500;
+  align-items: left;
 }
 
 .Publish {
@@ -18,14 +14,27 @@
   color: white;
 }
 
-.MuiCheckbox-colorPrimary.Mui-checked {
-  color: #6200ee !important;
+.checkbox {
+  color: #828282 !important;
 }
 
-.ListItem:hover {
+.checkboxOverdue {
+  color: #eb5757 !important;
+}
+
+.tasks:hover {
   background-color: rgba(98, 0, 238, 0.08) !important;
 }
 
 .menubar {
   color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.dateBox {
+  display: 'flex';
+  flex-wrap: 'wrap';
+}
+
+.moreButton {
+  color: #828282 !important;
 }

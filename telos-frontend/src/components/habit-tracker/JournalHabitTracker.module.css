@@ -237,12 +237,3 @@
 #end {
   padding-right: 6px;
 }
-
-.MuiSvgIcon-root {
-  font-size: 2rem !important;
-}
-
-.MuiIconButton-root {
-  color: white !important;
-  padding: 0px !important;
-}
