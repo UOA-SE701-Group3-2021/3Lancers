@@ -20,6 +20,7 @@ app.get('/', (req, res) => res.send('Telos app coming soon!'));
 mongoose.connect('mongodb://localhost:27017/telosdatabase', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 const db = mongoose.connection;
 
@@ -28,6 +29,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('Connected to local database');
 });
+
+require('./demo');
 
 // Launch app (start server running), with a simple logging statement, based on SE750 example
 app.listen(port, () => console.log(`App server litening on port number: ${port}`));

@@ -1,0 +1,50 @@
+.WidgetDrawerParent {
+  --parentMinWidth: 20px;
+  --parentMaxWidth: 80px;
+  --background: #e7e7e7;
+  min-width: var(--parentMinWidth);
+  max-width: var(--parentMaxWidth);
+  position: relative;
+}
+
+.WidgetDrawer {
+  height: 100vh;
+  width: var(--parentMaxWidth);
+  background-color: var(--background);
+  transition: all 0.3s ease;
+
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.14), 0px 6px 30px rgba(0, 0, 0, 0.12),
+    0px 8px 10px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.closer {
+  background-color: var(--background);
+  position: absolute;
+  width: var(--parentMinWidth);
+  height: 40px;
+
+  top: 10px;
+  right: calc(-1 * var(--parentMinWidth));
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.flipped {
+  transform: scaleX(-1);
+}
+
+.closer.flipped {
+  right: 0;
+}
+
+.technicallyHidden {
+  opacity: 0;
+  visibility: hidden;
+  width: 0;
+}
