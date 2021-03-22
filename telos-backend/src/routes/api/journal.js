@@ -124,7 +124,7 @@ router.get('/:date', async (req, res) => {
   const habitData = await getHabitsForDay(date);
   const todoData = await getTodosForDay(date);
 
-  res.json({
+  res.status(200).json({
     widgetData: widgets,
     calendarData: calendarData,
     habitData: habitData,

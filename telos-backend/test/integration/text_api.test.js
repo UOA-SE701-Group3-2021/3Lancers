@@ -71,10 +71,10 @@ it('can post a text instance', async () => {
   const body = {
     date: '2021-01-01',
     position: {
-        row: 2,
-        col: 2,
+      row: 2,
+      col: 2,
     },
-    type: 'text'
+    type: 'text',
   };
   const response = await axios.post(`http://localhost:${port}/api/journal`, body);
   const returnData = response.data;
