@@ -43,14 +43,26 @@ function getStringDayOfWeek(dayNum) {
 
 async function getTodosForDay(date) {
   // Todos should return either what is made today, or all overdue tasks.
-  const todos = await TodoTask.find({
+  let todos = await TodoTask.find({
     $or: [
       { createdDate: { $gte: date + 'T00:00:00', $lte: date + 'T23:59:59' } },
       { dueDate: { $gte: date + 'T00:00:00', $lte: date + 'T23:59:59' } },
       { dueDate: { $lt: date + 'T00:00:00' }, completed: false },
     ],
   });
-  return todos;
+
+  // add new isOverdue field for frontend to easily display overdue tasks differently
+  let objTodos = [];
+  for (let i = 0; i < todos.length; i++) {
+    objTodos.push(todos[i].toObject());
+    if (new Date(todos[i].dueDate) < new Date(date) && todos[i].completed === false) {
+      objTodos[i].isOverdue = true;
+    } else {
+      objTodos[i].isOverdue = false;
+    }
+  }
+
+  return objTodos;
 }
 
 // Param: date, of type date, parsed from url path param. Given as yyyy-mm-dd

@@ -263,9 +263,12 @@ it('Can GET all widgets for a day, with all the widget data for the day', async 
   expect(returnData.textData.length).toBe(0);
   expect(returnData.habitData.length).toBe(1);
   expect(returnData.todoData.length).toBe(3); // Either overdue or present for all of them
+  expect(returnData.todoData[0].isOverdue).toBe(false);
+  expect(returnData.todoData[1].isOverdue).toBe(false);
+  expect(returnData.todoData[2].isOverdue).toBe(false);
 });
 
-it('Can GET a text widget', async () => {
+it('Can GET a text widget and check the overdue field in todo data is correct', async () => {
   const response = await axios.get(`http://localhost:${port}/api/journal/2021-02-03`);
   const returnData = response.data;
   expect(returnData.calendarData.length).toBe(0);
@@ -274,6 +277,7 @@ it('Can GET a text widget', async () => {
   expect(returnData.textData[0].widgetId).toBe(newWidget3.id);
   expect(returnData.habitData.length).toBe(0);
   expect(returnData.todoData.length).toBe(1);
+  expect(returnData.todoData[0].isOverdue).toBe(true);
 });
 
 it('Can GET a habit widget using the no enddate/unlimted option', async () => {
