@@ -26,6 +26,7 @@ const Journal = () => {
     { widgetType: 'habit_tracker', top: 200, left: 200 },
   ]);
   const [activeWidgetsRight, setActiveWidgetsRight] = useState([]);
+  const [isRight, setIsRight] = useState(true);
 
   function handleLeftNav() {
     setDateLeftPage(dateLeftPage - DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
@@ -65,19 +66,25 @@ const Journal = () => {
           marginRight: 5,
         }}
       >
-        <WidgetDrawer>
+        <WidgetDrawer
+          isRight={isRight}
+          toggleIsRight={() => {
+            setIsRight(!isRight);
+          }}
+        >
           <WidgetCalendar
-            addNewCalendarLeft={() => {
-              setActiveWidgetsLeft([
-                ...activeWidgetsLeft,
-                { widgetType: 'calendar', top: 0, left: 0 },
-              ]);
-            }}
-            addNewCalendarRight={() => {
-              setActiveWidgetsRight([
-                ...activeWidgetsRight,
-                { widgetType: 'calendar', top: 0, left: 0 },
-              ]);
+            addNewCalendar={() => {
+              if (isRight) {
+                setActiveWidgetsRight([
+                  ...activeWidgetsRight,
+                  { widgetType: 'calendar', top: 0, left: 0 },
+                ]);
+              } else {
+                setActiveWidgetsLeft([
+                  ...activeWidgetsLeft,
+                  { widgetType: 'calendar', top: 0, left: 0 },
+                ]);
+              }
             }}
           />
           <WidgetTodo />
