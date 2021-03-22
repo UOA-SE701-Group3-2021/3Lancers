@@ -1,25 +1,42 @@
 const express = require('express');
+const TodoTask = require('../../models/todo_task');
 
 const router = express.Router();
 
 router.post('/', (req, res) => {
-  res.json({
-    endpoint: '/todo',
-    request: `POST name: ${req.body.name}, created: ${req.body.created}, due: ${req.body.due}, onGoing: ${req.body.onGoing}, completed: ${req.body.completed}`,
+  const newTodoTask = new TodoTask({
+    name: req.body.name,
+    createdDate: req.body.createdDate,
+    dueDate: req.body.dueDate,
+    completed: req.body.completed,
+  });
+  newTodoTask.save((err) => {
+    if (err) {
+      return res.status(400).json({ error: err });
+    }
+    return res.status(201).json(newTodoTask);
   });
 });
 
 router.put('/:id', (req, res) => {
-  res.json({
-    endpoint: '/todo',
-    request: `PUT id: ${req.params.id}, name: ${req.body.name}, created: ${req.body.created}, due: ${req.body.due}, onGoing: ${req.body.onGoing}, completed: ${req.body.completed}`,
+  const query = { _id: req.params.id };
+
+  TodoTask.findOneAndUpdate(query, req.body, (err) => {
+    if (err) {
+      return res.status(400).json({ error: err });
+    }
+    return res.sendStatus(204);
   });
 });
 
 router.delete('/:id', (req, res) => {
-  res.json({
-    endpoint: '/todo',
-    request: `DELETE id: ${req.params.id}`,
+  const query = { _id: req.params.id };
+
+  TodoTask.deleteOne(query, (err) => {
+    if (err) {
+      return res.status(400).json({ error: err });
+    }
+    return res.sendStatus(204);
   });
 });
 
