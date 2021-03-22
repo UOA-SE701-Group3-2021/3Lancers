@@ -25,7 +25,7 @@ const Journal = () => {
     { widgetType: 'todo', top: 0, left: 0 },
     { widgetType: 'habit_tracker', top: 200, left: 200 },
   ]);
-  const [activeWidgetsRight, setActiveWidgetsRight] = useState({});
+  const [activeWidgetsRight, setActiveWidgetsRight] = useState([]);
 
   function handleLeftNav() {
     setDateLeftPage(dateLeftPage - DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
@@ -67,9 +67,15 @@ const Journal = () => {
       >
         <WidgetDrawer>
           <WidgetCalendar
-            addNewCalendar={() => {
+            addNewCalendarLeft={() => {
               setActiveWidgetsLeft([
                 ...activeWidgetsLeft,
+                { widgetType: 'calendar', top: 0, left: 0 },
+              ]);
+            }}
+            addNewCalendarRight={() => {
+              setActiveWidgetsRight([
+                ...activeWidgetsRight,
                 { widgetType: 'calendar', top: 0, left: 0 },
               ]);
             }}
@@ -102,7 +108,11 @@ const Journal = () => {
             dateFormat="MMMM d, yyyy"
             className={journalStyles.DateSelect}
           />
-          <Page date={formatDateString(dateRightPage)} activeWidgets={activeWidgetsRight} />
+          <Page
+            date={formatDateString(dateRightPage)}
+            activeWidgets={activeWidgetsRight}
+            setActiveWidgets={setActiveWidgetsRight}
+          />
           <ArrowForwardIcon className={journalStyles.ArrowRight} onClick={handleRightNav} />
         </div>
       </div>
