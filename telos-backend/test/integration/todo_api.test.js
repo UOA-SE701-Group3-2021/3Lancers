@@ -37,22 +37,22 @@ beforeEach(async () => {
 
   task1 = {
     name: 'task1',
-    createdDate: '2021-01-01T00:00:00',
-    dueDate: '2021-01-01T00:00:00',
+    createdDate: '2021-01-01',
+    dueDate: '2021-01-01',
     completed: false,
   };
 
   task2 = {
     name: 'task2',
-    createdDate: '2021-01-01T00:00:00',
-    dueDate: '2021-01-02T00:00:00',
+    createdDate: '2021-01-01',
+    dueDate: '2021-01-02',
     completed: false,
   };
 
   task3 = {
     name: 'task3',
-    createdDate: '2021-01-01T00:00:00',
-    dueDate: '2021-01-03T00:00:00',
+    createdDate: '2021-01-01',
+    dueDate: '2021-01-03',
     completed: false,
   };
 
@@ -75,8 +75,8 @@ afterAll((done) => {
 it('Can post a todo task', async () => {
   const body = {
     name: 'Test todo task',
-    createdDate: '2021-01-01T00:00:00',
-    dueDate: '2021-01-04T00:00:00',
+    createdDate: '2021-01-01',
+    dueDate: '2021-01-04',
     completed: false,
   };
   const response = await axios.post(`http://localhost:${port}/api/todo`, body);
@@ -100,8 +100,8 @@ it('Can put a todo task to update it', async () => {
   await axios.put(`http://localhost:${port}/api/todo/${task1._id}`, {
     _id: task1._id,
     name: 'Updated task1',
-    startTime: '2021-01-01T00:00:00',
-    endTime: '2021-02-01T00:00:00',
+    startTime: '2021-01-01',
+    endTime: '2021-02-01',
   });
 
   // Check 1 remains same, others change.
