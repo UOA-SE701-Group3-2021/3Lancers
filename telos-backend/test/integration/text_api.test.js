@@ -66,22 +66,27 @@ afterAll((done) => {
   });
 });
 
+// Text is created through posting to the /api/journal endpoint.
 it('can post a text instance', async () => {
   const body = {
-    text: 'test lorem ipsum',
-    widgetId: 'abcd1e6a0ba62570afcedd3a',
+    date: '2021-01-01',
+    position: {
+      row: 2,
+      col: 2,
+    },
+    type: 'text',
   };
-  const response = await axios.post(`http://localhost:${port}/api/text`, body);
+  const response = await axios.post(`http://localhost:${port}/api/journal`, body);
   const returnData = response.data;
 
-  expect(returnData._id).toBeDefined();
-  expect(returnData.text).toBe(body.text);
-  expect(returnData.widgetId).toBe(body.widgetId);
+  expect(returnData.data[0]._id).toBeDefined();
+  expect(returnData.data[0].text).toBe('');
+  expect(returnData.data[0].widgetId).toBe(returnData.widget._id);
 
   // Response same as what is in database.
-  const textData = await Text.findById(returnData._id);
-  expect(returnData.text).toBe(textData.text);
-  expect(returnData.widgetId).toBe(textData.widgetId.toString());
+  const textData = await Text.findById(returnData.data[0]._id);
+  expect(returnData.data[0].text).toBe(textData.text);
+  expect(returnData.data[0].widgetId).toBe(textData.widgetId.toString());
 });
 
 it('Can put text to update it', async () => {
