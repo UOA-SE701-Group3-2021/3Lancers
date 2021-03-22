@@ -1,8 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 
 // Setup Express and assign it a port (cannot be same as CRA default port)
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
