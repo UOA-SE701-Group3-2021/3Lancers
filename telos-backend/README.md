@@ -6,7 +6,7 @@ The Telos backend server runs on the [Express](https://expressjs.com/) framework
 [MongoDB](https://www.mongodb.com/): follow the installation and configuration instructions [here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#procedure).
 
 # Running the backend
-1. Start a local MongoDB instance ([instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#procedure))
+1. Start a local MongoDB instance from the command line ([instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#run-mongodb-from-cmd))
 2. In a different terminal session, `cd` to `3Lancers/telos-backend`
 3. Execute `npm ci` to install dependencies
 4. Run the backend with `npm run start`
