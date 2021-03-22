@@ -26,7 +26,7 @@
 .ArrowLeft {
   position: absolute;
   bottom: 25px;
-  left: 28px;
+  left: 116px;
   cursor: pointer;
 }
 .ArrowRight {
@@ -38,7 +38,7 @@
 
 .DateSelect {
   position: absolute;
-  left: 0px;
+  left: 15px;
   border: none;
   background-color: transparent;
   outline: none;

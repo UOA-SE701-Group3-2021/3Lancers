@@ -5,25 +5,28 @@ import DraggableWidget from '../../dnd/DraggableWidget';
 import { WidgetTypes } from '../../dnd/WidgetTypes';
 import pageStyles from './Page.module.css';
 
-const Page = ({ date, leftPage }) => {
+// eslint-disable-next-line no-unused-vars
+const Page = ({ date, leftPage, activeWidgets }) => {
   const [widgets, setWidgets] = useState({});
 
   useEffect(() => {
     // Temp code to display all widgets. Remove when backend is ready.
-    if (leftPage) {
-      setWidgets({
-        0: { widgetType: 'todo', top: 0, left: 0 },
-        1: { widgetType: 'habit_tracker', top: 200, left: 200 },
-      });
-    } else {
-      setWidgets({
-        2: { widgetType: 'text', top: 100, left: 100 },
-        3: { widgetType: 'calendar', top: 300, left: 300 },
-      });
-    }
+    // if (leftPage) {
+    //   setWidgets({
+    //     0: { widgetType: 'todo', top: 0, left: 0 },
+    //     1: { widgetType: 'habit_tracker', top: 200, left: 200 },
+    //   });
+    // } else {
+    //   setWidgets({
+    //     2: { widgetType: 'text', top: 100, left: 100 },
+    //     3: { widgetType: 'calendar', top: 300, left: 300 },
+    //   });
+    // }
+
+    if (activeWidgets) setWidgets(activeWidgets);
 
     // TODO: Fetch widgets
-  }, [date]);
+  }, [date, activeWidgets]);
 
   const moveWidget = useCallback(
     (id, left, top) => {
