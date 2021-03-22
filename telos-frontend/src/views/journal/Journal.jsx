@@ -88,7 +88,12 @@ const Journal = () => {
             dateFormat="MMMM d, yyyy"
             className={journalStyles.DateSelect}
           />
-          <Page date={formatDateString(dateLeftPage)} leftPage activeWidgets={activeWidgetsLeft} />
+          <Page
+            date={formatDateString(dateLeftPage)}
+            leftPage
+            activeWidgets={activeWidgetsLeft}
+            setActiveWidgets={setActiveWidgetsLeft}
+          />
         </div>
         <div className={journalStyles.HalfJournal}>
           <DatePicker

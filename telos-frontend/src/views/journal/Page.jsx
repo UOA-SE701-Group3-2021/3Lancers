@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 import DraggableWidget from '../../dnd/DraggableWidget';
@@ -6,34 +6,34 @@ import { WidgetTypes } from '../../dnd/WidgetTypes';
 import pageStyles from './Page.module.css';
 
 // eslint-disable-next-line no-unused-vars
-const Page = ({ date, leftPage, activeWidgets }) => {
-  const [widgets, setWidgets] = useState({});
+const Page = ({ date, leftPage, activeWidgets, setActiveWidgets }) => {
+  // const [widgets, setWidgets] = useState({});
 
-  useEffect(() => {
-    // Temp code to display all widgets. Remove when backend is ready.
-    // if (leftPage) {
-    //   setWidgets({
-    //     0: { widgetType: 'todo', top: 0, left: 0 },
-    //     1: { widgetType: 'habit_tracker', top: 200, left: 200 },
-    //   });
-    // } else {
-    //   setWidgets({
-    //     2: { widgetType: 'text', top: 100, left: 100 },
-    //     3: { widgetType: 'calendar', top: 300, left: 300 },
-    //   });
-    // }
+  // useEffect(() => {
+  //   // Temp code to display all widgets. Remove when backend is ready.
+  //   // if (leftPage) {
+  //   //   setWidgets({
+  //   //     0: { widgetType: 'todo', top: 0, left: 0 },
+  //   //     1: { widgetType: 'habit_tracker', top: 200, left: 200 },
+  //   //   });
+  //   // } else {
+  //   //   setWidgets({
+  //   //     2: { widgetType: 'text', top: 100, left: 100 },
+  //   //     3: { widgetType: 'calendar', top: 300, left: 300 },
+  //   //   });
+  //   // }
 
-    if (activeWidgets) setWidgets(activeWidgets);
+  //   // if (activeWidgets) setWidgets(activeWidgets);
 
-    // TODO: Fetch widgets
-  }, [date, activeWidgets]);
+  //   // TODO: Fetch widgets
+  // }, [date, activeWidgets]);
 
   const moveWidget = useCallback(
     (id, left, top) => {
       // Widgets are page specific and cannot be moved from one page to another
-      if (widgets[id]) {
-        setWidgets(
-          update(widgets, {
+      if (activeWidgets[id]) {
+        setActiveWidgets(
+          update(activeWidgets, {
             [id]: {
               $merge: { left, top },
             },
@@ -41,7 +41,7 @@ const Page = ({ date, leftPage, activeWidgets }) => {
         );
       }
     },
-    [widgets]
+    [activeWidgets]
   );
 
   const [, drop] = useDrop(
@@ -67,8 +67,8 @@ const Page = ({ date, leftPage, activeWidgets }) => {
 
   return (
     <div className={pageStyles.Page} ref={drop}>
-      {Object.keys(widgets).map((key) => (
-        <DraggableWidget id={key} {...widgets[key]} />
+      {Object.keys(activeWidgets).map((key) => (
+        <DraggableWidget id={key} {...activeWidgets[key]} />
       ))}
       <textarea />
     </div>
