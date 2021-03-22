@@ -128,7 +128,7 @@ it('can delete a task', async () => {
   expect(new Date(todotasks[0].dueDate)).toStrictEqual(new Date(task2.dueDate));
   expect(todotasks[0].completed).toBe(task2.completed);
 
-  // Check event3 is the same
+  // Check task3 is the same
   expect(todotasks[1]._id).toStrictEqual(task3._id);
   expect(todotasks[1].name).toBe(task3.name);
   expect(new Date(todotasks[1].createdDate)).toStrictEqual(new Date(task3.createdDate));
