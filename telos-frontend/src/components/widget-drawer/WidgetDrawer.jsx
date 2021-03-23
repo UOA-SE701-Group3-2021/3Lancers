@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Tooltip } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
 import { purple } from '@material-ui/core/colors';
@@ -35,7 +36,6 @@ const WidgetDrawer = ({ children, isRight, toggleIsRight }) => {
 
   return (
     <div className={drawerStyle.WidgetDrawerParent}>
-      <PurpleSwitch checked={isRight} onChange={toggleIsRight} name="checkedA" />
       <div
         className={`${drawerStyle.closer} ${isHidden ? drawerStyle.flipped : BLANK}`}
         onClick={handleOnClick}
@@ -47,6 +47,9 @@ const WidgetDrawer = ({ children, isRight, toggleIsRight }) => {
           isHidden ? drawerStyle.technicallyHidden : BLANK
         }`}
       >
+        <Tooltip title="Toggle for adding widgets left and right">
+          <PurpleSwitch checked={isRight} onChange={toggleIsRight} name="checkedA" />
+        </Tooltip>
         {children}
       </div>
     </div>
