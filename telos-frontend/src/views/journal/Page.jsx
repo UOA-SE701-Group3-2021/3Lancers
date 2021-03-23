@@ -12,7 +12,7 @@ const Page = ({ date, widgets, setWidgets }) => {
 
   // Fetch widgets for page/date
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/journal/${date}`).then(({ data }) => {
+    axios.get(`/api/journal/${date}`).then(({ data }) => {
       const { widgetData, calendarData, habitData, textData, todoData } = data;
       const initData = {
         calendarData,
@@ -42,7 +42,7 @@ const Page = ({ date, widgets, setWidgets }) => {
         newWidgets[index] = widget;
         setWidgets(newWidgets);
 
-        axios.put(`http://localhost:3001/api/journal/${id}`, widget);
+        axios.put(`/api/journal/${id}`, widget);
       }
     },
     [widgets]

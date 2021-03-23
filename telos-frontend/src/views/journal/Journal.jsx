@@ -66,7 +66,7 @@ const Journal = () => {
       position: { row: 0, col: 0 },
     };
 
-    axios.post('http://localhost:3001/api/journal', payload).then(({ data }) => {
+    axios.post('/api/journal', payload).then(({ data }) => {
       if (isRight) {
         setWidgetsRight([...widgetsRight, data.widget]);
       } else {
