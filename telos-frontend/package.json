@@ -2,6 +2,7 @@
   "name": "telos-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001/",
   "dependencies": {
     "@date-io/date-fns": "^2.10.8",
     "@devexpress/dx-core": "^2.7.5",
