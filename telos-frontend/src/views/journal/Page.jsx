@@ -7,13 +7,13 @@ import pageStyles from './Page.module.css';
 
 // eslint has been disabled here as the unused args date and leftPage might be used in future.
 // eslint-disable-next-line no-unused-vars
-const Page = ({ date, leftPage, activeWidgets, setActiveWidgets }) => {
+const Page = ({ date, widgets, setWidgets }) => {
   const moveWidget = useCallback(
     (id, left, top) => {
       // Widgets are page specific and cannot be moved from one page to another
-      if (activeWidgets[id]) {
-        setActiveWidgets(
-          update(activeWidgets, {
+      if (widgets[id]) {
+        setWidgets(
+          update(widgets, {
             [id]: {
               $merge: { left, top },
             },
@@ -21,7 +21,7 @@ const Page = ({ date, leftPage, activeWidgets, setActiveWidgets }) => {
         );
       }
     },
-    [activeWidgets]
+    [widgets]
   );
 
   const [, drop] = useDrop(
@@ -47,8 +47,8 @@ const Page = ({ date, leftPage, activeWidgets, setActiveWidgets }) => {
 
   return (
     <div className={pageStyles.Page} ref={drop}>
-      {Object.keys(activeWidgets).map((key) => (
-        <DraggableWidget id={key} {...activeWidgets[key]} />
+      {Object.keys(widgets).map((key) => (
+        <DraggableWidget id={key} {...widgets[key]} />
       ))}
       <textarea />
     </div>

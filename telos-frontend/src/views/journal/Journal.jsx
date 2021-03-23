@@ -22,9 +22,9 @@ const Journal = () => {
   );
 
   // widgets active on the left page
-  const [activeWidgetsLeft, setActiveWidgetsLeft] = useState([]);
+  const [widgetsLeft, setWidgetsLeft] = useState([]);
   // widgets active on the right page
-  const [activeWidgetsRight, setActiveWidgetsRight] = useState([]);
+  const [widgetsRight, setWidgetsRight] = useState([]);
   // widget will be added on the right page if isRight is true
   const [isRight, setIsRight] = useState(true);
 
@@ -55,9 +55,9 @@ const Journal = () => {
 
   const addNewWidget = (widgetName) => {
     if (isRight) {
-      setActiveWidgetsRight([...activeWidgetsRight, { widgetType: widgetName, top: 0, left: 0 }]);
+      setWidgetsRight([...widgetsRight, { widgetType: widgetName, top: 0, left: 0 }]);
     } else {
-      setActiveWidgetsLeft([...activeWidgetsLeft, { widgetType: widgetName, top: 0, left: 0 }]);
+      setWidgetsLeft([...widgetsLeft, { widgetType: widgetName, top: 0, left: 0 }]);
     }
   };
 
@@ -103,9 +103,8 @@ const Journal = () => {
           />
           <Page
             date={formatDateString(dateLeftPage)}
-            leftPage
-            activeWidgets={activeWidgetsLeft}
-            setActiveWidgets={setActiveWidgetsLeft}
+            widgets={widgetsLeft}
+            setWidgets={setWidgetsLeft}
           />
         </div>
         <div className={journalStyles.HalfJournal}>
@@ -117,8 +116,8 @@ const Journal = () => {
           />
           <Page
             date={formatDateString(dateRightPage)}
-            activeWidgets={activeWidgetsRight}
-            setActiveWidgets={setActiveWidgetsRight}
+            widgets={widgetsRight}
+            setWidgets={setWidgetsRight}
           />
           <ArrowForwardIcon className={journalStyles.ArrowRight} onClick={handleRightNav} />
         </div>
