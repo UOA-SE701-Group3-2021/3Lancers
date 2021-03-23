@@ -117,7 +117,6 @@ it('Can post a habit with empty completedDates, and no endTime', async () => {
   };
   const response = await axios.post(`http://localhost:${port}/api/habittracker`, body);
   const returnData = response.data;
-  console.log(returnData);
 
   expect(returnData._id).toBeDefined();
   expect(returnData.name).toBe(body.name);
