@@ -52,12 +52,10 @@ const TopBar = () => {
   }
 
   //   Stub for user button handler
-  function userMenuHandler() {
-  }
+  function userMenuHandler() {}
 
   //   Stub for settings button handler
-  function settingsMenuHandler() {
-  }
+  function settingsMenuHandler() {}
 
   return (
     <div>
