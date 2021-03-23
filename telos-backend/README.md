@@ -18,7 +18,7 @@ The Telos backend server runs on the [Express](https://expressjs.com/) framework
 Testing is done using the [Jest](https://jestjs.io/) framework combined with an in-memory MongoDB instance ([mongodb-memory-server](https://github.com/nodkz/mongodb-memory-server)). This allows testing to be done without needing to run a local database instance.
 
 ## Running tests
-1. Ensure that a local MongoDB instance is _not_ running (use Ctrl + C at the command line to stop)
+1. Ensure that a local MongoDB instance is _not_ running (use `Ctrl` + `C` at the command line to stop)
 2. `cd` to `3Lancers/telos-backend`
 3. Execute `npm run test`
 
