@@ -10,6 +10,9 @@ import WidgetCalendar from '../../components/calendar/WidgetCalendar';
 import WidgetText from '../../components/text/WidgetText';
 import WidgetTodo from '../../components/todo/WidgetTodo';
 import WidgetHabitTracker from '../../components/habit-tracker/WidgetHabitTracker';
+import { WidgetTypes } from '../../dnd/WidgetTypes';
+
+const axios = require('axios');
 
 const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
 const DAYS_TO_CHANGE_BY = 1;
@@ -26,7 +29,7 @@ const Journal = () => {
   // widgets active on the right page
   const [widgetsRight, setWidgetsRight] = useState([]);
   // widget will be added on the right page if isRight is true
-  const [isRight, setIsRight] = useState(true);
+  const [isRight, setIsRight] = useState(false);
 
   function handleLeftNav() {
     setDateLeftPage(dateLeftPage - DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
@@ -48,17 +51,28 @@ const Journal = () => {
     setDateLeftPage(selectedDate.getTime() - DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
   }
 
+  // Formats date in milliseconds to YYYY-MM-DD format.
   function formatDateString(dateMilliseconds) {
     const date = new Date(dateMilliseconds);
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().split('T')[0];
   }
 
-  const addNewWidget = (widgetName) => {
-    if (isRight) {
-      setWidgetsRight([...widgetsRight, { widgetType: widgetName, top: 0, left: 0 }]);
-    } else {
-      setWidgetsLeft([...widgetsLeft, { widgetType: widgetName, top: 0, left: 0 }]);
-    }
+  const addNewWidget = (type) => {
+    const date = isRight ? formatDateString(dateRightPage) : formatDateString(dateLeftPage);
+
+    const payload = {
+      type,
+      date,
+      position: { row: 0, col: 0 },
+    };
+
+    axios.post('http://localhost:3001/api/journal', payload).then(({ data }) => {
+      if (isRight) {
+        setWidgetsRight([...widgetsRight, data.widget]);
+      } else {
+        setWidgetsLeft([...widgetsLeft, data.widget]);
+      }
+    });
   };
 
   return (
@@ -72,22 +86,22 @@ const Journal = () => {
         >
           <WidgetCalendar
             addNewCalendar={() => {
-              addNewWidget('calendar');
+              addNewWidget(WidgetTypes.CALENDAR);
             }}
           />
           <WidgetTodo
             addNewTodo={() => {
-              addNewWidget('todo');
+              addNewWidget(WidgetTypes.TODO_LIST);
             }}
           />
           <WidgetHabitTracker
             addNewHabitTracker={() => {
-              addNewWidget('habit_tracker');
+              addNewWidget(WidgetTypes.HABIT_TRACKER);
             }}
           />
           <WidgetText
             addNewText={() => {
-              addNewWidget('text');
+              addNewWidget(WidgetTypes.TEXT);
             }}
           />
         </WidgetDrawer>

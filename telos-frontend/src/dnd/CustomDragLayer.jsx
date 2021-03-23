@@ -39,12 +39,14 @@ const CustomDragLayer = () => {
     return null;
   }
 
+  const { data } = item;
+
   return (
     <div style={layerStyles}>
       <div style={getItemStyles(initialOffset, currentOffset)}>
         {/* Render the appropriate widget based on the widget type (itemType). */}
         {/* This widget 'preview' is only rendered when dragging */}
-        {renderWidget(itemType, item)}
+        {renderWidget(itemType, { data })}
       </div>
     </div>
   );
