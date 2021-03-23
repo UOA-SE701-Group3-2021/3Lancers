@@ -37,10 +37,18 @@
 }
 
 .DateSelect {
-  position: absolute;
-  left: 0px;
+  padding-top: 10px;
+  width: 100%;
+  text-align: center;
   border: none;
   background-color: transparent;
   outline: none;
   font-size: 18px;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    display: block;
+    width: 100%;
 }
