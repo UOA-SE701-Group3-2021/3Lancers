@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -53,6 +52,14 @@ const Journal = () => {
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().split('T')[0];
   }
 
+  const addNewWidget = (widgetName) => {
+    if (isRight) {
+      setActiveWidgetsRight([...activeWidgetsRight, { widgetType: widgetName, top: 0, left: 0 }]);
+    } else {
+      setActiveWidgetsLeft([...activeWidgetsLeft, { widgetType: widgetName, top: 0, left: 0 }]);
+    }
+  };
+
   return (
     <div
       style={{
@@ -74,22 +81,24 @@ const Journal = () => {
         >
           <WidgetCalendar
             addNewCalendar={() => {
-              if (isRight) {
-                setActiveWidgetsRight([
-                  ...activeWidgetsRight,
-                  { widgetType: 'calendar', top: 0, left: 0 },
-                ]);
-              } else {
-                setActiveWidgetsLeft([
-                  ...activeWidgetsLeft,
-                  { widgetType: 'calendar', top: 0, left: 0 },
-                ]);
-              }
+              addNewWidget('calendar');
             }}
           />
-          <WidgetTodo />
-          <WidgetHabitTracker />
-          <WidgetText />
+          <WidgetTodo
+            addNewTodo={() => {
+              addNewWidget('todo');
+            }}
+          />
+          <WidgetHabitTracker
+            addNewHabitTracker={() => {
+              addNewWidget('habit_tracker');
+            }}
+          />
+          <WidgetText
+            addNewText={() => {
+              addNewWidget('text');
+            }}
+          />
         </WidgetDrawer>
       </div>
       <div className={journalStyles.Journal}>
