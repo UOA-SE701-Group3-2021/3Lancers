@@ -53,12 +53,10 @@ const TopBar = () => {
 
   //   Stub for user button handler
   function userMenuHandler() {
-    console.log('User button clicked');
   }
 
   //   Stub for settings button handler
   function settingsMenuHandler() {
-    console.log('Settings button clicked');
   }
 
   return (
