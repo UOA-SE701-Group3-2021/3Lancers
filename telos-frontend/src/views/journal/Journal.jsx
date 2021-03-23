@@ -20,11 +20,12 @@ const Journal = () => {
   const [dateRightPage, setDateRightPage] = useState(
     now.getTime() + DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY
   );
-  const [activeWidgetsLeft, setActiveWidgetsLeft] = useState([
-    { widgetType: 'todo', top: 0, left: 0 },
-    { widgetType: 'habit_tracker', top: 200, left: 200 },
-  ]);
+
+  // widgets active on the left page
+  const [activeWidgetsLeft, setActiveWidgetsLeft] = useState([]);
+  // widgets active on the right page
   const [activeWidgetsRight, setActiveWidgetsRight] = useState([]);
+  // widget will be added on the right page if isRight is true
   const [isRight, setIsRight] = useState(true);
 
   function handleLeftNav() {
@@ -61,18 +62,8 @@ const Journal = () => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        height: '100%',
-      }}
-    >
-      <div
-        style={{
-          marginRight: 5,
-        }}
-      >
+    <div className={journalStyles.JournalContainer}>
+      <div className={journalStyles.WidgetDrawerContainer}>
         <WidgetDrawer
           isRight={isRight}
           toggleIsRight={() => {
