@@ -5,6 +5,7 @@ import DraggableWidget from '../../dnd/DraggableWidget';
 import { WidgetTypes } from '../../dnd/WidgetTypes';
 import pageStyles from './Page.module.css';
 
+// eslint has been disabled here as the unused args date and leftPage might be used in future.
 // eslint-disable-next-line no-unused-vars
 const Page = ({ date, leftPage, activeWidgets, setActiveWidgets }) => {
   const moveWidget = useCallback(
