@@ -28,21 +28,25 @@ const Journal = () => {
   // widget will be added on the right page if isRight is true
   const [isRight, setIsRight] = useState(true);
 
+  // Iterate the dates at the top of the journal pages by -1: to be used when the left 'back' arrow button being pressed
   function handleLeftNav() {
     setDateLeftPage(dateLeftPage - DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
     setDateRightPage(dateRightPage - DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
   }
 
+  // Iterate the dates at the top of the journal pages by +1: to be used when the right 'forward' arrow button being pressed
   function handleRightNav() {
     setDateLeftPage(dateLeftPage + DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
     setDateRightPage(dateRightPage + DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
   }
 
+  // Set the dates at the top of the journal pages to the given date: to be used when a new date is selected via the left datepicker
   function handleLeftDatePick(selectedDate) {
     setDateLeftPage(selectedDate.getTime());
     setDateRightPage(selectedDate.getTime() + DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
   }
 
+  // Set the dates at the top of the journal pages to the given date: to be used when a new date is selected via the right datepicker
   function handleRightDatePick(selectedDate) {
     setDateRightPage(selectedDate.getTime());
     setDateLeftPage(selectedDate.getTime() - DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
