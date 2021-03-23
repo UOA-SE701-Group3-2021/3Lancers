@@ -5,6 +5,11 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Page from './Page';
 import journalStyles from './Journal.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import WidgetDrawer from '../../components/widget-drawer/WidgetDrawer';
+import WidgetCalendar from '../../components/calendar/WidgetCalendar';
+import WidgetText from '../../components/text/WidgetText';
+import WidgetTodo from '../../components/todo/WidgetTodo';
+import WidgetHabitTracker from '../../components/habit-tracker/WidgetHabitTracker';
 
 const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
 const DAYS_TO_CHANGE_BY = 1;
@@ -15,6 +20,13 @@ const Journal = () => {
   const [dateRightPage, setDateRightPage] = useState(
     now.getTime() + DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY
   );
+
+  // widgets active on the left page
+  const [widgetsLeft, setWidgetsLeft] = useState([]);
+  // widgets active on the right page
+  const [widgetsRight, setWidgetsRight] = useState([]);
+  // widget will be added on the right page if isRight is true
+  const [isRight, setIsRight] = useState(true);
 
   function handleLeftNav() {
     setDateLeftPage(dateLeftPage - DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
@@ -41,27 +53,74 @@ const Journal = () => {
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().split('T')[0];
   }
 
+  const addNewWidget = (widgetName) => {
+    if (isRight) {
+      setWidgetsRight([...widgetsRight, { widgetType: widgetName, top: 0, left: 0 }]);
+    } else {
+      setWidgetsLeft([...widgetsLeft, { widgetType: widgetName, top: 0, left: 0 }]);
+    }
+  };
+
   return (
-    <div className={journalStyles.Journal}>
-      <div className={journalStyles.HalfJournal}>
-        <ArrowBackIcon className={journalStyles.ArrowLeft} onClick={handleLeftNav} />
-        <DatePicker
-          selected={dateLeftPage}
-          onChange={(selectedDate) => handleLeftDatePick(selectedDate)}
-          dateFormat="MMMM d, yyyy"
-          className={journalStyles.DateSelect}
-        />
-        <Page date={formatDateString(dateLeftPage)} leftPage />
+    <div className={journalStyles.JournalContainer}>
+      <div className={journalStyles.WidgetDrawerContainer}>
+        <WidgetDrawer
+          isRight={isRight}
+          toggleIsRight={() => {
+            setIsRight(!isRight);
+          }}
+        >
+          <WidgetCalendar
+            addNewCalendar={() => {
+              addNewWidget('calendar');
+            }}
+          />
+          <WidgetTodo
+            addNewTodo={() => {
+              addNewWidget('todo');
+            }}
+          />
+          <WidgetHabitTracker
+            addNewHabitTracker={() => {
+              addNewWidget('habit_tracker');
+            }}
+          />
+          <WidgetText
+            addNewText={() => {
+              addNewWidget('text');
+            }}
+          />
+        </WidgetDrawer>
       </div>
-      <div className={journalStyles.HalfJournal}>
-        <DatePicker
-          selected={dateRightPage}
-          onChange={(selectedDate) => handleRightDatePick(selectedDate)}
-          dateFormat="MMMM d, yyyy"
-          className={journalStyles.DateSelect}
-        />
-        <Page date={formatDateString(dateRightPage)} />
-        <ArrowForwardIcon className={journalStyles.ArrowRight} onClick={handleRightNav} />
+      <div className={journalStyles.Journal}>
+        <div className={journalStyles.HalfJournal}>
+          <ArrowBackIcon className={journalStyles.ArrowLeft} onClick={handleLeftNav} />
+          <DatePicker
+            selected={dateLeftPage}
+            onChange={(selectedDate) => handleLeftDatePick(selectedDate)}
+            dateFormat="MMMM d, yyyy"
+            className={journalStyles.DateSelect}
+          />
+          <Page
+            date={formatDateString(dateLeftPage)}
+            widgets={widgetsLeft}
+            setWidgets={setWidgetsLeft}
+          />
+        </div>
+        <div className={journalStyles.HalfJournal}>
+          <DatePicker
+            selected={dateRightPage}
+            onChange={(selectedDate) => handleRightDatePick(selectedDate)}
+            dateFormat="MMMM d, yyyy"
+            className={journalStyles.DateSelect}
+          />
+          <Page
+            date={formatDateString(dateRightPage)}
+            widgets={widgetsRight}
+            setWidgets={setWidgetsRight}
+          />
+          <ArrowForwardIcon className={journalStyles.ArrowRight} onClick={handleRightNav} />
+        </div>
       </div>
     </div>
   );

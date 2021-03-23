@@ -1,7 +1,7 @@
 import styles from '../Widget.module.css';
 
-const WidgetText = () => (
-  <div className={`${styles.widgetIcon} ${styles.vertical}`}>
+const WidgetText = ({ addNewText }) => (
+  <div onClick={addNewText} className={`${styles.widgetIcon} ${styles.vertical}`}>
     <div className={styles.bigText}>T</div>
   </div>
 );

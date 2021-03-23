@@ -1,3 +1,13 @@
+.JournalContainer {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.WidgetDrawerContainer {
+  margin-right: 5;
+}
+
 .Journal {
   background-image: url('./journal.png');
   background-size: 100% 100%;
@@ -26,7 +36,7 @@
 .ArrowLeft {
   position: absolute;
   bottom: 25px;
-  left: 28px;
+  left: 116px;
   cursor: pointer;
 }
 .ArrowRight {
@@ -38,7 +48,7 @@
 
 .DateSelect {
   position: absolute;
-  left: 0px;
+  left: 15px;
   border: none;
   background-color: transparent;
   outline: none;
