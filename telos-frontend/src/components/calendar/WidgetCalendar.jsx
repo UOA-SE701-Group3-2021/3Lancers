@@ -1,7 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import moment from 'moment';
-import { useState } from 'react';
 import widgetStyles from '../Widget.module.css';
 import calendarWidgetStyles from './WidgetCalendar.module.css';
 
