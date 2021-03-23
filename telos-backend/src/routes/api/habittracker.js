@@ -1,25 +1,46 @@
 const express = require('express');
+const Habit = require('../../models/habit');
 
 const router = express.Router();
 
+// Note: When posting these habits, they can technically go on for an unlimited time.
+// As a result, we persist the information in a different way from how we return it in
+// the GET /api/journal endpoint to avoid creating a huge number of data points.
 router.post('/', (req, res) => {
-  res.json({
-    endpoint: '/habittracker',
-    request: `POST name: ${req.body.name}, daysOfWeek: ${req.body.daysOfWeek}, start: ${req.body.start}, end: ${req.body.end}, completedDates: ${req.body.completedDates}`,
+  const newHabit = new Habit({
+    name: req.body.name,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    daysOfWeek: req.body.daysOfWeek,
+    completedDates: req.body.completedDates,
+  });
+  newHabit.save((err) => {
+    if (err) {
+      return res.status(400).json({ error: err });
+    }
+    return res.status(201).json(newHabit);
   });
 });
 
 router.put('/:id', (req, res) => {
-  res.json({
-    endpoint: '/habittracker',
-    request: `PUT id: ${req.params.id}, name: ${req.body.name}, daysOfWeek: ${req.body.daysOfWeek}, start: ${req.body.start}, end: ${req.body.end}, completedDates: ${req.body.completedDates}`,
+  const query = { _id: req.params.id };
+
+  Habit.findOneAndUpdate(query, req.body, (err) => {
+    if (err) {
+      return res.status(400).json({ error: err });
+    }
+    return res.sendStatus(204);
   });
 });
 
 router.delete('/:id', (req, res) => {
-  res.json({
-    endpoint: '/habittracker',
-    request: `DELETE id: ${req.params.id}`,
+  const query = { _id: req.params.id };
+
+  Habit.deleteOne(query, (err) => {
+    if (err) {
+      return res.status(400).json({ error: err });
+    }
+    return res.sendStatus(204);
   });
 });
 
