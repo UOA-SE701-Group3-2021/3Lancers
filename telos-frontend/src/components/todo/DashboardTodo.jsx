@@ -138,7 +138,7 @@ const DashboardTodo = () => {
     setOpen(false);
   };
 
-  //  Add a todo 
+  // Adding a todo from the 'New to do' dialog
   const firstEvent = (event) => {
     setTodoName({ name: event.target.value, due: todoDueDate, isOverdue: true, completed: false });
   };
