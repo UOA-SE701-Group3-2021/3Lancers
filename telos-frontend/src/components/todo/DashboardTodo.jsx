@@ -281,6 +281,7 @@ const DashboardTodo = () => {
                   style={{
                     textDecorationLine: cancel.indexOf(todo.name) !== -1 ? 'line-through' : '',
                     textDecorationStyle: cancel.indexOf(todo.name) !== -1 ? 'solid' : '',
+                    color: todo.completed ? 'rgba(98,0,238,1)' : 'rgba(0, 0, 0, 0.6)',
                   }}
                 />
               ) : (
@@ -290,7 +291,6 @@ const DashboardTodo = () => {
                   style={{
                     textDecorationLine: cancel.indexOf(todo.name) !== -1 ? 'line-through' : '',
                     textDecorationStyle: cancel.indexOf(todo.name) !== -1 ? 'solid' : '',
-                    color: todo.completed ? 'rgba(98,0,238,1)' : 'rgba(0, 0, 0, 0.6)',
                   }}
                   id={labelId}
                   primary={` ${todo.name}`}
