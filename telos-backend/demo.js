@@ -1,26 +1,22 @@
 const TodoTask = require('./src/models/todo_task');
 
-// Check if there are any TodoTask documents
+// Creating dummy todo task widget document if one doesn't already exist
 TodoTask.find().countDocuments((err, count) => {
-  // If there are none
   if (count === 0) {
-    // create new TodoTask document
     const entry = new TodoTask({
       name: 'Lorem',
       createdDate: '2021-01-01',
       dueDate: '2021-01-01',
       completed: false,
     });
-    // save document
     entry.save();
   }
 });
 
 const Text = require('./src/models/text');
 
-// look for existing text documents
+// Creating dummy text widget document if one doesn't already exist
 Text.find().countDocuments((err, count) => {
-  // If there are no text documents
   if (count === 0) {
     const entry = new Text({
       widgetId: 'abcdee6a0ba62570afcedd3a',
@@ -33,7 +29,6 @@ Text.find().countDocuments((err, count) => {
         'nulla pariatur. Excepteur sint occaecat cupidatat non proident,' +
         'sunt in culpa qui officia deserunt mollit anim id est laborum.',
     });
-    // save text document
     entry.save();
   }
 });
