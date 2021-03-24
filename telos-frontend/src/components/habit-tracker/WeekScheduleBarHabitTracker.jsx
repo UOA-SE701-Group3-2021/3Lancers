@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import habitStyle from './JournalHabitTracker.module.css';
+import habitStyle from './HabitTracker.module.css';
 
+// This is a sub-component of the pop-out window of the habit trackers
+// Which provides the interfaces for changing the repeat weekdays of a habituals in a week
 const WeekScheduleBarHabitTracker = () => {
+  // The functions to change the status of a habituals in each weekday
   const [monStatus, setMonStatus] = useState(false);
   const [tueStatus, setTueStatus] = useState(false);
   const [wedStatus, setWedStatus] = useState(false);

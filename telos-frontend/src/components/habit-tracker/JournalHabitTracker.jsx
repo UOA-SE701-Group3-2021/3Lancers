@@ -14,9 +14,11 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import { useState } from 'react';
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
-import habitStyle from './JournalHabitTracker.module.css';
+import habitStyle from './HabitTracker.module.css';
 
+// This react component draws a Material-UI Habit Tracker in Journal View for the user to note their habituals
 const JournalHabitTracker = () => {
+  // The functions that update and save the changes
   const [habitTitle, setTitle] = useState('');
   const [tempTitle, setTempTitle] = useState(habitTitle);
   const [habitDes, setDes] = useState('');
@@ -25,8 +27,12 @@ const JournalHabitTracker = () => {
   const [startDate, setStartDate] = useState('2021-01-01');
   const [endType, setEndType] = useState('Never');
   const [endDate, setEndDate] = useState('');
+
+  // If the add button of the main widget is clicked, isEdit will become true then unhides the pop-out window.
+  // If the save or close buttons of the pop-out window is clicked, isEdit will become false then hides the pop-out window.
   const [isEdit, setEditStatus] = useState(false);
 
+  // The dummy data for the widget
   const habitList = [
     {
       habitName: 'Jogging',
@@ -38,7 +44,7 @@ const JournalHabitTracker = () => {
       habitName: 'Swimming',
       start: '2019-01-01',
       end: '2020-01-01',
-      eventInToday: false,
+      eventInToday: false, // if a event is not available today, it will not be rendered
     },
     {
       habitName: 'Gamming',
@@ -51,6 +57,7 @@ const JournalHabitTracker = () => {
   // eslint-disable-next-line no-unused-vars
   const [newhabit, setNewhabit] = useState(habitList);
 
+  // Add a new habit to the database when save button triggered
   const addHobby = (HabitName, HabitEtart, HabitEnd, isEventToday) => {
     newhabit.push({
       habitName: HabitName,
@@ -60,6 +67,7 @@ const JournalHabitTracker = () => {
     });
   };
 
+  // The following functions are for saving the drafts
   const handleChangeOnName = (event) => {
     setTempTitle(event.target.value);
   };
@@ -84,6 +92,7 @@ const JournalHabitTracker = () => {
     setEndType(event.target.value);
   };
 
+  // Save the changes and render
   const saveChange = () => {
     setTitle(tempTitle);
     setDes(tempDes);
@@ -91,6 +100,7 @@ const JournalHabitTracker = () => {
   };
 
   return (
+    // Main window of the widgets
     <div className={habitStyle.container}>
       <div className={habitStyle.HabitualsTitle}>
         <h2 align="middle">Habituals</h2>
@@ -105,7 +115,7 @@ const JournalHabitTracker = () => {
           {newhabit.map(
             (item, index) =>
               item.eventInToday && (
-                <div>
+                <div key={`HabitKey${index + 1}`}>
                   <li>{`H${index + 1}`}</li>
                   <p>{item.habitName}</p>
                 </div>
@@ -113,7 +123,7 @@ const JournalHabitTracker = () => {
           )}
         </ul>
       </div>
-
+      {/* Pop out window of the widget */}
       <Dialog
         open={isEdit}
         onClose={() => {
