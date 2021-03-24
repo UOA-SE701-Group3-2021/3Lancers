@@ -116,7 +116,8 @@ const DashboardTodo = () => {
     });
   };
 
-  // handle checkbox
+  // Sets the selected to do to checked/completed if the user clicks on the selected item
+  // Will add the completed item to the completed array
   const handleToggle = (value) => () => {
     const newList = [...newItem];
     for (const x of newList) {
@@ -137,6 +138,7 @@ const DashboardTodo = () => {
     setOpen(false);
   };
 
+  //  Add a todo 
   const firstEvent = (event) => {
     setTodoName({ name: event.target.value, due: todoDueDate, isOverdue: true, completed: false });
   };
@@ -151,10 +153,12 @@ const DashboardTodo = () => {
     });
   };
 
+  // To set the state of migrate once it has been pressed in the menu button as the user indicates that they need to change the date
   const openMigrate = () => {
     setMigrate(true);
   };
 
+  // To indicate that the state of migrate has changed as the user is not longer on the button
   const closeMigrate = () => {
     setMigrate(false);
     sortEvent();
@@ -173,6 +177,8 @@ const DashboardTodo = () => {
     });
     setAnchorEl(event.currentTarget);
   };
+
+  // Looks for todolist item by name to cancel, delete and schedule
 
   const cancelEvent = () => {
     const currentIndex = cancel.indexOf(selectedTodo.name);
@@ -215,6 +221,7 @@ const DashboardTodo = () => {
 
   return (
     <Box className={styles.container}>
+      {/* Setting the title of the To Do List, with customised styles added in the css file */}
       <div className={styles.header}>
         <p> To Do </p>
       </div>
@@ -223,6 +230,7 @@ const DashboardTodo = () => {
         {newItem.map((todo) => {
           const labelId = `checkbox-list-label-${todo}`;
           return (
+            // Item is binded with a name key and when it is pressed the item will become completed
             <ListItem
               className={styles.tasks}
               key={todo.name}
@@ -231,6 +239,7 @@ const DashboardTodo = () => {
               button
               onClick={handleToggle(todo.name)}
             >
+              {/* Checks if the to do is overdue or not, if the task is overdue then the task will be displayed in red */}
               {!todo.isOverdue ? (
                 <ListItemIcon>
                   <Checkbox
@@ -244,6 +253,7 @@ const DashboardTodo = () => {
                 </ListItemIcon>
               ) : (
                 <ListItemIcon>
+                  {/* Overdue checkbox properties */}
                   <Checkbox
                     className={styles.checkbox}
                     edge="start"
@@ -256,6 +266,8 @@ const DashboardTodo = () => {
                 </ListItemIcon>
               )}
               {!todo.isOverdue ? (
+                // Displays the description of the to do list item, if a to do is cancelled on the day then it will be presented with a line through the text
+                // If it is not cancelled, text will appear as normal
                 <ListItemText
                   id={labelId}
                   primary={` ${todo.name}`}
@@ -266,6 +278,7 @@ const DashboardTodo = () => {
                   }}
                 />
               ) : (
+                // Displays the description in red as it is overdue
                 <ListItemText
                   primaryTypographyProps={{ style: outdated }}
                   style={{
@@ -278,6 +291,8 @@ const DashboardTodo = () => {
                   secondary={` ${todo.due}`}
                 />
               )}
+              {/* The Icons (secondary action) are different depending on if the task is overdue. 
+              A verticle three dot icon button will be displayed and it will set the index of what to do has been selected */}
               {!todo.isOverdue ? (
                 <ListItemSecondaryAction>
                   <IconButton
@@ -291,6 +306,8 @@ const DashboardTodo = () => {
                   </IconButton>
                 </ListItemSecondaryAction>
               ) : (
+                // Secondary action will display an icon button with an exclaimation mark to indicate that the task is over due. To action what to do with the task, user needs to click the icon for options
+                // Sets the active index to the to do that was selected
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
@@ -308,14 +325,18 @@ const DashboardTodo = () => {
         })}
       </List>
       <div>
+        {/* A textbox to indicate to the user that they can enter new to do's 
+        Text box has been disabled for typing to avoid confusion and allow the user to enter a new to do once they click on the + sign  */}
         <FormControl className={styles.inputbox} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
+          {/* Indicates the style of the text box */}
           <OutlinedInput
             disabled
             id="outlined-disabled"
             label="Disabled"
             endAdornment={
               <InputAdornment position="end">
+                {/* When the user clicks on the button a modal will pop up allowing the user to set their requirements */}
                 <IconButton
                   className={styles.AddBtn}
                   variant="outlined"
@@ -327,6 +348,8 @@ const DashboardTodo = () => {
                 >
                   <AddIcon className={styles.Publish} aria-controls="simple-modal" />
                 </IconButton>
+                {/* The modal that will be displayed for the user to input their description and due date 
+                  User input is stored and added into the new item list */}
                 <Dialog open={open} onClose={closeAdd} aria-labelledby="form-dialog-title">
                   <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
                   <DialogContent>
@@ -340,6 +363,7 @@ const DashboardTodo = () => {
                         label="Description"
                         fullWidth
                       />
+                      {/* For the user to set their due date of the task, can also pick the date from the calendar  */}
                       <TextField
                         id="date"
                         label="Due Date:"
@@ -355,6 +379,8 @@ const DashboardTodo = () => {
                       />
                     </form>
                   </DialogContent>
+                  {/* Button to for the user to cancel or Confirm
+                  If the user confirms, the date and description will be set. If the user cancels then nothing will be set */}
                   <DialogActions>
                     <Button className={classes.button} onClick={closeAdd}>
                       Cancel
@@ -362,6 +388,7 @@ const DashboardTodo = () => {
                     <Button
                       className={classes.button}
                       label="Button"
+                      // Once either buttons has been pressed then the modal will close to show other components
                       onClick={() => {
                         secondEvent();
                         closeAdd();
@@ -377,6 +404,7 @@ const DashboardTodo = () => {
           />
         </FormControl>
       </div>
+      {/* A display menu to display options of what the users can do with the selected to do */}
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -384,6 +412,7 @@ const DashboardTodo = () => {
         open={Boolean(anchorEl)}
         onClose={closeMigrate}
       >
+        {/* Migrate will be set to true so the modal will show up allowing the users to select new dates */}
         <MenuItem
           className={styles.menubar}
           onClick={() => {
@@ -393,6 +422,7 @@ const DashboardTodo = () => {
         >
           Migrate
         </MenuItem>
+        {/* Allows user to cancel the selected to do on the day */}
         <MenuItem
           className={styles.menubar}
           onClick={() => {
@@ -412,6 +442,7 @@ const DashboardTodo = () => {
           Delete
         </MenuItem>
       </Menu>
+      {/* Opens dialog for rescheduling exisiting todo date or due */}
       <Dialog open={migrate} onClose={closeMigrate} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
         <DialogContent className={classes.migrate}>
