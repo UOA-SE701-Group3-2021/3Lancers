@@ -12,9 +12,13 @@ In the middle, there are some normal bullets for days of the week.
 
 On the right-hand-side, there is an Emacs org-mode with bullets, checklists, priorities and text-folding. Of course this is not the only digital bullet-journal option, there are a couple others: Notion, Memento, Kanban boards like Trello etc.
 
+## Getting Started
+To run all features of the application, start the frontend, backend, and MongoDB instances by following the readmes below.
+
 ## Readme
-- Frontend: *https://github.com/UOA-SE701-Group3-2021/3Lancers/blob/main/telos-frontend/README.md*
-- Backend: *https://github.com/UOA-SE701-Group3-2021/3Lancers/blob/main/telos-backend/README.md*
+- [Frontend Readme](https://github.com/UOA-SE701-Group3-2021/3Lancers/blob/main/telos-frontend/README.md)
+- [Backend Readme](https://github.com/UOA-SE701-Group3-2021/3Lancers/blob/main/telos-backend/README.md)
+- MongoDB [Installation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#procedure) and [Running](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#run-mongodb-from-cmd) Instructions (also linked in the Backend Readme)
 
 ## *Developers*
 ***3Lancers***, Software Engineering 701 Group3, The University of Auckland
