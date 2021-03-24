@@ -229,7 +229,7 @@ const JournalTodo = ({ data, date }) => {
                 </ListItemSecondaryAction>
               ) : (
                 // Secondary action will display an icon button with an exclaimation mark to indicate that the task is over due. To action what to do with the task, user needs to click the icon for options
-                 // Sets the active index to the to do that was selected
+                // Sets the active index to the to do that was selected
                 <ListItemSecondaryAction>
                   <IconButton
                     className={styles.moreButton}
@@ -250,8 +250,8 @@ const JournalTodo = ({ data, date }) => {
         })}
       </List>
       <div>
-       {/* A textbox to indicate to the user that they can enter new to do's 
-        Text box has been disabled for typing to avoid confusion and allow the user to enter a new to do once they click on the + sign  */}
+       {/* A textbox to indicate to the user that they can enter new to do's.
+       Text box has been disabled for typing to avoid confusion and allow the user to enter a new to do once they click on the + sign */}
         <FormControl variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
           <OutlinedInput
@@ -288,7 +288,7 @@ const JournalTodo = ({ data, date }) => {
                       fullWidth
                     />
 
-                     {/* For the user to set their due date of the task, can also pick the date from the calendar  */}
+                     {/* For the user to set their due date of the task, can also pick the date from the calendar */}
                     <TextField
                       id="date"
                       label="Due Date:"
