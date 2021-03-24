@@ -3,7 +3,10 @@ The Telos backend server runs on the [Express](https://expressjs.com/) framework
 # Prerequisites
 [Node.js](https://nodejs.org/en/): v14.16.0 was used during development.
 
-[MongoDB](https://www.mongodb.com/): follow the installation and configuration instructions [here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#procedure).
+[MongoDB](https://www.mongodb.com/): follow the installation and configuration instructions 
+- [Windows](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#procedure)
+- [macOS](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/#procedure)
+- [Linux](https://docs.mongodb.com/manual/administration/install-on-linux/#procedure)
 
 # Running the backend
 1. Start a local MongoDB instance from the command line ([instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#run-mongodb-from-cmd))
