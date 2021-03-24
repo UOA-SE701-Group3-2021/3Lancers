@@ -51,7 +51,7 @@ const Journal = () => {
     setDateLeftPage(selectedDate.getTime() - DAYS_TO_CHANGE_BY * MILLISECONDS_PER_DAY);
   }
 
-  // Formats date in milliseconds to YYYY-MM-DD format.
+  // Formats date from milliseconds to YYYY-MM-DD format.
   function formatDateString(dateMilliseconds) {
     const date = new Date(dateMilliseconds);
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().split('T')[0];

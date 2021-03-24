@@ -21,8 +21,8 @@ const Page = ({ date, widgets, setWidgets }) => {
         todoData,
       };
 
-      setWidgets(widgetData);
       setInitialWidgetData(initData);
+      setWidgets(widgetData);
     });
   }, [date]);
 
@@ -93,7 +93,7 @@ const Page = ({ date, widgets, setWidgets }) => {
   return (
     <div className={pageStyles.Page} ref={drop}>
       {widgets.map((widget) => (
-        <DraggableWidget {...widget} data={getDataByWidgetType(widget.type)} />
+        <DraggableWidget key={widget._id} {...widget} data={getDataByWidgetType(widget.type)} />
       ))}
       <textarea />
     </div>

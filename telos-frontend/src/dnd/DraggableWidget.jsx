@@ -37,7 +37,7 @@ const DraggableWidget = memo((props) => {
 
   return (
     <div ref={drag} style={getStyles(position.col, position.row, isDragging)}>
-      {renderWidget(type, { data })}
+      {renderWidget(type, data)}
     </div>
   );
 });
