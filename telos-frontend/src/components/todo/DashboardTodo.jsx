@@ -162,7 +162,6 @@ const DashboardTodo = () => {
 
   const secondEvent = () => {
     setNewItem((prev) => [...prev, todoName]);
-    sortEvent();
   };
   const handleOption = (value) => (event) => {
     setselectedTodo({
