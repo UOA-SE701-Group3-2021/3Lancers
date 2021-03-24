@@ -175,7 +175,7 @@ const DashboardTodo = () => {
   };
 
   const cancelEvent = () => {
-    const currentIndex = cancel.indexOf(selectedTodo.name); 
+    const currentIndex = cancel.indexOf(selectedTodo.name);
     const newCancel = [...cancel];
     if (currentIndex === -1) {
       newCancel.push(selectedTodo.name);
@@ -224,18 +224,18 @@ const DashboardTodo = () => {
           const labelId = `checkbox-list-label-${todo}`;
           return (
             <ListItem
-              className={styles.tasks} 
+              className={styles.tasks}
               key={todo.name}
               role={undefined}
               dense
               button
-              onClick={handleToggle(todo.name)} 
+              onClick={handleToggle(todo.name)}
             >
               {todo.isOverdue ? (
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
-                    style={{ color: '#6200EE' }} 
+                    style={{ color: '#6200EE' }}
                     checked={todo.completed}
                     tabIndex={-1}
                     disableRipple
@@ -267,7 +267,7 @@ const DashboardTodo = () => {
                 />
               ) : (
                 <ListItemText
-                  primaryTypographyProps={{ style: outdated }} 
+                  primaryTypographyProps={{ style: outdated }}
                   style={{
                     textDecorationLine: cancel.indexOf(todo.name) !== -1 ? 'line-through' : '',
                     textDecorationStyle: cancel.indexOf(todo.name) !== -1 ? 'solid' : '',
@@ -282,7 +282,7 @@ const DashboardTodo = () => {
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
-                    aria-label="schedule" 
+                    aria-label="schedule"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                     onClick={handleOption(todo)}
@@ -320,7 +320,7 @@ const DashboardTodo = () => {
                   className={styles.AddBtn}
                   variant="outlined"
                   color="primary"
-                  onClick={openAdd} 
+                  onClick={openAdd}
                   id="simple-modal"
                   anchorEl={anchorEl}
                   add={Boolean(anchorEl)}
@@ -348,7 +348,7 @@ const DashboardTodo = () => {
                         value={todoDueDate}
                         onChange={dateChange}
                         className={classes.datetextField}
-                        fullWidth 
+                        fullWidth
                         InputLabelProps={{
                           shrink: true,
                         }}
@@ -382,7 +382,7 @@ const DashboardTodo = () => {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={closeMigrate} 
+        onClose={closeMigrate}
       >
         <MenuItem
           className={styles.menubar}
