@@ -60,7 +60,7 @@ const useStyles = makeStyles({
 //   },
 // ];
 
-const JournalTodo = ({ data }) => {
+const JournalTodo = ({ data, date }) => {
   const [todos, setTodos] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
@@ -96,11 +96,11 @@ const JournalTodo = ({ data }) => {
   const handleAdd = () => {
     const body = {
       name: todoName,
-      createdDate: new Date().toDateString(),
+      createdDate: date,
       dueDate: todoDueDate,
     };
 
-    axios.post('http://localhost:3001/api/todo', body).then((res) => {
+    axios.post('/api/todo', body).then((res) => {
       const newTodo = res.data;
       setTodos([...todos, newTodo]);
       setTodoName('');
@@ -120,7 +120,7 @@ const JournalTodo = ({ data }) => {
   };
 
   const deleteEvent = () => {
-    axios.delete(`http://localhost:3001/api/todo/${selectedTodo._id}`);
+    axios.delete(`/api/todo/${selectedTodo._id}`);
     setTodos(todos.filter((todo) => todo !== selectedTodo));
   };
 
@@ -145,7 +145,7 @@ const JournalTodo = ({ data }) => {
   const handleToggle = (todo) => {
     const { _id, completed } = todo;
 
-    axios.put(`http://localhost:3001/api/todo/${_id}`, { completed: !completed });
+    axios.put(`/api/todo/${_id}`, { completed: !completed });
 
     const index = todos.indexOf(todo);
     const newTodos = [...todos];

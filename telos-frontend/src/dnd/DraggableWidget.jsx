@@ -14,21 +14,21 @@ function getStyles(left, top) {
 
 // A component for widgets that can be dragged
 const DraggableWidget = memo((props) => {
-  const { _id, position, type, data } = props;
+  const { id, position, type, data, date } = props;
   const [, drag] = useDrag(
     () => ({
       type,
-      item: { _id, position, data },
+      item: { id, position },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [_id, position, type]
+    [id, position, type]
   );
 
   return (
     <div ref={drag} style={getStyles(position.col, position.row)}>
-      {renderWidget(type, data)}
+      {renderWidget(type, { data, date })}
     </div>
   );
 });
