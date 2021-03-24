@@ -21,8 +21,8 @@ const Page = ({ date, widgets, setWidgets }) => {
         todoData,
       };
 
-      setWidgets(widgetData);
       setInitialWidgetData(initData);
+      setWidgets(widgetData);
     });
   }, [date]);
 
@@ -35,6 +35,8 @@ const Page = ({ date, widgets, setWidgets }) => {
       if (index !== -1) {
         const newWidgets = [...widgets];
         const widget = { ...widgets[index] };
+
+        // Would like to have a grid system in the future so that positions scale with screen size.
         widget.position = {
           row: top,
           col: left,
@@ -62,7 +64,7 @@ const Page = ({ date, widgets, setWidgets }) => {
         const left = Math.round(item.position.col + delta.x);
         const top = Math.round(item.position.row + delta.y);
 
-        moveWidget(item._id, left, top);
+        moveWidget(item.id, left, top);
         return undefined;
       },
     }),
@@ -93,7 +95,14 @@ const Page = ({ date, widgets, setWidgets }) => {
   return (
     <div className={pageStyles.Page} ref={drop}>
       {widgets.map((widget) => (
-        <DraggableWidget {...widget} data={getDataByWidgetType(widget.type)} />
+        <DraggableWidget
+          key={widget._id}
+          id={widget._id}
+          type={widget.type}
+          position={widget.position}
+          data={getDataByWidgetType(widget.type)}
+          date={date}
+        />
       ))}
       <textarea />
     </div>

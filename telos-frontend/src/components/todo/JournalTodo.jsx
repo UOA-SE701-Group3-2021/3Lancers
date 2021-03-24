@@ -24,10 +24,12 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ErrorIcon from '@material-ui/icons/Error';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import styles from './JournalTodo.module.css';
 import './JournalTodoCheckbox.css';
+
+const axios = require('axios');
 
 const useStyles = makeStyles({
   root: {
@@ -45,30 +47,30 @@ const useStyles = makeStyles({
   },
 });
 
-const JournalTodo = () => {
-  const listitems = [
-    {
-      name: 'OnGoing',
-      onGoing: true,
-      completed: false,
-    },
-    {
-      name: 'OutDated',
-      onGoing: false,
-      completed: true,
-    },
-  ];
+// const listitems = [
+//   {
+//     name: 'OnGoing',
+//     isOverdue: true,
+//     completed: false,
+//   },
+//   {
+//     name: 'OutDated',
+//     isOverdue: false,
+//     completed: true,
+//   },
+// ];
 
-  const [checked, setChecked] = useState([0]);
-  const [item, setItem] = useState('');
-  const [newItem, setNewItem] = useState(listitems);
+const JournalTodo = ({ data, date }) => {
+  const [todos, setTodos] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
   // const [deleted, setDelete] = useState([0]);
   // const [toBeDel, setToBeDel] = useState('');
   // const [newDate, setNewDate] = useState('');
-  // const [newItemDate, setItemDate] = useState('');
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedTodo, setSelectedTodo] = useState({});
+  const [todoName, setTodoName] = useState('');
+  const [todoDueDate, setTodoDueDate] = useState();
+
   // const [input, inputEntered] = useState('');
   const [open, setOpen] = useState(false);
   const classes = useStyles();
@@ -78,6 +80,9 @@ const JournalTodo = () => {
   //   setAnchorEl(event.currentTarget);
   //   setOpen(true);
   // };
+  useEffect(() => {
+    setTodos(data);
+  }, [data]);
 
   const handleClickModal = () => {
     setOpen(true);
@@ -88,12 +93,26 @@ const JournalTodo = () => {
     setOpen(false);
   };
 
-  const cancelEvent = () => {
-    const currentIndex = cancel.indexOf(newItem[activeIndex]);
-    const newCancel = [...cancel];
+  const handleAdd = () => {
+    const body = {
+      name: todoName,
+      createdDate: date,
+      dueDate: todoDueDate,
+    };
 
+    axios.post('/api/todo', body).then((res) => {
+      const newTodo = res.data;
+      setTodos([...todos, newTodo]);
+      setTodoName('');
+      setTodoDueDate('');
+    });
+  };
+
+  const cancelEvent = () => {
+    const currentIndex = cancel.indexOf(selectedTodo);
+    const newCancel = [...cancel];
     if (currentIndex === -1) {
-      newCancel.push(newItem[activeIndex]);
+      newCancel.push(selectedTodo);
     } else {
       newCancel.splice(currentIndex, 1);
     }
@@ -101,7 +120,8 @@ const JournalTodo = () => {
   };
 
   const deleteEvent = () => {
-    setNewItem(newItem.filter((_item, index) => index !== activeIndex));
+    axios.delete(`/api/todo/${selectedTodo._id}`);
+    setTodos(todos.filter((todo) => todo !== selectedTodo));
   };
 
   const openMigrate = () => {
@@ -115,31 +135,30 @@ const JournalTodo = () => {
   // const newDateChange = (event) => {
   //   setNewDate(event.target.value);
   //   setItemDate({
-  //     name: newItemDate.name,
+  //     name: todosDate.name,
   //     due: event.target.value,
-  //     onGoing: true,
+  //     isOverdue: true,
   //     completed: false,
   //   });
   // };
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+  const handleToggle = (todo) => {
+    const { _id, completed } = todo;
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    setChecked(newChecked);
-  };
+    axios.put(`/api/todo/${_id}`, { completed: !completed });
 
-  const firstEvent = (event) => {
-    setItem({ name: event.target.value, onGoing: true, completed: false });
+    const index = todos.indexOf(todo);
+    const newTodos = [...todos];
+
+    const newTodo = { ...todo };
+    newTodo.completed = !completed;
+    newTodos[index] = newTodo;
+
+    setTodos(newTodos);
   };
 
   // const secondEvent = () => {
-  //   setNewItem((prev) => [...prev, item]);
+  //   setTodos((prev) => [...prev, item]);
   // };
 
   return (
@@ -149,66 +168,79 @@ const JournalTodo = () => {
       </div>
       <Divider />
       <List>
-        {newItem.map((value, index) => {
-          const labelId = `checkbox-list-label-${value}`;
+        {todos.map((todo, index) => {
+          const labelId = `checkbox-list-label-${todo}`;
           return (
             <ListItem
               className={styles.tasks}
-              key={value.name}
+              key={todo._id}
               role={undefined}
               dense
               button
-              onClick={handleToggle(value)}
+              onClick={() => handleToggle(todo)}
             >
-              {value.onGoing ? (
+              {todo.isOverdue ? (
+                <ListItemIcon>
+                  <Checkbox
+                    edge="start"
+                    className={styles.checkboxOverdue}
+                    checked={todo.completed}
+                    tabIndex={-1}
+                    disableRipple
+                    inputProps={{ 'aria-labelledby': labelId }}
+                  />
+                </ListItemIcon>
+              ) : (
                 <ListItemIcon>
                   <Checkbox
                     className={styles.checkbox}
                     color="primary"
                     edge="start"
-                    checked={checked.indexOf(value) !== -1}
-                    tabIndex={-1}
-                    disableRipple
-                    inputProps={{ 'aria-labelledby': labelId }}
-                  />
-                </ListItemIcon>
-              ) : (
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    className={styles.checkboxOverdue}
-                    checked={checked.indexOf(value) !== -1}
+                    checked={todo.completed}
                     tabIndex={-1}
                     disableRipple
                     inputProps={{ 'aria-labelledby': labelId }}
                   />
                 </ListItemIcon>
               )}
-              {value.onGoing ? (
-                <ListItemText
-                  primaryTypographyProps={{ style: { fontWeight: 'bold' } }}
-                  style={{
-                    textDecorationLine: cancel.indexOf(newItem[index]) !== -1 ? 'line-through' : '',
-                    textDecorationStyle: cancel.indexOf(newItem[index]) !== -1 ? 'solid' : '',
-                    color:
-                      checked.indexOf(value) !== -1 ? 'rgba(98,0,238,1)' : 'rgba(0, 0, 0, 0.6)',
-                  }}
-                  id={labelId}
-                  primary={` ${value.name}`}
-                />
-              ) : (
+              {todo.isOverdue ? (
                 <ListItemText
                   style={{
-                    textDecorationLine: cancel.indexOf(newItem[index]) !== -1 ? 'line-through' : '',
-                    textDecorationStyle: cancel.indexOf(newItem[index]) !== -1 ? 'solid' : '',
+                    textDecorationLine: cancel.indexOf(todos[index]) !== -1 ? 'line-through' : '',
+                    textDecorationStyle: cancel.indexOf(todos[index]) !== -1 ? 'solid' : '',
                     color: '#FF0000',
                   }}
                   primaryTypographyProps={{ style: { fontWeight: 'bold' } }}
                   id={labelId}
-                  primary={` ${value.name}`}
+                  primary={` ${todo.name}`}
+                />
+              ) : (
+                <ListItemText
+                  primaryTypographyProps={{ style: { fontWeight: 'bold' } }}
+                  style={{
+                    textDecorationLine: cancel.indexOf(todos[index]) !== -1 ? 'line-through' : '',
+                    textDecorationStyle: cancel.indexOf(todos[index]) !== -1 ? 'solid' : '',
+                    color: todo.completed ? 'rgba(98,0,238,1)' : 'rgba(0, 0, 0, 0.6)',
+                  }}
+                  id={labelId}
+                  primary={` ${todo.name}`}
                 />
               )}
-              {value.onGoing ? (
+              {todo.isOverdue ? (
+                <ListItemSecondaryAction>
+                  <IconButton
+                    edge="end"
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={(event) => {
+                      setSelectedTodo(todo);
+                      setAnchorEl(event.currentTarget);
+                    }}
+                  >
+                    <ErrorIcon style={{ color: '#EB5757' }} />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              ) : (
                 <ListItemSecondaryAction>
                   <IconButton
                     className={styles.moreButton}
@@ -216,25 +248,11 @@ const JournalTodo = () => {
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                     onClick={(event) => {
-                      setActiveIndex(index);
+                      setSelectedTodo(todo);
                       setAnchorEl(event.currentTarget);
                     }}
                   >
                     <MoreVertIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              ) : (
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={(event) => {
-                      setActiveIndex(index);
-                      setAnchorEl(event.currentTarget);
-                    }}
-                  >
-                    <ErrorIcon style={{ color: '#EB5757' }} />
                   </IconButton>
                 </ListItemSecondaryAction>
               )}
@@ -269,8 +287,8 @@ const JournalTodo = () => {
                       autoFocus
                       margin="dense"
                       id="name"
-                      value={item.name}
-                      onChange={firstEvent}
+                      value={todoName}
+                      onChange={(e) => setTodoName(e.target.value)}
                       label="Description"
                       fullWidth
                     />
@@ -279,7 +297,8 @@ const JournalTodo = () => {
                       label="Due Date:"
                       labelColour="black"
                       type="date"
-                      defaultValue="2020-05-24"
+                      value={todoDueDate}
+                      onChange={(e) => setTodoDueDate(e.target.value)}
                       fullWidth
                       InputLabelProps={{
                         shrink: true,
@@ -294,7 +313,8 @@ const JournalTodo = () => {
                       className={classes.button}
                       label="Button"
                       onClick={() => {
-                        setNewItem((prev) => [...prev, item], setItem(''), handleClose());
+                        handleAdd();
+                        handleClose();
                       }}
                     >
                       Confirm
@@ -330,7 +350,7 @@ const JournalTodo = () => {
             setAnchorEl(null);
           }}
         >
-          {cancel.indexOf(newItem[activeIndex]) !== -1 ? 'Uncancel' : 'Cancel'}
+          {cancel.indexOf(selectedTodo) !== -1 ? 'Uncancel' : 'Cancel'}
         </MenuItem>
         <MenuItem
           id="delete"
