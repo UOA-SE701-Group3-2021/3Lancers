@@ -32,6 +32,7 @@ db.once('open', () => {
   console.log('Connected to local database');
 });
 
+// create dummy entries
 require('./demo');
 
 // Launch app (start server running), with a simple logging statement, based on SE750 example
