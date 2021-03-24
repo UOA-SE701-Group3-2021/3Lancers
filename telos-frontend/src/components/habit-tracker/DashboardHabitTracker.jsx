@@ -16,19 +16,23 @@ import {
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
 import habitStyle from './DashboardHabitTracker.module.css';
 
+// This react component draws a Material-UI Habit Tracker in Journal View for the user to note their habituals
 const DashboardHabitTracker = () => {
+  // The functions that update and save the changes
   const [habitTitle, setTitle] = useState('Habit1');
   const [tempTitle, setTempTitle] = useState(habitTitle);
   const [habitDes, setDes] = useState('Habit description, Do Task X, Y many times per week');
   const [tempDes, setTempDes] = useState(habitDes);
-
   const [weeks, setWeeks] = useState('1');
   const [startDate, setStartDate] = useState('2021-01-01');
   const [endType, setEndType] = useState('Never');
   const [endDate, setEndDate] = useState('');
 
+  // If the add button of the main widget is clicked, isEdit will become true then unhides the pop-out window.
+  // If the save or close buttons of the pop-out window is clicked, isEdit will become false then hides the pop-out window.
   const [isEdit, setEditStatus] = useState(false);
 
+  // The following functions are for saving the drafts
   const handleChangeOnName = (event) => {
     setTempTitle(event.target.value);
   };
@@ -53,12 +57,14 @@ const DashboardHabitTracker = () => {
     setEndType(event.target.value);
   };
 
+  // Save the changes and render
   const saveChange = () => {
     setTitle(tempTitle);
     setDes(tempDes);
   };
 
   return (
+    // Main window of the widgets
     <div>
       <div className={habitStyle.container}>
         <div className={habitStyle.HabitTitle}>
@@ -74,6 +80,7 @@ const DashboardHabitTracker = () => {
         </div>
         <WeekScheduleBar />
       </div>
+      {/* Pop out window of the widget */}
       <Dialog
         open={isEdit}
         onClose={() => {
