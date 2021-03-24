@@ -10,10 +10,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Getting Started
 
-1. Open the command prompt and set the working directory as the `telos-frontend` directory of your cloned repository. (`cd path/to/3Lancers/telos-frontend`)
+1. Open the command prompt and set the working directory as the `3Lancers` directory of your cloned repository. (`cd path/to/3Lancers`)
 2. Run `npm ci` to install all the required dependencies
-3. Run `npm start` to launch the application. Close the application with ctrl+c in the command prompt when finished.
-4. **For all features to be functional, the backend and MongoDB instances must also be started. Instructions can be found in the [Backend Readme](https://github.com/UOA-SE701-Group3-2021/3Lancers/blob/main/telos-backend/README.md).**
+3. Run `npm run lint` to check for any problems in the code
+4. Run `npm start` to launch the application. Close the application with ctrl+c in the command prompt when finished.
+5. **For all features to be functional, the backend and MongoDB instances must also be started. Instructions can be found in the [Backend Readme](https://github.com/UOA-SE701-Group3-2021/3Lancers/blob/main/telos-backend/README.md).**
 
 # Available Scripts
 In the project directory, you can run:
@@ -23,6 +24,9 @@ Installs required dependencies to run the project
 Runs the app in the development mode. Open http://localhost:3000 to view it in the browser.
 
 The page will reload if you make edits. You will also see any lint errors in the console.
+
+## `npm run lint`
+Runs ESLint to find and fix problems in the code
 
 ## `npm test`
 Launches the test runner in the interactive watch mode. See the section about running tests for more information.
