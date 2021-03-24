@@ -33,6 +33,10 @@
   color: #828282 !important;
 }
 
+.checkboxOverdue {
+  color: #eb5757 !important;
+}
+
 .outdated {
   color: red !important;
 }
