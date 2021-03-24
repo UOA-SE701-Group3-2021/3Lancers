@@ -64,7 +64,7 @@ const Page = ({ date, widgets, setWidgets }) => {
         const left = Math.round(item.position.col + delta.x);
         const top = Math.round(item.position.row + delta.y);
 
-        moveWidget(item._id, left, top);
+        moveWidget(item.id, left, top);
         return undefined;
       },
     }),
@@ -95,7 +95,14 @@ const Page = ({ date, widgets, setWidgets }) => {
   return (
     <div className={pageStyles.Page} ref={drop}>
       {widgets.map((widget) => (
-        <DraggableWidget key={widget._id} {...widget} data={getDataByWidgetType(widget.type)} />
+        <DraggableWidget
+          key={widget._id}
+          id={widget._id}
+          type={widget.type}
+          position={widget.position}
+          data={getDataByWidgetType(widget.type)}
+          date={date}
+        />
       ))}
       <textarea />
     </div>
