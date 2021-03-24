@@ -41,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
   },
+  button: {
+    color: '#6200ee',
+    fontWeight: 'bold',
+  },
   datetextField: {
     marginRight: theme.spacing(1),
   },
@@ -48,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 const outdated = {
   color: 'red',
+  fontWeight: 'Bold',
 };
 
 const DashboardTodo = () => {
@@ -133,7 +138,7 @@ const DashboardTodo = () => {
     setOpen(true);
   };
 
-  const closeAdd = () => {
+  const handleClose = () => {
     setAnchorEl(null);
     setOpen(false);
   };
@@ -255,7 +260,7 @@ const DashboardTodo = () => {
                 <ListItemIcon>
                   {/* Overdue checkbox properties */}
                   <Checkbox
-                    className={styles.checkbox}
+                    className={styles.checkboxOverdue}
                     edge="start"
                     color="primary"
                     checked={todo.completed}
@@ -270,6 +275,7 @@ const DashboardTodo = () => {
                 // If it is not cancelled, text will appear as normal
                 <ListItemText
                   id={labelId}
+                  primaryTypographyProps={{ style: { fontWeight: 'bold' } }}
                   primary={` ${todo.name}`}
                   secondary={` ${todo.due}`}
                   style={{
@@ -350,7 +356,7 @@ const DashboardTodo = () => {
                 </IconButton>
                 {/* The modal that will be displayed for the user to input their description and due date 
                   User input is stored and added into the new item list */}
-                <Dialog open={open} onClose={closeAdd} aria-labelledby="form-dialog-title">
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                   <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
                   <DialogContent>
                     <form className={classes.datecontainer} noValidate>
@@ -382,7 +388,7 @@ const DashboardTodo = () => {
                   {/* Button to for the user to cancel or Confirm
                   If the user confirms, the date and description will be set. If the user cancels then nothing will be set */}
                   <DialogActions>
-                    <Button className={classes.button} onClick={closeAdd}>
+                    <Button className={classes.button} onClick={handleClose}>
                       Cancel
                     </Button>
                     <Button
@@ -391,7 +397,7 @@ const DashboardTodo = () => {
                       // Once either buttons has been pressed then the modal will close to show other components
                       onClick={() => {
                         secondEvent();
-                        closeAdd();
+                        handleClose();
                       }}
                     >
                       Confirm
