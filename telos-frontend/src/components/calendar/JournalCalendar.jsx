@@ -11,7 +11,6 @@ import {
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-
 // Data to show on the calendar
 const calendarData = [
   {
