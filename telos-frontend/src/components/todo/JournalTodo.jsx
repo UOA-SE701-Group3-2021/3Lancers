@@ -249,8 +249,8 @@ const JournalTodo = ({ data, date }) => {
         })}
       </List>
       <div>
-       {/* A textbox to indicate to the user that they can enter new to do's.
-       Text box has been disabled for typing to avoid confusion and allow the user to enter a new to do once they click on the + sign */}
+        {/* A textbox to indicate to the user that they can enter new to do's.
+        Text box has been disabled for typing to avoid confusion and allow the user to enter a new to do once they click on the + sign */}
         <FormControl variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
           <OutlinedInput
@@ -258,7 +258,7 @@ const JournalTodo = ({ data, date }) => {
             id="outlined-disabled"
             label="Disabled"
             endAdornment={
-              // When the user clicks on the button a modal will pop up allowing the user to set their requirements 
+              // When the user clicks on the button a modal will pop up allowing the user to set their requirements
               <InputAdornment position="end">
                 <IconButton
                   className={styles.AddBtn}
@@ -375,7 +375,7 @@ const JournalTodo = ({ data, date }) => {
         <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
         <DialogContent className={classes.migrate}>
           <form noValidate>
-            { /* Change move to date */}
+            {/* Change move to date */}
             <TextField
               id="date"
               label="Move to:"
