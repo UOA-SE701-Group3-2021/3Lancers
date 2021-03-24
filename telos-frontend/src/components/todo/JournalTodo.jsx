@@ -173,7 +173,7 @@ const JournalTodo = ({ data }) => {
           return (
             <ListItem
               className={styles.tasks}
-              key={todo.name}
+              key={todo._id}
               role={undefined}
               dense
               button
