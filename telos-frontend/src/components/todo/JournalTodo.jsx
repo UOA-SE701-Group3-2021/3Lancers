@@ -228,8 +228,7 @@ const JournalTodo = ({ data, date }) => {
                   </IconButton>
                 </ListItemSecondaryAction>
               ) : (
-                // Secondary action will display an icon button with an exclaimation mark to indicate that the task is over due. To action what to do with the task, user needs to click the icon for options
-                // Sets the active index to the to do that was selected
+                // Secondary action will display an icon button with an exclaimation mark to indicate that the task is over due. To action what to do with the task, user needs to click the icon for options. Sets the active index to the to do that was selected
                 <ListItemSecondaryAction>
                   <IconButton
                     className={styles.moreButton}
@@ -250,7 +249,7 @@ const JournalTodo = ({ data, date }) => {
         })}
       </List>
       <div>
-       {/* A textbox to indicate to the user that they can enter new to do's.
+       { /* A textbox to indicate to the user that they can enter new to do's.
        Text box has been disabled for typing to avoid confusion and allow the user to enter a new to do once they click on the + sign */}
         <FormControl variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
@@ -261,7 +260,7 @@ const JournalTodo = ({ data, date }) => {
             endAdornment={
               <InputAdornment position="end">
               {/* When the user clicks on the button a modal will pop up allowing the user to set their requirements */}
-                <IconButton
+              <IconButton
                   className={styles.AddBtn}
                   variant="outlined"
                   color="primary"
@@ -277,8 +276,8 @@ const JournalTodo = ({ data, date }) => {
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                   <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
                   <DialogContent>
-                   {/* For the user to enter their description of the task  */}
-                    <TextField
+                   {/* For the user to enter their description of the task */}
+                   <TextField
                       autoFocus
                       margin="dense"
                       id="name"
@@ -288,7 +287,7 @@ const JournalTodo = ({ data, date }) => {
                       fullWidth
                     />
 
-                     {/* For the user to set their due date of the task, can also pick the date from the calendar */}
+                    {/* For the user to set their due date of the task, can also pick the date from the calendar */}
                     <TextField
                       id="date"
                       label="Due Date:"
@@ -303,8 +302,7 @@ const JournalTodo = ({ data, date }) => {
                     />
                   </DialogContent>
 
-                    {/* Button to for the user to cancel or Confirm
-                  If the user confirms, the date and description will be set. If the user cancels then nothing will be set */}
+                    {/* Button to for the user to cancel or Confirm. If the user confirms, the date and description will be set. If the user cancels then nothing will be set */}
                   <DialogActions>
                     <Button className={classes.button} onClick={handleClose}>
                       Cancel
@@ -312,8 +310,7 @@ const JournalTodo = ({ data, date }) => {
                     <Button
                       className={classes.button}
                       label="Button"
-
-                      // Once either buttons has been pressed then the modal will close to show other components
+                      // Once either buttons has been pressed then the modal will close to show other components.
                       onClick={() => {
                         handleAdd();
                         handleClose();
@@ -338,8 +335,7 @@ const JournalTodo = ({ data, date }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-
-       {/* Migrate will be set to true so the modal will show up allowing the users to select new dates */}
+        {/* Migrate will be set to true so the modal will show up allowing the users to select new dates */}
         <MenuItem
           className={styles.menubar}
           onClick={() => {
@@ -362,7 +358,7 @@ const JournalTodo = ({ data, date }) => {
           {cancel.indexOf(selectedTodo) !== -1 ? 'Uncancel' : 'Cancel'}
         </MenuItem>
 
-         {/* Deletes the selected To Do from the to do list */}
+        {/* Deletes the selected To Do from the to do list */}
         <MenuItem
           id="delete"
           className={styles.menubar}
@@ -375,12 +371,12 @@ const JournalTodo = ({ data, date }) => {
         </MenuItem>
       </Menu>
 
-       {/* A pop up modal will show up once migrate is set to true. User can set new date to move to and new due date */}
+      {/* A pop up modal will show up once migrate is set to true. User can set new date to move to and new due date */}
       <Dialog open={migrate} onClose={closeMigrate} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
         <DialogContent className={classes.migrate}>
           <form noValidate>
-           {/* Change move to date */}
+          {/* Change move to date */}
             <TextField
               id="date"
               label="Move to:"
