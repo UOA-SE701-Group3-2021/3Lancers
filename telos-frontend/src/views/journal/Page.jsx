@@ -35,6 +35,8 @@ const Page = ({ date, widgets, setWidgets }) => {
       if (index !== -1) {
         const newWidgets = [...widgets];
         const widget = { ...widgets[index] };
+
+        // Would like to have a grid system in the future so that positions scale with screen size.
         widget.position = {
           row: top,
           col: left,

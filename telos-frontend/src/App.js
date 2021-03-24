@@ -16,7 +16,6 @@ import DashboardTodo from './components/todo/DashboardTodo';
 import JournalTodo from './components/todo/JournalTodo';
 import TopBar from './components/top-bar/TopBar';
 import JournalText from './components/text/JournalText';
-import CustomDragLayer from './dnd/CustomDragLayer';
 import styles from './App.module.css';
 
 function App() {
@@ -62,7 +61,6 @@ function App() {
             <Route path="*">
               <DndProvider backend={HTML5Backend}>
                 <div className={styles.JournalView}>
-                  <CustomDragLayer />
                   <Journal />
                 </div>
               </DndProvider>
