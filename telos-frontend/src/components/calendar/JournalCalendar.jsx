@@ -11,6 +11,8 @@ import {
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
+
+// Data to show on the calendar
 const calendarData = [
   {
     priorityId: 2,
@@ -63,6 +65,7 @@ const calendarData = [
   },
 ];
 
+// Setting ids and colours based on priority
 export const priorityData = [
   {
     text: 'Low Priority',
@@ -76,6 +79,7 @@ export const priorityData = [
   },
 ];
 
+// Setting ids and colours based on calendar type
 export const typeData = [
   {
     text: 'Home',
@@ -88,6 +92,8 @@ export const typeData = [
     color: '#0000de',
   },
 ];
+
+// resources allow to differentiate between the different types of calendar options
 export default class Calendar extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -112,6 +118,7 @@ export default class Calendar extends React.PureComponent {
     this.commitChanges = this.commitChanges.bind(this);
   }
 
+  // depending on the state, carry out the specific action
   commitChanges({ added, changed, deleted }) {
     this.setState((state) => {
       let { data } = state;
