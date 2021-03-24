@@ -278,7 +278,7 @@ const DashboardTodo = () => {
                   secondary={` ${todo.due}`}
                 />
               )}
-              {todo.isOverdue ? (
+              {!todo.isOverdue ? (
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
