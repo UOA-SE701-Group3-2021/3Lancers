@@ -249,7 +249,7 @@ const JournalTodo = ({ data, date }) => {
         })}
       </List>
       <div>
-       { /* A textbox to indicate to the user that they can enter new to do's.
+        {/* A textbox to indicate to the user that they can enter new to do's.
        Text box has been disabled for typing to avoid confusion and allow the user to enter a new to do once they click on the + sign */}
         <FormControl variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
@@ -259,8 +259,8 @@ const JournalTodo = ({ data, date }) => {
             label="Disabled"
             endAdornment={
               <InputAdornment position="end">
-              {/* When the user clicks on the button a modal will pop up allowing the user to set their requirements */}
-              <IconButton
+                  { /* When the user clicks on the button a modal will pop up allowing the user to set their requirements */}
+                <IconButton
                   className={styles.AddBtn}
                   variant="outlined"
                   color="primary"
@@ -277,7 +277,7 @@ const JournalTodo = ({ data, date }) => {
                   <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
                   <DialogContent>
                    {/* For the user to enter their description of the task */}
-                   <TextField
+                     <TextField
                       autoFocus
                       margin="dense"
                       id="name"
@@ -302,7 +302,7 @@ const JournalTodo = ({ data, date }) => {
                     />
                   </DialogContent>
 
-                    {/* Button to for the user to cancel or Confirm. If the user confirms, the date and description will be set. If the user cancels then nothing will be set */}
+                {/* Button to for the user to cancel or Confirm. If the user confirms, the date and description will be set. If the user cancels then nothing will be set */}
                   <DialogActions>
                     <Button className={classes.button} onClick={handleClose}>
                       Cancel
@@ -327,7 +327,7 @@ const JournalTodo = ({ data, date }) => {
         </FormControl>
       </div>
 
-        {/* A display menu to display options of what the users can do with the selected to do */}
+    {/* A display menu to display options of what the users can do with the selected to do */}
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -354,7 +354,7 @@ const JournalTodo = ({ data, date }) => {
             setAnchorEl(null);
           }}
         >
-         {/* Menu will show as 'Uncancel' when the user selects cancel to cancel a to do */}
+        {/* Menu will show as 'Uncancel' when the user selects cancel to cancel a to do */}
           {cancel.indexOf(selectedTodo) !== -1 ? 'Uncancel' : 'Cancel'}
         </MenuItem>
 
@@ -376,7 +376,7 @@ const JournalTodo = ({ data, date }) => {
         <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
         <DialogContent className={classes.migrate}>
           <form noValidate>
-          {/* Change move to date */}
+          { /* Change move to date */}
             <TextField
               id="date"
               label="Move to:"
