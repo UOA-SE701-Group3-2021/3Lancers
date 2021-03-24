@@ -11,13 +11,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 # Getting Started
 
 1. Open the command prompt and set the working directory as the `3Lancers` directory of your cloned repository. (`cd path/to/3Lancers`)
-2. Run `npm install` to install all the required dependencies
+2. Run `npm ci` to install all the required dependencies
 3. Run `npm run lint` to check for any problems in the code
 3. Run `npm start` to launch the application. Close the application with ctrl+c in the command prompt
 
 # Available Scripts
 In the project directory, you can run:
-## `npm install`
+## `npm ci`
 Installs required dependencies to run the project
 ## `npm start`
 Runs the app in the development mode. Open http://localhost:3000 to view it in the browser.

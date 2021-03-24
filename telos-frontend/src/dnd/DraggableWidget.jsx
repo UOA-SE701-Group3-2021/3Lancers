@@ -17,16 +17,16 @@ function getStyles(left, top, isDragging) {
 
 // A component for widgets that can be dragged
 const DraggableWidget = memo((props) => {
-  const { id, left, top, widgetType } = props;
+  const { _id, position, type, data } = props;
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
-      type: widgetType,
-      item: { id, left, top },
+      type,
+      item: { _id, position, data },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [id, left, top]
+    [_id, position, type]
   );
 
   // Hide the browser generated preview when widget is being dragged.
@@ -36,8 +36,8 @@ const DraggableWidget = memo((props) => {
   }, []);
 
   return (
-    <div ref={drag} style={getStyles(left, top, isDragging)}>
-      {renderWidget(widgetType, { id, left, top })}
+    <div ref={drag} style={getStyles(position.col, position.row, isDragging)}>
+      {renderWidget(type, { data })}
     </div>
   );
 });

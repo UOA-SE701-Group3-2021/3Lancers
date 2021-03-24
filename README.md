@@ -14,10 +14,10 @@ On the right-hand-side, there is an Emacs org-mode with bullets, checklists, pri
 
 ## Readme
 - Frontend: *https://github.com/UOA-SE701-Group3-2021/3Lancers/blob/main/telos-frontend/README.md*
-- Backend: *https://github.com/UOA-SE701-Group3-2021/3Lancers/blob/main/telos-frontend/README.md*
+- Backend: *https://github.com/UOA-SE701-Group3-2021/3Lancers/blob/main/telos-backend/README.md*
 
 ## *Developers*
-3Lancers, Software Engineering 701 Group3, The University of Auckland
+***3Lancers***, Software Engineering 701 Group3, The University of Auckland
 
 ## *Licence*
 [![](https://www.gnu.org/graphics/agplv3-with-text-162x68.png)](https://www.gnu.org/licenses/agpl-3.0.html)

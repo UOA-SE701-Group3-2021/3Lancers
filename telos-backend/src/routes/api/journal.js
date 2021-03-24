@@ -50,7 +50,19 @@ async function getTodosForDay(date) {
       { dueDate: { $lt: date + 'T00:00:00' }, completed: false },
     ],
   });
-  return todos;
+
+  // add new isOverdue field for frontend to easily display overdue tasks differently
+  const objTodos = [];
+  for (let i = 0; i < todos.length; i++) {
+    objTodos.push(todos[i].toObject());
+    if (new Date(todos[i].dueDate) < new Date(date) && todos[i].completed === false) {
+      objTodos[i].isOverdue = true;
+    } else {
+      objTodos[i].isOverdue = false;
+    }
+  }
+
+  return objTodos;
 }
 
 // Param: date, of type date, parsed from url path param. Given as yyyy-mm-dd
