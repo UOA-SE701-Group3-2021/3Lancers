@@ -231,7 +231,6 @@ const JournalTodo = ({ data, date }) => {
                 // Secondary action will display an icon button with an exclaimation mark to indicate that the task is over due. To action what to do with the task, user needs to click the icon for options
                  // Sets the active index to the to do that was selected
                 <ListItemSecondaryAction>
-                <ListItemSecondaryAction>
                   <IconButton
                     className={styles.moreButton}
                     edge="end"
