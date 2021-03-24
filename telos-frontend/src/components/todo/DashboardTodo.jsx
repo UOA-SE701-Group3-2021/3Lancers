@@ -111,7 +111,7 @@ const DashboardTodo = () => {
     setselectedTodo({
       name: selectedTodo.name,
       due: event.target.value,
-      isOverdue: true,
+      isOverdue: false,
       completed: false,
     });
   };
@@ -146,7 +146,7 @@ const DashboardTodo = () => {
     setTodoName({
       name: todoName.name,
       due: event.target.value,
-      isOverdue: true,
+      isOverdue: false,
       completed: false,
     });
   };
@@ -231,7 +231,7 @@ const DashboardTodo = () => {
               button
               onClick={handleToggle(todo.name)}
             >
-              {todo.isOverdue ? (
+              {!todo.isOverdue ? (
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
@@ -255,7 +255,7 @@ const DashboardTodo = () => {
                   />
                 </ListItemIcon>
               )}
-              {todo.isOverdue ? (
+              {!todo.isOverdue ? (
                 <ListItemText
                   id={labelId}
                   primary={` ${todo.name}`}
