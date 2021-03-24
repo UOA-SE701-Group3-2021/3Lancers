@@ -162,6 +162,7 @@ const DashboardTodo = () => {
 
   const secondEvent = () => {
     setNewItem((prev) => [...prev, todoName]);
+    // removed sorting
   };
   const handleOption = (value) => (event) => {
     setselectedTodo({
