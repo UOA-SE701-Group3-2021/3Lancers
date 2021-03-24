@@ -14,7 +14,7 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
-import habitStyle from './DashboardHabitTracker.module.css';
+import habitStyle from './HabitTracker.module.css';
 
 // This react component draws a Material-UI Habit Tracker in Journal View for the user to note their habituals
 const DashboardHabitTracker = () => {
@@ -66,7 +66,7 @@ const DashboardHabitTracker = () => {
   return (
     // Main window of the widgets
     <div>
-      <div className={habitStyle.container}>
+      <div className={habitStyle.cardContainer}>
         <div className={habitStyle.HabitTitle}>
           <h2>{habitTitle}</h2>
           <span className={habitStyle.AddIcon}>

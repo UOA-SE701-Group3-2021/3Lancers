@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import habitStyle from './JournalHabitTracker.module.css';
+import habitStyle from './HabitTracker.module.css';
 
 // This is a sub-component of the pop-out window of the habit trackers
 // Which provides the interfaces for changing the repeat weekdays of a habituals in a week

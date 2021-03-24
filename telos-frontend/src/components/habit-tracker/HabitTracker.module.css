@@ -5,6 +5,10 @@
   padding: 0;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .container {
   position: absolute;
   width: 500px;
@@ -26,24 +30,6 @@
   background-color: #7a00f4;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-}
-
-.AddIcon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.HabitContent {
-  height: 20%;
-  padding: 10px;
-}
-
-.Habituals {
-  display: block;
-  height: 40%;
-  width: 100%;
-  margin: auto;
 }
 
 .Habituals ul {
@@ -89,8 +75,17 @@
   padding: 0 0 0 23px;
 }
 
-.hidden {
-  display: none !important;
+.cardContainer {
+  position: absolute;
+  width: 562px;
+  height: 200px;
+  text-align: left !important;
+  background: #ffffff;
+  mix-blend-mode: normal;
+  border: 2px solid #7a00f4;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 19px;
 }
 
 .HabitTitle {
@@ -110,7 +105,8 @@
   padding: 10px;
 }
 
-.WeekSchedule {
+.WeekSchedule,
+.Habituals {
   display: block;
   height: 40%;
   width: 100%;
@@ -159,6 +155,10 @@
   height: 408px !important;
 }
 
+.dialog {
+  border-radius: 19px !important;
+}
+
 .menuHeader {
   display: inline-flex !important;
   width: 100% !important;
@@ -171,12 +171,13 @@
 }
 
 .menuHeader h2 {
-    left: 50% !important;
+  left: 50% !important;
 }
 
 .menuBody {
   width: 100% !important;
   height: 84% !important;
+
   background: #ffffff !important;
   mix-blend-mode: normal !important;
   border: 2px solid #210043 !important;
@@ -236,10 +237,10 @@
 }
 
 .addIconButton {
-    color: white !important;
-    padding: 0px !important;
+  color: white !important;
+  padding: 0px !important;
 }
 
 .addIconButtonSvg {
-    font-size: 2rem !important;
+  font-size: 2rem !important;
 }

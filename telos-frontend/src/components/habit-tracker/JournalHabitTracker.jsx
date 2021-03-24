@@ -14,7 +14,7 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import { useState } from 'react';
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
-import habitStyle from './JournalHabitTracker.module.css';
+import habitStyle from './HabitTracker.module.css';
 
 // This react component draws a Material-UI Habit Tracker in Journal View for the user to note their habituals
 const JournalHabitTracker = () => {
