@@ -29,7 +29,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ErrorIcon from '@material-ui/icons/Error';
-import dashboardStyles from './DashboardTodo.module.css';
+import styles from './DashboardTodo.module.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,40 +53,40 @@ const outdated = {
 const DashboardTodo = () => {
   const listitems = [
     {
-      name: 'OnGoing',
+      name: 'isOverdue',
       due: '2021-04-30',
-      onGoing: true,
+      isOverdue: true,
       completed: false,
     },
     {
       name: 'OutDated',
       due: '2021-01-30',
-      onGoing: false,
+      isOverdue: false,
       completed: true,
     },
     {
       name: '一二三四五',
       due: '2021-04-30',
-      onGoing: true,
+      isOverdue: true,
       completed: true,
     },
     {
       name: '上山打老虎',
       due: '2021-04-30',
-      onGoing: true,
+      isOverdue: true,
       completed: false,
     },
   ];
 
   const classes = useStyles();
-  const [item, setItem] = useState('');
-  const [dueDate, setDueDate] = useState('2021-01-01');
+  const [todoName, setTodoName] = useState('');
+  const [todoDueDate, setTodoDueDate] = useState('2021-01-01');
   const [newItem, setNewItem] = useState(listitems);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
   const [reDate, setReDate] = useState('');
-  const [reItem, setReItem] = useState('');
-  const [add, setAdd] = useState(false);
+  const [selectedTodo, setselectedTodo] = useState('');
+  const [open, setOpen] = useState(false);
   const [migrate, setMigrate] = useState(false);
 
   function dateToTimestamp(endTime) {
@@ -97,7 +97,7 @@ const DashboardTodo = () => {
     return Date.parse(date) / 1000;
   }
 
-  // Sort event in order of time line
+  // Sort event in order of time
   const sortEvent = () => {
     const sorted = newItem.sort((a, b) => {
       return dateToTimestamp(a.due) - dateToTimestamp(b.due);
@@ -108,7 +108,12 @@ const DashboardTodo = () => {
   // Change date for reschedule
   const reDateChange = (event) => {
     setReDate(event.target.value);
-    setReItem({ name: reItem.name, due: event.target.value, onGoing: true, completed: false });
+    setselectedTodo({
+      name: selectedTodo.name,
+      due: event.target.value,
+      isOverdue: false,
+      completed: false,
+    });
   };
 
   // handle checkbox
@@ -123,22 +128,27 @@ const DashboardTodo = () => {
     setNewItem(newList);
   };
 
-  const firstEvent = (event) => {
-    setItem({ name: event.target.value, due: dueDate, onGoing: true, completed: false });
-  };
-
-  const dateChange = (event) => {
-    setDueDate(event.target.value);
-    setItem({ name: item.name, due: event.target.value, onGoing: true, completed: false });
-  };
-
   const openAdd = () => {
-    setAdd(true);
+    setOpen(true);
   };
 
   const closeAdd = () => {
-    setAdd(false);
-    sortEvent();
+    setAnchorEl(null);
+    setOpen(false);
+  };
+
+  const firstEvent = (event) => {
+    setTodoName({ name: event.target.value, due: todoDueDate, isOverdue: true, completed: false });
+  };
+
+  const dateChange = (event) => {
+    setTodoDueDate(event.target.value);
+    setTodoName({
+      name: todoName.name,
+      due: event.target.value,
+      isOverdue: false,
+      completed: false,
+    });
   };
 
   const openMigrate = () => {
@@ -151,42 +161,34 @@ const DashboardTodo = () => {
   };
 
   const secondEvent = () => {
-    setNewItem((prev) => [...prev, item]);
-    // setItem('');
+    setNewItem((prev) => [...prev, todoName]);
+    // removed sorting
   };
-
-  // Open menu
   const handleOption = (value) => (event) => {
-    setReItem({
+    setselectedTodo({
       name: value.name,
       due: value.due,
-      onGoing: value.onGoing,
+      isOverdue: value.isOverdue,
       completed: value.completed,
     });
     setAnchorEl(event.currentTarget);
   };
 
-  const handleOptionClose = () => {
-    setAnchorEl(null);
-  };
-
   const cancelEvent = () => {
-    const currentIndex = cancel.indexOf(reItem.name);
+    const currentIndex = cancel.indexOf(selectedTodo.name);
     const newCancel = [...cancel];
-
     if (currentIndex === -1) {
-      newCancel.push(reItem.name);
+      newCancel.push(selectedTodo.name);
     } else {
       newCancel.splice(currentIndex, 1);
     }
     setCancel(newCancel);
-    setAnchorEl(null);
   };
 
   const deleteEvent = () => {
     const newList = [...newItem];
     for (const x of newList) {
-      if (x.name === reItem.name) {
+      if (x.name === selectedTodo.name) {
         const index = newList.indexOf(x);
         newList.splice(index, 1);
       }
@@ -198,43 +200,43 @@ const DashboardTodo = () => {
 
   const scheduleEvent = () => {
     const newList = [...newItem];
-    const reItemInst = reItem;
+    const selectedTodoInst = selectedTodo;
 
     for (const x of newList) {
-      if (x.name === reItemInst.name) {
-        x.due = reItemInst.due;
+      if (x.name === selectedTodoInst.name) {
+        x.due = selectedTodoInst.due;
       }
     }
 
     setNewItem(newList);
+    closeMigrate();
     setAnchorEl(null);
   };
 
   return (
-    <Box className={dashboardStyles.container}>
-      <div className={dashboardStyles.header}>
+    <Box className={styles.container}>
+      <div className={styles.header}>
         <p> To Do </p>
       </div>
       <Divider />
       <List className={classes.root}>
-        {newItem.map((value) => {
-          const labelId = `checkbox-list-label-${value.name}`;
-
+        {newItem.map((todo) => {
+          const labelId = `checkbox-list-label-${todo}`;
           return (
             <ListItem
-              className={dashboardStyles.listItem}
-              key={value.name}
+              className={styles.tasks}
+              key={todo.name}
               role={undefined}
               dense
               button
-              onClick={handleToggle(value.name)}
+              onClick={handleToggle(todo.name)}
             >
-              {value.onGoing ? (
+              {!todo.isOverdue ? (
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
                     style={{ color: '#6200EE' }}
-                    checked={value.completed === true}
+                    checked={todo.completed}
                     tabIndex={-1}
                     disableRipple
                     inputProps={{ 'aria-labelledby': labelId }}
@@ -243,45 +245,47 @@ const DashboardTodo = () => {
               ) : (
                 <ListItemIcon>
                   <Checkbox
+                    className={styles.checkbox}
                     edge="start"
-                    style={{ color: '#FF0000' }}
-                    checked={value.completed === true}
+                    color="primary"
+                    checked={todo.completed}
                     tabIndex={-1}
                     disableRipple
                     inputProps={{ 'aria-labelledby': labelId }}
                   />
                 </ListItemIcon>
               )}
-              {value.onGoing ? (
+              {!todo.isOverdue ? (
                 <ListItemText
                   id={labelId}
-                  primary={` ${value.name}`}
-                  secondary={` ${value.due}`}
+                  primary={` ${todo.name}`}
+                  secondary={` ${todo.due}`}
                   style={{
-                    textDecorationLine: cancel.indexOf(value.name) !== -1 ? 'line-through' : '',
-                    textDecorationStyle: cancel.indexOf(value.name) !== -1 ? 'solid' : '',
+                    textDecorationLine: cancel.indexOf(todo.name) !== -1 ? 'line-through' : '',
+                    textDecorationStyle: cancel.indexOf(todo.name) !== -1 ? 'solid' : '',
                   }}
                 />
               ) : (
                 <ListItemText
                   primaryTypographyProps={{ style: outdated }}
-                  id={labelId}
-                  primary={` ${value.name}`}
-                  secondary={` ${value.due}`}
                   style={{
-                    textDecorationLine: cancel.indexOf(value.name) !== -1 ? 'line-through' : '',
-                    textDecorationStyle: cancel.indexOf(value.name) !== -1 ? 'solid' : '',
+                    textDecorationLine: cancel.indexOf(todo.name) !== -1 ? 'line-through' : '',
+                    textDecorationStyle: cancel.indexOf(todo.name) !== -1 ? 'solid' : '',
+                    color: todo.completed ? 'rgba(98,0,238,1)' : 'rgba(0, 0, 0, 0.6)',
                   }}
+                  id={labelId}
+                  primary={` ${todo.name}`}
+                  secondary={` ${todo.due}`}
                 />
               )}
-              {value.onGoing ? (
+              {!todo.isOverdue ? (
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
                     aria-label="schedule"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
-                    onClick={handleOption(value)}
+                    onClick={handleOption(todo)}
                   >
                     <MoreVertIcon />
                   </IconButton>
@@ -293,9 +297,9 @@ const DashboardTodo = () => {
                     aria-label="schedule"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
-                    onClick={handleOption(value)}
+                    onClick={handleOption(todo)}
                   >
-                    <ErrorIcon className={dashboardStyles.outdated} />
+                    <ErrorIcon style={{ color: '#EB5757' }} />
                   </IconButton>
                 </ListItemSecondaryAction>
               )}
@@ -304,17 +308,69 @@ const DashboardTodo = () => {
         })}
       </List>
       <div>
-        <FormControl className={dashboardStyles.inputbox} variant="outlined">
+        <FormControl className={styles.inputbox} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
           <OutlinedInput
-            id="outlined-todo"
-            value=""
-            onChange={firstEvent}
+            disabled
+            id="outlined-disabled"
+            label="Disabled"
             endAdornment={
               <InputAdornment position="end">
-                <IconButton className={dashboardStyles.AddBtn} onClick={openAdd}>
-                  <AddIcon className={dashboardStyles.Publish} />
+                <IconButton
+                  className={styles.AddBtn}
+                  variant="outlined"
+                  color="primary"
+                  onClick={openAdd}
+                  id="simple-modal"
+                  anchorEl={anchorEl}
+                  add={Boolean(anchorEl)}
+                >
+                  <AddIcon className={styles.Publish} aria-controls="simple-modal" />
                 </IconButton>
+                <Dialog open={open} onClose={closeAdd} aria-labelledby="form-dialog-title">
+                  <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
+                  <DialogContent>
+                    <form className={classes.datecontainer} noValidate>
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        value={todoName.name}
+                        onChange={firstEvent}
+                        label="Description"
+                        fullWidth
+                      />
+                      <TextField
+                        id="date"
+                        label="Due Date:"
+                        labelColour="black"
+                        type="date"
+                        value={todoDueDate}
+                        onChange={dateChange}
+                        className={classes.datetextField}
+                        fullWidth
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+                    </form>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button className={classes.button} onClick={closeAdd}>
+                      Cancel
+                    </Button>
+                    <Button
+                      className={classes.button}
+                      label="Button"
+                      onClick={() => {
+                        secondEvent();
+                        closeAdd();
+                      }}
+                    >
+                      Confirm
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </InputAdornment>
             }
             labelWidth={70}
@@ -326,62 +382,64 @@ const DashboardTodo = () => {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleOptionClose}
-        style={{
-          alignItems: 'center',
-          textAlign: 'center',
-        }}
+        onClose={closeMigrate}
       >
-        <MenuItem onClick={cancelEvent}>Cancel/Uncancel</MenuItem>
-        <MenuItem onClick={deleteEvent}>Delete</MenuItem>
-        <MenuItem onClick={openMigrate}>Reschedule</MenuItem>
+        <MenuItem
+          className={styles.menubar}
+          onClick={() => {
+            openMigrate();
+            setAnchorEl(null);
+          }}
+        >
+          Migrate
+        </MenuItem>
+        <MenuItem
+          className={styles.menubar}
+          onClick={() => {
+            cancelEvent();
+            setAnchorEl(null);
+          }}
+        >
+          {cancel.indexOf(selectedTodo.name) !== -1 ? 'Uncancel' : 'Cancel'}
+        </MenuItem>
+        <MenuItem
+          id="delete"
+          className={styles.menubar}
+          onClick={() => {
+            deleteEvent();
+          }}
+        >
+          Delete
+        </MenuItem>
       </Menu>
-      <Dialog open={add} onClose={closeAdd} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
-        <DialogContent>
-          <form className={classes.datecontainer} noValidate>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Description"
-              value={item.name}
-              onChange={firstEvent}
-              fullWidth
-            />
-            <TextField
-              id="date"
-              label="Due date"
-              type="date"
-              value={dueDate}
-              onChange={dateChange}
-              className={classes.datetextField}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button color="secondary" onClick={closeAdd}>
-            Cancel
-          </Button>
-          <Button color="primary" onClick={secondEvent}>
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
       <Dialog open={migrate} onClose={closeMigrate} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
-        <DialogContent>
+        <DialogContent className={classes.migrate}>
           <form className={classes.datecontainer} noValidate>
             <TextField
-              id="reDated"
-              label="Reschedule"
+              id="date"
+              label="Move to:"
+              labelColour="black"
               type="date"
               value={reDate}
               onChange={reDateChange}
               className={classes.datetextField}
+              fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </form>
+        </DialogContent>
+        <DialogContent>
+          <form noValidate>
+            <TextField
+              id="date"
+              label="Edit Due Date(optional):"
+              labelColour="black"
+              type="date"
+              defaultValue="2020-05-24"
+              fullWidth
               InputLabelProps={{
                 shrink: true,
               }}
@@ -389,10 +447,23 @@ const DashboardTodo = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button color="secondary" onClick={closeMigrate}>
+          <Button
+            className={classes.button}
+            onClick={() => {
+              setMigrate(false);
+              setAnchorEl(null);
+            }}
+          >
             Cancel
           </Button>
-          <Button color="primary" onClick={scheduleEvent}>
+          <Button
+            className={classes.button}
+            onClick={() => {
+              scheduleEvent();
+              setMigrate(false);
+              setAnchorEl(null);
+            }}
+          >
             Confirm
           </Button>
         </DialogActions>
