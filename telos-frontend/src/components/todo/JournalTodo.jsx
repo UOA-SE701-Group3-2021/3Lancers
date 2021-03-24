@@ -47,52 +47,34 @@ const useStyles = makeStyles({
   },
 });
 
-// const listitems = [
-//   {
-//     name: 'OnGoing',
-//     isOverdue: true,
-//     completed: false,
-//   },
-//   {
-//     name: 'OutDated',
-//     isOverdue: false,
-//     completed: true,
-//   },
-// ];
-
 const JournalTodo = ({ data, date }) => {
   const [todos, setTodos] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
-  // const [deleted, setDelete] = useState([0]);
-  // const [toBeDel, setToBeDel] = useState('');
-  // const [newDate, setNewDate] = useState('');
   const [selectedTodo, setSelectedTodo] = useState({});
   const [todoName, setTodoName] = useState('');
   const [todoDueDate, setTodoDueDate] = useState();
-
-  // const [input, inputEntered] = useState('');
   const [open, setOpen] = useState(false);
   const classes = useStyles();
   const [migrate, setMigrate] = useState(false);
 
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  //   setOpen(true);
-  // };
+  // sets to dos needed for the day
   useEffect(() => {
     setTodos(data);
   }, [data]);
 
+  // Indicates that the '+' sign is clicked and a new to do needs to be added
   const handleClickModal = () => {
     setOpen(true);
   };
 
+  // Indicates that any component that is currently opened needs to be closed
   const handleClose = () => {
     setAnchorEl(null);
     setOpen(false);
   };
 
+  // Adds the new to do to the list and sets variables to bind it to a name and date
   const handleAdd = () => {
     const body = {
       name: todoName,
@@ -108,6 +90,8 @@ const JournalTodo = ({ data, date }) => {
     });
   };
 
+  // Locates the current index and checks if it is the one that is being cancelled
+  // If it is, the selected to do will get added into the cancel array
   const cancelEvent = () => {
     const currentIndex = cancel.indexOf(selectedTodo);
     const newCancel = [...cancel];
@@ -119,29 +103,24 @@ const JournalTodo = ({ data, date }) => {
     setCancel(newCancel);
   };
 
+  // Creates a new To Do List by filtering the existing to do's and checking if it needs to be cancelled
   const deleteEvent = () => {
     axios.delete(`/api/todo/${selectedTodo._id}`);
     setTodos(todos.filter((todo) => todo !== selectedTodo));
   };
 
+  // To set the state of migrate once it has been pressed in the menu button as the user indicates that they need to change the date
   const openMigrate = () => {
     setMigrate(true);
   };
 
+  // To indicate that the state of migrate has changed as the user is no longer on the button
   const closeMigrate = () => {
     setMigrate(false);
   };
 
-  // const newDateChange = (event) => {
-  //   setNewDate(event.target.value);
-  //   setItemDate({
-  //     name: todosDate.name,
-  //     due: event.target.value,
-  //     isOverdue: true,
-  //     completed: false,
-  //   });
-  // };
-
+  // Sets the selected to do to checked/completed if the user clicks on the selected item
+  // Will add the completed item to the completed array
   const handleToggle = (todo) => {
     const { _id, completed } = todo;
 
@@ -157,20 +136,20 @@ const JournalTodo = ({ data, date }) => {
     setTodos(newTodos);
   };
 
-  // const secondEvent = () => {
-  //   setTodos((prev) => [...prev, item]);
-  // };
-
   return (
     <Box className={classes.root} display="flex" flexDirection="column" alignItems="stretch">
+      {/* Setting the title of the To Do List, with customised styles added in the css file */}
       <div>
         <p className={styles.title}> To Do </p>
       </div>
       <Divider />
+
+      {/* Generates a List of To Do's for the day by mapping the value to a index */}
       <List>
         {todos.map((todo, index) => {
           const labelId = `checkbox-list-label-${todo}`;
           return (
+            // Item is binded with a name key and when it is pressed the item will become completed
             <ListItem
               className={styles.tasks}
               key={todo._id}
@@ -179,12 +158,14 @@ const JournalTodo = ({ data, date }) => {
               button
               onClick={() => handleToggle(todo)}
             >
+              {/* Checks if the to do is overdue or not, if the task is overdue then the task will be displayed in red */}
               {todo.isOverdue ? (
                 <ListItemIcon>
+                  {/* Checkbox properties so the user can see if to do has been completed or not */}
                   <Checkbox
                     edge="start"
                     className={styles.checkboxOverdue}
-                    checked={todo.completed}
+                    checked={todo.completed} // Checks if the item is completed or not
                     tabIndex={-1}
                     disableRipple
                     inputProps={{ 'aria-labelledby': labelId }}
@@ -192,6 +173,7 @@ const JournalTodo = ({ data, date }) => {
                 </ListItemIcon>
               ) : (
                 <ListItemIcon>
+                  {/* Overdue checkbox properties */}
                   <Checkbox
                     className={styles.checkbox}
                     color="primary"
@@ -204,6 +186,8 @@ const JournalTodo = ({ data, date }) => {
                 </ListItemIcon>
               )}
               {todo.isOverdue ? (
+                // Displays the description of the to do list item, if a to do is cancelled on the day then it will be presented with a line through the text
+                // If it is not cancelled, text will appear as normal
                 <ListItemText
                   style={{
                     textDecorationLine: cancel.indexOf(todos[index]) !== -1 ? 'line-through' : '',
@@ -215,6 +199,7 @@ const JournalTodo = ({ data, date }) => {
                   primary={` ${todo.name}`}
                 />
               ) : (
+                // Displays the description in red as it is overdue
                 <ListItemText
                   primaryTypographyProps={{ style: { fontWeight: 'bold' } }}
                   style={{
@@ -226,6 +211,8 @@ const JournalTodo = ({ data, date }) => {
                   primary={` ${todo.name}`}
                 />
               )}
+              {/* The Icons (secondary action) are different depending on if the task is overdue. 
+              A verticle three dot icon button will be displayed and it will set the index of what to do has been selected */}
               {todo.isOverdue ? (
                 <ListItemSecondaryAction>
                   <IconButton
@@ -241,6 +228,9 @@ const JournalTodo = ({ data, date }) => {
                   </IconButton>
                 </ListItemSecondaryAction>
               ) : (
+                // Secondary action will display an icon button with an exclaimation mark to indicate that the task is over due. To action what to do with the task, user needs to click the icon for options
+                 // Sets the active index to the to do that was selected
+                <ListItemSecondaryAction>
                 <ListItemSecondaryAction>
                   <IconButton
                     className={styles.moreButton}
@@ -261,6 +251,8 @@ const JournalTodo = ({ data, date }) => {
         })}
       </List>
       <div>
+       {/* A textbox to indicate to the user that they can enter new to do's 
+        Text box has been disabled for typing to avoid confusion and allow the user to enter a new to do once they click on the + sign  */}
         <FormControl variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">New To Do</InputLabel>
           <OutlinedInput
@@ -269,6 +261,7 @@ const JournalTodo = ({ data, date }) => {
             label="Disabled"
             endAdornment={
               <InputAdornment position="end">
+              {/* When the user clicks on the button a modal will pop up allowing the user to set their requirements */}
                 <IconButton
                   className={styles.AddBtn}
                   variant="outlined"
@@ -280,9 +273,12 @@ const JournalTodo = ({ data, date }) => {
                 >
                   <AddIcon className={styles.Publish} aria-controls="simple-modal" />
                 </IconButton>
+                {/* The modal that will be displayed for the user to input their description and due date 
+                  User input is stored and added into the new item list */}
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                   <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
                   <DialogContent>
+                   {/* For the user to enter their description of the task  */}
                     <TextField
                       autoFocus
                       margin="dense"
@@ -292,6 +288,8 @@ const JournalTodo = ({ data, date }) => {
                       label="Description"
                       fullWidth
                     />
+
+                     {/* For the user to set their due date of the task, can also pick the date from the calendar  */}
                     <TextField
                       id="date"
                       label="Due Date:"
@@ -305,6 +303,9 @@ const JournalTodo = ({ data, date }) => {
                       }}
                     />
                   </DialogContent>
+
+                    {/* Button to for the user to cancel or Confirm
+                  If the user confirms, the date and description will be set. If the user cancels then nothing will be set */}
                   <DialogActions>
                     <Button className={classes.button} onClick={handleClose}>
                       Cancel
@@ -312,6 +313,8 @@ const JournalTodo = ({ data, date }) => {
                     <Button
                       className={classes.button}
                       label="Button"
+
+                      // Once either buttons has been pressed then the modal will close to show other components
                       onClick={() => {
                         handleAdd();
                         handleClose();
@@ -327,6 +330,8 @@ const JournalTodo = ({ data, date }) => {
           />
         </FormControl>
       </div>
+
+        {/* A display menu to display options of what the users can do with the selected to do */}
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -334,6 +339,8 @@ const JournalTodo = ({ data, date }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+
+       {/* Migrate will be set to true so the modal will show up allowing the users to select new dates */}
         <MenuItem
           className={styles.menubar}
           onClick={() => {
@@ -343,6 +350,8 @@ const JournalTodo = ({ data, date }) => {
         >
           Migrate
         </MenuItem>
+
+        {/* Allows user to cancel the selected to do on the day */}
         <MenuItem
           className={styles.menubar}
           onClick={() => {
@@ -350,8 +359,11 @@ const JournalTodo = ({ data, date }) => {
             setAnchorEl(null);
           }}
         >
+         {/* Menu will show as 'Uncancel' when the user selects cancel to cancel a to do */}
           {cancel.indexOf(selectedTodo) !== -1 ? 'Uncancel' : 'Cancel'}
         </MenuItem>
+
+         {/* Deletes the selected To Do from the to do list */}
         <MenuItem
           id="delete"
           className={styles.menubar}
@@ -363,10 +375,13 @@ const JournalTodo = ({ data, date }) => {
           Delete
         </MenuItem>
       </Menu>
+
+       {/* A pop up modal will show up once migrate is set to true. User can set new date to move to and new due date */}
       <Dialog open={migrate} onClose={closeMigrate} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
         <DialogContent className={classes.migrate}>
           <form noValidate>
+           {/* Change move to date */}
             <TextField
               id="date"
               label="Move to:"
@@ -382,6 +397,7 @@ const JournalTodo = ({ data, date }) => {
         </DialogContent>
         <DialogContent>
           <form noValidate>
+            {/* User changes the due date. However it was optional */}
             <TextField
               id="date"
               label="Edit Due Date(optional):"
