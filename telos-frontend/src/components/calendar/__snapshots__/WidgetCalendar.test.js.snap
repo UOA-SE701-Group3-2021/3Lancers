@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing the WidgetCalendar 1`] = `
+<DocumentFragment>
+  <div
+    class="widgetIcon vertical"
+  >
+    <div
+      class="smallMonth"
+    >
+      April
+    </div>
+    <div
+      class="bigText"
+    >
+      06
+    </div>
+  </div>
+</DocumentFragment>
+`;
