@@ -20,6 +20,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "chokidar": "^0.8.2",
     "fontsource-roboto": "^4.0.0",
     "from": "^0.1.7",
     "immutability-helper": "^3.1.1",
@@ -30,6 +31,7 @@
     "react-dnd": "^14.0.1",
     "react-dnd-html5-backend": "^14.0.0",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.1"
