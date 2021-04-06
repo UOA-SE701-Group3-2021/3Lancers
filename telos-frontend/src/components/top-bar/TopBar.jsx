@@ -59,13 +59,20 @@ const TopBar = () => {
 
   return (
     <div>
-      <AppBar position="static" className={classes.root}>
+      <AppBar position="static" className={classes.root} title="hello">
         <Toolbar>
           <IconButton onClick={menuOpenHandler} edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6">Telos</Typography>
+          <Typography class="centre">
+            <img
+              src="https://i.ibb.co/4ZCLZWH/purple.png"
+              width="130vw"
+              height="auto"
+              alt="Telos"
+            />
+          </Typography>
 
           <section className={classes.rightSide}>
             <IconButton onClick={settingsMenuHandler} edge="start" color="inherit">
