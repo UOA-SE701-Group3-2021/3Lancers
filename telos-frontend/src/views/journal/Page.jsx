@@ -103,9 +103,6 @@ const Page = ({ date, widgets, setWidgets }) => {
           label: 'Yes',
           onClick: () => {
             axios.delete(`/api/journal/${pK}`);
-            // TODO REALLY BAD IT JUST REFRESHES THE PAGE
-            // window.location.reload();
-            console.log('TEST');
             setUpdate(update + 1);
           },
         },
