@@ -244,3 +244,8 @@
 .addIconButtonSvg {
   font-size: 2rem !important;
 }
+
+.habitTracker{
+  margin: 2% auto auto auto;
+  width: 50%;
+}

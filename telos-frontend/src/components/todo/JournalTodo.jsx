@@ -53,7 +53,7 @@ const JournalTodo = ({ data, date }) => {
   const [cancel, setCancel] = useState([0]);
   const [selectedTodo, setSelectedTodo] = useState({});
   const [todoName, setTodoName] = useState('');
-  const [todoDueDate, setTodoDueDate] = useState();
+  const [todoDueDate, setTodoDueDate] = useState(undefined);
   const [open, setOpen] = useState(false);
   const classes = useStyles();
   const [migrate, setMigrate] = useState(false);
@@ -211,7 +211,7 @@ const JournalTodo = ({ data, date }) => {
                   primary={` ${todo.name}`}
                 />
               )}
-              {/* The Icons (secondary action) are different depending on if the task is overdue. 
+              {/* The Icons (secondary action) are different depending on if the task is overdue.
               A verticle three dot icon button will be displayed and it will set the index of what to do has been selected */}
               {todo.isOverdue ? (
                 <ListItemSecondaryAction>
@@ -271,7 +271,7 @@ const JournalTodo = ({ data, date }) => {
                 >
                   <AddIcon className={styles.Publish} aria-controls="simple-modal" />
                 </IconButton>
-                {/* The modal that will be displayed for the user to input their description and due date 
+                {/* The modal that will be displayed for the user to input their description and due date
                   User input is stored and added into the new item list */}
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                   <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
@@ -309,6 +309,7 @@ const JournalTodo = ({ data, date }) => {
                     </Button>
                     <Button
                       className={classes.button}
+                      disabled={todoName === '' || todoDueDate === undefined}
                       label="Button"
                       // Once either buttons has been pressed then the modal will close to show other components.
                       onClick={() => {
