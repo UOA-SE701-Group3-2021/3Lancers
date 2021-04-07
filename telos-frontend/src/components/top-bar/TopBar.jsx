@@ -66,8 +66,8 @@ const TopBar = () => {
 
           <Typography class="centre">
             <img
-              src="https://i.ibb.co/4ZCLZWH/purple.png"
-              width="130vw"
+              src="https://i.ibb.co/Jdt7f10/centre.png"
+              width="110vw"
               height="auto"
               alt="Telos"
             />

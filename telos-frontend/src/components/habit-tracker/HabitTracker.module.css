@@ -89,7 +89,7 @@
   align-items: center;
   justify-content: center;
   width: auto;
-  height: 10vw;
+  height: auto;
   text-align: left !important;
   background:white;
   mix-blend-mode: normal;
@@ -163,7 +163,7 @@
 .menuContainer {
   display: block !important;
   width: 562px !important;
-  height: 408px !important;
+  height: 500px !important;
 }
 
 .dialog {
@@ -197,7 +197,7 @@
 }
 
 #saveButton {
-  width: 77px !important;
+  width: 50px !important;
   height: 22px !important;
   left: 20px !important;
   margin-right: 146px !important;
@@ -206,9 +206,9 @@
 }
 
 #closeButton {
-  width: 20px !important;
+  width: 30px !important;
   min-width: 0 !important;
-  height: 20px !important;
+  height: 30px !important;
   left: 170px !important;
   padding: 0 !important;
   background: #ffffff !important;

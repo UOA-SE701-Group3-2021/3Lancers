@@ -34,8 +34,8 @@ import styles from './DashboardTodo.module.css';
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: '10px',
-    borderColor: 'black',
-    borderWidth: '5px',
+    borderWidth: '2px',
+    boxSizing: 'border-box',
     marginTop: '0.5vw',
     width: '100%',
     maxWidth: 2000,
@@ -403,99 +403,26 @@ const DashboardTodo = () => {
                     </DialogContent>
                     {/* Button to for the user to cancel or Confirm
                   If the user confirms, the date and description will be set. If the user cancels then nothing will be set */}
-                  <DialogActions>
-                    <Button className={classes.button} onClick={handleClose}>
-                      Cancel
-                    </Button>
-                    <Button
-                      className={classes.button}
-                      label="Button"
-                      // Once either buttons has been pressed then the modal will close to show other components
-                      onClick={() => {
-                        handleClose();
-                        secondEvent();
-                      }}
-                    >
-                      Confirm
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-              </InputAdornment>
-            }
-            labelWidth={70}
-          />
-        </FormControl>
-      </div>
-      {/* A display menu to display options of what the users can do with the selected to do */}
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={closeMigrate}
-      >
-        {/* Migrate will be set to true so the modal will show up allowing the users to select new dates */}
-        <MenuItem
-          className={styles.menubar}
-          onClick={() => {
-            openMigrate();
-            setAnchorEl(null);
-          }}
-        >
-          Migrate
-        </MenuItem>
-        {/* Allows user to cancel the selected to do on the day */}
-        <MenuItem
-          className={styles.menubar}
-          onClick={() => {
-            cancelEvent();
-            setAnchorEl(null);
-          }}
-        >
-          {cancel.indexOf(selectedTodo.name) !== -1 ? 'Uncancel' : 'Cancel'}
-        </MenuItem>
-        <MenuItem
-          id="delete"
-          className={styles.menubar}
-          onClick={() => {
-            deleteEvent();
-          }}
-        >
-          Delete
-        </MenuItem>
-      </Menu>
-      {/* Opens dialog for rescheduling exisiting todo date or due */}
-      <Dialog open={migrate} onClose={closeMigrate} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
-        <DialogContent className={classes.migrate}>
-          <form className={classes.datecontainer} noValidate>
-            <TextField
-              id="date"
-              label="Move to:"
-              labelColour="black"
-              type="date"
-              value={reDate}
-              onChange={reDateChange}
-              className={classes.datetextField}
-              fullWidth
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          </form>
-        </DialogContent>
-        <DialogContent>
-          <form noValidate>
-            <TextField
-              id="date"
-              label="Edit Due Date(optional):"
-              labelColour="black"
-              type="date"
-              defaultValue="2020-05-24"
-              fullWidth
-              InputLabelProps={{
-                shrink: true,
-              }}
+                    <DialogActions>
+                      <Button className={classes.button} onClick={handleClose}>
+                        Cancel
+                      </Button>
+                      <Button
+                        className={classes.button}
+                        label="Button"
+                        // Once either buttons has been pressed then the modal will close to show other components
+                        onClick={() => {
+                          handleClose();
+                          secondEvent();
+                        }}
+                      >
+                        Confirm
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </InputAdornment>
+              }
+              labelWidth={70}
             />
           </FormControl>
         </div>

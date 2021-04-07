@@ -66,7 +66,6 @@ const DashboardHabitTracker = () => {
   return (
     // Main window of the widgets
     <div className={habitStyle.BackgroundImage}>
-    <div className={habitStyle.habitTracker}>
       <div className={habitStyle.cardContainer}>
         <div className={habitStyle.HabitTitle}>
           <h2>{habitTitle}</h2>
