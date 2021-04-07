@@ -2,6 +2,8 @@ import { memo } from 'react';
 import { useDrag } from 'react-dnd';
 import { renderWidget } from './utils';
 
+const axios = require('axios');
+
 function getStyles(left, top) {
   const transform = `translate3d(${left}px, ${top}px, 0)`;
 
@@ -26,9 +28,17 @@ const DraggableWidget = memo((props) => {
     [id, position, type]
   );
 
+  // make function to delete using id
+  const deleteWidget = (pK) => {
+    console.log(pK);
+    axios.delete(`/api/journal/${pK}`);
+    // TODO REALLY BAD IT JUST REFRESHES THE PAGE
+    window.location.reload();
+  };
+
   return (
     <div ref={drag} style={getStyles(position.col, position.row)}>
-      {renderWidget(type, { data, date })}
+      {renderWidget(type, { data, date, id, deleteWidget })}
     </div>
   );
 });

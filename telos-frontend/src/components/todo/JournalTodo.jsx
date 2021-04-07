@@ -48,7 +48,7 @@ const useStyles = makeStyles({
   },
 });
 
-const JournalTodo = ({ data, date }) => {
+const JournalTodo = ({ data, date, id, deleteWidget }) => {
   const [todos, setTodos] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
@@ -58,10 +58,12 @@ const JournalTodo = ({ data, date }) => {
   const [open, setOpen] = useState(false);
   const classes = useStyles();
   const [migrate, setMigrate] = useState(false);
+  // const [primary, setTest] = useState(id);
 
   // sets to dos needed for the day
   useEffect(() => {
     setTodos(data);
+    // setTest(id);
   }, [data]);
 
   // Indicates that the '+' sign is clicked and a new to do needs to be added
@@ -106,6 +108,7 @@ const JournalTodo = ({ data, date }) => {
 
   // Creates a new To Do List by filtering the existing to do's and checking if it needs to be cancelled
   const deleteEvent = () => {
+    console.log(id);
     axios.delete(`/api/todo/${selectedTodo._id}`);
     setTodos(todos.filter((todo) => todo !== selectedTodo));
   };
@@ -143,7 +146,7 @@ const JournalTodo = ({ data, date }) => {
         {/* Setting the title of the To Do List, with customised styles added in the css file */}
 
         <div className={styles.header}>
-          <FaTimes className={styles.cross} />
+          <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
         </div>
         <div>
           <p className={styles.title}> To Do</p>

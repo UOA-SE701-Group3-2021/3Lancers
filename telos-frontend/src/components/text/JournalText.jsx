@@ -4,7 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import styles from './TextWidget.module.css';
 
 // This react component draws a Material-UI paper background and overlays a text area on it for the user to make notes
-const JournalText = () => {
+const JournalText = ({ id, deleteWidget }) => {
   // text widgeds content stored in react state
   const [textContent, setTextContent] = useState('');
 
@@ -17,7 +17,7 @@ const JournalText = () => {
       <Box className={styles.box}>
         <div className={styles.header}>
           {' '}
-          <FaTimes className={styles.cross} />
+          <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
         </div>
 
         <textarea

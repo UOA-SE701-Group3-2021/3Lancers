@@ -146,7 +146,7 @@ export default class Calendar extends React.PureComponent {
       <>
         <Paper style={{ height: '100%' }}>
           <div className={styles.header}>
-            <FaTimes className={styles.cross} />
+            <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />{' '}
           </div>
 
           <Scheduler data={data}>
