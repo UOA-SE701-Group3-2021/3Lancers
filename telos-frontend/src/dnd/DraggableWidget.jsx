@@ -15,7 +15,6 @@ function getStyles(left, top) {
 
 // A component for widgets that can be dragged
 const DraggableWidget = memo(({ id, position, type, data, date, deleteWidget }) => {
-  // const { id, position, type, data, date, update } = props;
   const [, drag] = useDrag(
     () => ({
       type,
