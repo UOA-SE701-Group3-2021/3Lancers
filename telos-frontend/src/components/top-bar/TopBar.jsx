@@ -12,7 +12,6 @@ import {
   CalendarToday as CalendarTodayIcon,
   CheckBox as CheckBoxIcon,
   MoreHoriz as MoreHorizIcon,
-  Cancel as CancelIcon,
 } from '@material-ui/icons';
 
 //  Used to define styles of MUI components.
@@ -112,10 +111,6 @@ const TopBar = () => {
         <MenuItem onClick={() => menuChoiceHandler('habittracker')}>
           <MoreHorizIcon />
           Habit Tracker
-        </MenuItem>
-        <MenuItem onClick={menuCloseHandler}>
-          <CancelIcon />
-          Cancel
         </MenuItem>
       </Menu>
     </div>
