@@ -11,6 +11,8 @@ import {
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
+let today = new Date();
+
 // Data to show on the calendar
 const calendarData = [
   {
@@ -95,6 +97,7 @@ export const typeData = [
 // resources allow to differentiate between the different types of calendar options
 export default class Calendar extends React.PureComponent {
   constructor(props) {
+    today = props.date;
     super(props);
     this.state = {
       data: calendarData,
@@ -143,7 +146,7 @@ export default class Calendar extends React.PureComponent {
     return (
       <Paper style={{ height: '100%' }}>
         <Scheduler data={data}>
-          <ViewState defaultCurrentDate="2021-03-22" />
+          <ViewState defaultCurrentDate={today} />
           <EditingState onCommitChanges={this.commitChanges} />
           <IntegratedEditing />
           <EditRecurrenceMenu />
