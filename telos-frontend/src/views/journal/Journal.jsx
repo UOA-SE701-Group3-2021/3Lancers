@@ -10,6 +10,7 @@ import WidgetCalendar from '../../components/calendar/WidgetCalendar';
 import WidgetText from '../../components/text/WidgetText';
 import WidgetTodo from '../../components/todo/WidgetTodo';
 import WidgetHabitTracker from '../../components/habit-tracker/WidgetHabitTracker';
+import WidgetSpotifyPlayer from '../../components/spotify-player/WidgetSpotifyPlayer';
 import { WidgetTypes } from '../../dnd/WidgetTypes';
 
 const axios = require('axios');
@@ -108,6 +109,11 @@ const Journal = () => {
           <WidgetText
             addNewText={() => {
               addNewWidget(WidgetTypes.TEXT);
+            }}
+          />
+          <WidgetSpotifyPlayer
+            addNewSpotifyPlayer={() => {
+              addNewWidget(WidgetTypes.SPOTIFY_PLAYER);
             }}
           />
         </WidgetDrawer>
