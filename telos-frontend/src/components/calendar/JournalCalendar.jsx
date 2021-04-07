@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
+import { FaTimes } from 'react-icons/fa';
 import {
   Scheduler,
   DayView,
@@ -10,6 +11,7 @@ import {
   AppointmentForm,
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import styles from './JournalCalendar.module.css';
 
 // Data to show on the calendar
 const calendarData = [
@@ -141,19 +143,25 @@ export default class Calendar extends React.PureComponent {
     const { data, resources } = this.state;
 
     return (
-      <Paper style={{ height: '100%' }}>
-        <Scheduler data={data}>
-          <ViewState defaultCurrentDate="2021-03-22" />
-          <EditingState onCommitChanges={this.commitChanges} />
-          <IntegratedEditing />
-          <EditRecurrenceMenu />
-          <DayView startDayHour={0} endDayHour={24} />
-          <Appointments />
-          <AppointmentTooltip showOpenButton showDeleteButton showCloseButton />
-          <AppointmentForm />
-          <Resources data={resources} mainResourceName="priorityId" />
-        </Scheduler>
-      </Paper>
+      <>
+        <Paper style={{ height: '100%' }}>
+          <div className={styles.header}>
+            <FaTimes className={styles.cross} />
+          </div>
+
+          <Scheduler data={data}>
+            <ViewState defaultCurrentDate="2021-03-22" />
+            <EditingState onCommitChanges={this.commitChanges} />
+            <IntegratedEditing />
+            <EditRecurrenceMenu />
+            <DayView startDayHour={0} endDayHour={24} />
+            <Appointments />
+            <AppointmentTooltip showOpenButton showDeleteButton showCloseButton />
+            <AppointmentForm />
+            <Resources data={resources} mainResourceName="priorityId" />
+          </Scheduler>
+        </Paper>
+      </>
     );
   }
 }

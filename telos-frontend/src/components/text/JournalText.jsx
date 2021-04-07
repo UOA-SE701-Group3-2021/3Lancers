@@ -1,7 +1,6 @@
 import Box from '@material-ui/core/Box';
 import { useState } from 'react';
-import { FaTimes } from "react-icons/fa";
-
+import { FaTimes } from 'react-icons/fa';
 import styles from './TextWidget.module.css';
 
 // This react component draws a Material-UI paper background and overlays a text area on it for the user to make notes
@@ -15,16 +14,19 @@ const JournalText = () => {
 
   return (
     <>
-    <Box className={styles.box}>
-    <FaTimes style={{ color: "red"}}/>
+      <Box className={styles.box}>
+        <div className={styles.header}>
+          {' '}
+          <FaTimes className={styles.cross} />
+        </div>
 
-      <textarea
-        data-testid="textInput"
-        className={styles.textInput}
-        value={textContent}
-        onChange={(e) => onTextChange(e.target.value)}
-      />
-    </Box>
+        <textarea
+          data-testid="textInput"
+          className={styles.textInput}
+          value={textContent}
+          onChange={(e) => onTextChange(e.target.value)}
+        />
+      </Box>
     </>
   );
 };
