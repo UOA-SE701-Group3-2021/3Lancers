@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { useDrag } from 'react-dnd';
 import { renderWidget } from './utils';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 function getStyles(left, top) {
   const transform = `translate3d(${left}px, ${top}px, 0)`;
@@ -13,8 +14,7 @@ function getStyles(left, top) {
 }
 
 // A component for widgets that can be dragged
-const DraggableWidget = memo((props) => {
-  const { id, position, type, data, date } = props;
+const DraggableWidget = memo(({ id, position, type, data, date, deleteWidget }) => {
   const [, drag] = useDrag(
     () => ({
       type,
@@ -28,7 +28,7 @@ const DraggableWidget = memo((props) => {
 
   return (
     <div ref={drag} style={getStyles(position.col, position.row)}>
-      {renderWidget(type, { data, date })}
+      {renderWidget(type, { data, date, id, deleteWidget })}
     </div>
   );
 });
