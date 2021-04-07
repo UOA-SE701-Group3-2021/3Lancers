@@ -1,10 +1,10 @@
 import { memo } from 'react';
 import { useDrag } from 'react-dnd';
-import { confirmAlert } from 'react-confirm-alert';
+// import { confirmAlert } from 'react-confirm-alert';
 import { renderWidget } from './utils';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const axios = require('axios');
+// const axios = require('axios');
 
 function getStyles(left, top) {
   const transform = `translate3d(${left}px, ${top}px, 0)`;
@@ -17,8 +17,8 @@ function getStyles(left, top) {
 }
 
 // A component for widgets that can be dragged
-const DraggableWidget = memo((props) => {
-  const { id, position, type, data, date } = props;
+const DraggableWidget = memo(({ id, position, type, data, date, deleteWidget }) => {
+  // const { id, position, type, data, date, update } = props;
   const [, drag] = useDrag(
     () => ({
       type,
@@ -31,25 +31,26 @@ const DraggableWidget = memo((props) => {
   );
 
   // make function to delete using id
-  const deleteWidget = (pK) => {
-    confirmAlert({
-      title: 'Confirm to delete',
-      message: 'Are you sure you want to delete this widget?',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => {
-            axios.delete(`/api/journal/${pK}`);
-            // TODO REALLY BAD IT JUST REFRESHES THE PAGE
-            window.location.reload();
-          },
-        },
-        {
-          label: 'No',
-        },
-      ],
-    });
-  };
+  // const deleteWidget = (pK) => {
+  //   confirmAlert({
+  //     title: 'Confirm to delete',
+  //     message: 'Are you sure you want to delete this widget?',
+  //     buttons: [
+  //       {
+  //         label: 'Yes',
+  //         onClick: () => {
+  //           axios.delete(`/api/journal/${pK}`);
+  //           // TODO REALLY BAD IT JUST REFRESHES THE PAGE
+  //           // window.location.reload();
+  //           update = update + 1;
+  //         },
+  //       },
+  //       {
+  //         label: 'No',
+  //       },
+  //     ],
+  //   });
+  // };
 
   return (
     <div ref={drag} style={getStyles(position.col, position.row)}>
