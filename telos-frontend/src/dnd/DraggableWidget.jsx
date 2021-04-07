@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import { useDrag } from 'react-dnd';
+import { confirmAlert } from 'react-confirm-alert';
 import { renderWidget } from './utils';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const axios = require('axios');
 
@@ -30,10 +32,23 @@ const DraggableWidget = memo((props) => {
 
   // make function to delete using id
   const deleteWidget = (pK) => {
-    console.log(pK);
-    axios.delete(`/api/journal/${pK}`);
-    // TODO REALLY BAD IT JUST REFRESHES THE PAGE
-    window.location.reload();
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure you want to delete this widget?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            axios.delete(`/api/journal/${pK}`);
+            // TODO REALLY BAD IT JUST REFRESHES THE PAGE
+            window.location.reload();
+          },
+        },
+        {
+          label: 'No',
+        },
+      ],
+    });
   };
 
   return (
