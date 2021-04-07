@@ -21,7 +21,10 @@
 }
 
 .container {
-  background: black;
+  position: relative;
+  width: 500px;
+  height: auto;
+  background: #ffffff;
   mix-blend-mode: normal;
   border: 2px solid #7a00f4;
   box-sizing: border-box;

@@ -1,3 +1,5 @@
+import {useState} from 'react';
+import AddIcon from '@material-ui/icons/Add';
 import {
   Box,
   Button,
@@ -6,13 +8,11 @@ import {
   IconButton,
   InputLabel,
   MenuItem,
-  Select,
-  TextField,
   Radio,
   RadioGroup,
+  Select,
+  TextField,
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import { useState } from 'react';
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
 import habitStyle from './HabitTracker.module.css';
 
