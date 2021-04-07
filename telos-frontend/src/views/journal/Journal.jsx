@@ -11,6 +11,7 @@ import WidgetText from '../../components/text/WidgetText';
 import WidgetTodo from '../../components/todo/WidgetTodo';
 import WidgetHabitTracker from '../../components/habit-tracker/WidgetHabitTracker';
 import { WidgetTypes } from '../../dnd/WidgetTypes';
+import WidgetClock from '../../components/clock/WidgetClock';
 
 const axios = require('axios');
 
@@ -108,6 +109,11 @@ const Journal = () => {
           <WidgetText
             addNewText={() => {
               addNewWidget(WidgetTypes.TEXT);
+            }}
+          />
+          <WidgetClock
+            addNewClock={() => {
+              addNewWidget(WidgetTypes.CLOCK);
             }}
           />
         </WidgetDrawer>

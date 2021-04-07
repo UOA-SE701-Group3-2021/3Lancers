@@ -1,0 +1,21 @@
+.textInput {
+    resize: none;
+    width: inherit;
+    height: inherit;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  .box {
+    box-shadow: 3px 3px 3px darkgrey;
+    resize: none;
+    position: relative;
+    width: 100px;
+    height: 25px;
+    border: 2px solid #7a00f4;
+    border-radius: 5px;
+    background-color: white !important;
+  }
+  
