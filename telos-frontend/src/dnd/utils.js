@@ -19,7 +19,7 @@ export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
     case WidgetTypes.TEXT:
       return (
         <div style={{ height: 300, width: 250 }}>
-          <JournalText data={data} id={id} deleteWidget={deleteWidget} />
+          <JournalText date={date} data={data} id={id} deleteWidget={deleteWidget} />
         </div>
       );
     default:

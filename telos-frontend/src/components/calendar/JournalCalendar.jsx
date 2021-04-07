@@ -96,7 +96,7 @@ export const typeData = [
 
 // resources allow to differentiate between the different types of calendar options
 
-const JournalCalendar = ({ id, deleteWidget }) => {
+const JournalCalendar = ({ date, id, deleteWidget }) => {
   const [state, setState] = useState({
     data: calendarData,
     resources: [
@@ -142,7 +142,7 @@ const JournalCalendar = ({ id, deleteWidget }) => {
         </div>
 
         <Scheduler data={state.data}>
-          <ViewState defaultCurrentDate="2021-03-22" />
+          <ViewState defaultCurrentDate={date} />
           <EditingState onCommitChanges={commitChanges} />
           <IntegratedEditing />
           <EditRecurrenceMenu />
