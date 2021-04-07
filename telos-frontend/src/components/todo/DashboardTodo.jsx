@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
+    height: 'auto',
+    maxHeight: '60vh',
+    overflow: 'auto',
   },
   datecontainer: {
     display: 'flex',
@@ -170,7 +173,9 @@ const DashboardTodo = () => {
   };
 
   const secondEvent = () => {
-    setNewItem((prev) => [...prev, todoName]);
+    if (open) {
+      setNewItem((prev) => [...prev, todoName]);
+    }
     // removed sorting
   };
   const handleOption = (value) => (event) => {
@@ -396,8 +401,8 @@ const DashboardTodo = () => {
                       label="Button"
                       // Once either buttons has been pressed then the modal will close to show other components
                       onClick={() => {
-                        secondEvent();
                         handleClose();
+                        secondEvent();
                       }}
                     >
                       Confirm

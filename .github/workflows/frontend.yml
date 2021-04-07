@@ -2,8 +2,7 @@ name: Frontend CI
 
 on:
   pull_request:
-    paths:
-      - telos-frontend/**
+    branches: [ main, main2 ]
 
 defaults:
   run:
