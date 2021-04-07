@@ -2,7 +2,7 @@ import moment from 'moment';
 import widgetStyles from '../Widget.module.css';
 import calendarWidgetStyles from './WidgetCalendar.module.css';
 
-const WidgetTodo = ({ addNewCalendar }) => {
+const WidgetCalendar = ({ addNewCalendar }) => {
   const today = moment();
   const thisMonth = today.format('MMMM');
   const thisDay = today.format('DD');
@@ -15,4 +15,4 @@ const WidgetTodo = ({ addNewCalendar }) => {
   );
 };
 
-export default WidgetTodo;
+export default WidgetCalendar;
