@@ -26,6 +26,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ErrorIcon from '@material-ui/icons/Error';
 import { useEffect, useState } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { FaTimes } from 'react-icons/fa';
 import styles from './JournalTodo.module.css';
 import './JournalTodoCheckbox.css';
 
@@ -47,13 +48,13 @@ const useStyles = makeStyles({
   },
 });
 
-const JournalTodo = ({ data, date }) => {
+const JournalTodo = ({ data, date, id, deleteWidget }) => {
   const [todos, setTodos] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
   const [selectedTodo, setSelectedTodo] = useState({});
   const [todoName, setTodoName] = useState('');
-  const [todoDueDate, setTodoDueDate] = useState();
+  const [todoDueDate, setTodoDueDate] = useState(undefined);
   const [open, setOpen] = useState(false);
   const classes = useStyles();
   const [migrate, setMigrate] = useState(false);
@@ -61,6 +62,7 @@ const JournalTodo = ({ data, date }) => {
   // sets to dos needed for the day
   useEffect(() => {
     setTodos(data);
+    // setTest(id);
   }, [data]);
 
   // Indicates that the '+' sign is clicked and a new to do needs to be added
@@ -139,6 +141,10 @@ const JournalTodo = ({ data, date }) => {
   return (
     <Box className={classes.root} display="flex" flexDirection="column" alignItems="stretch">
       {/* Setting the title of the To Do List, with customised styles added in the css file */}
+      <div className={styles.header}>
+        <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
+      </div>
+
       <div>
         <p className={styles.title}> To Do </p>
       </div>
@@ -211,7 +217,7 @@ const JournalTodo = ({ data, date }) => {
                   primary={` ${todo.name}`}
                 />
               )}
-              {/* The Icons (secondary action) are different depending on if the task is overdue. 
+              {/* The Icons (secondary action) are different depending on if the task is overdue.
               A verticle three dot icon button will be displayed and it will set the index of what to do has been selected */}
               {todo.isOverdue ? (
                 <ListItemSecondaryAction>
@@ -271,7 +277,7 @@ const JournalTodo = ({ data, date }) => {
                 >
                   <AddIcon className={styles.Publish} aria-controls="simple-modal" />
                 </IconButton>
-                {/* The modal that will be displayed for the user to input their description and due date 
+                {/* The modal that will be displayed for the user to input their description and due date
                   User input is stored and added into the new item list */}
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                   <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
@@ -309,6 +315,7 @@ const JournalTodo = ({ data, date }) => {
                     </Button>
                     <Button
                       className={classes.button}
+                      disabled={todoName === '' || todoDueDate === undefined}
                       label="Button"
                       // Once either buttons has been pressed then the modal will close to show other components.
                       onClick={() => {

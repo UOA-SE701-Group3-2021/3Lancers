@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDrop } from 'react-dnd';
+import { confirmAlert } from 'react-confirm-alert';
 import DraggableWidget from '../../dnd/DraggableWidget';
 import { WidgetTypes } from '../../dnd/WidgetTypes';
 import pageStyles from './Page.module.css';
@@ -9,6 +10,7 @@ const axios = require('axios');
 const Page = ({ date, widgets, setWidgets }) => {
   // Initial widget data from the backend. Passed down to the widgets as their initial state.
   const [initialWidgetData, setInitialWidgetData] = useState({});
+  const [update, setUpdate] = useState(1);
 
   // Fetch widgets for page/date
   useEffect(() => {
@@ -24,7 +26,7 @@ const Page = ({ date, widgets, setWidgets }) => {
       setInitialWidgetData(initData);
       setWidgets(widgetData);
     });
-  }, [date]);
+  }, [date, update]);
 
   const moveWidget = useCallback(
     (id, left, top) => {
@@ -92,6 +94,25 @@ const Page = ({ date, widgets, setWidgets }) => {
     }
   };
 
+  const deleteWidget = (pK) => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure you want to delete this widget?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            axios.delete(`/api/journal/${pK}`);
+            setUpdate(update + 1);
+          },
+        },
+        {
+          label: 'No',
+        },
+      ],
+    });
+  };
+
   return (
     <div className={pageStyles.Page} ref={drop}>
       {widgets.map((widget) => (
@@ -102,6 +123,7 @@ const Page = ({ date, widgets, setWidgets }) => {
           position={widget.position}
           data={getDataByWidgetType(widget.type)}
           date={date}
+          deleteWidget={deleteWidget}
         />
       ))}
       <textarea />

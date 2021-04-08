@@ -38,3 +38,11 @@
 .moreButton {
   color: #828282 !important;
 }
+
+.header {
+  background-color: gray;
+}
+
+.cross {
+  color: red;
+}
