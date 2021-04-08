@@ -190,7 +190,6 @@ async function getCalendarDataForMonth(date) {
   return calendarevents;
 }
 
-
 // Endpoints defined from this point on
 
 // get widgets which appear in the journal for a single date.
