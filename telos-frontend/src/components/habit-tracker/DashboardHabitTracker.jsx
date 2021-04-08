@@ -19,7 +19,7 @@ import habitStyle from './HabitTracker.module.css';
 // This react component draws a Material-UI Habit Tracker in Journal View for the user to note their habituals
 const DashboardHabitTracker = () => {
   // The functions that update and save the changes
-  const [habitTitle, setTitle] = useState('Habit1');
+  const [habitTitle, setTitle] = useState('Habit Tracker');
   const [tempTitle, setTempTitle] = useState(habitTitle);
   const [habitDes, setDes] = useState('Habit description, Do Task X, Y many times per week');
   const [tempDes, setTempDes] = useState(habitDes);
@@ -65,7 +65,7 @@ const DashboardHabitTracker = () => {
 
   return (
     // Main window of the widgets
-    <div className={habitStyle.habitTracker}>
+    <div className={habitStyle.BackgroundImage}>
       <div className={habitStyle.cardContainer}>
         <div className={habitStyle.HabitTitle}>
           <h2>{habitTitle}</h2>
@@ -76,7 +76,7 @@ const DashboardHabitTracker = () => {
           </span>
         </div>
         <div className={habitStyle.HabitContent}>
-          <p>{habitDes}</p>
+          <h2 style={{ fontFamily: 'monospace' }}>{habitDes}</h2>
         </div>
         <WeekScheduleBar />
       </div>

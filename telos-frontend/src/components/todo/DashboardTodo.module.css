@@ -1,18 +1,33 @@
+.BackgroundImage {
+  background-image: url("https://images.pexels.com/photos/733857/pexels-photo-733857.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"); 
+  background-position: center;
+  background-size: cover;
+  background-repeat:no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
 .container {
-  background-color: white;
-  box-shadow: 3px 3px 3px darkgrey;
-  width: 360px;
-  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
 }
 
 .header {
-  margin: 16px;
-  height: 24px;
   font-weight: 500;
 }
 
+.Title {
+  color: #7A00F4; 
+  margin-top: 2vw;
+  font-size: 1.5vw;
+}
+
 .inputbox {
-  width: 100%;
+  width: 78vw;
 }
 
 .Publish {
