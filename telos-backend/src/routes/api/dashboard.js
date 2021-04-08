@@ -6,6 +6,7 @@ const Habit = require('../../models/habit');
 const Text = require('../../models/text');
 const TodoTask = require('../../models/todo_task');
 const Widget = require('../../models/widget');
+
 // get widgets which appear on the dashboard for a date range.
 // query params:
 // 'widget': type of widget i.e. 'calendar', etc.
@@ -17,27 +18,6 @@ const Widget = require('../../models/widget');
 //     request: `GET widget type: ${req.params.widget}, start: ${req.query.startDate}, end: ${req.query.endDate}`,
 //   });
 // });
-// function getStringWidget(inputWidget) {
-//   let widgetString;
-//   switch (inputWidget) {
-//     case 0:
-//       widgetString = 'calendar';
-//       break;
-//     case 1:
-//       widgetString = 'todo';
-//       break;
-//     case 2:
-//       widgetString = 'habit_tracker';
-//       break;
-//     case 3:
-//       widgetString = 'text';
-//       break;
-//     default:
-//       widgetString = 'err';
-//   }
-//   return widgetString;
-// }
-
 function getEndDate(startingDate) {
   let dayString;
   const year = startingDate.getFullYear();
@@ -92,7 +72,7 @@ function getEndDate(startingDate) {
 }
 
 async function getTodosForMonth(date) {
-  // Todos should return either what is made today, or all overdue tasks.
+  // Todos should return either what is made whin a month, or all overdue tasks.
   const startdate = date;
   startdate.setDate(1);
   const enddate = getEndDate(date);
@@ -154,7 +134,7 @@ function getStringDayOfWeek(dayNum) {
 // Param: date, of type date, parsed from url path param. Given as yyyy-mm-dd
 async function getHabitsForMonth(date) {
   // Create habit objects to return. These are not stored directly (since technically could be unlimited)
-  // Must find all habits that are between the requested day, but before end date, then check if they fall
+  // Must find all habits that are between the requested days, but before end date, then check if they fall
   // on the current day.
   const startdate = date;
   startdate.setDate(1);
@@ -209,14 +189,15 @@ async function getCalendarDataForMonth(date) {
   });
   return calendarevents;
 }
+
+
 // Endpoints defined from this point on
 
 // get widgets which appear in the journal for a single date.
 // params:
-// 'date': journal date to get widgets for
+// 'widget': specific widget
 router.get('/:widget', async (req, res) => {
   const { widget } = req.params;
-  // const widgetType = getStringWidget(widget);
 
   const date = await Widget.find({ type: widget });
   const textWidgetIds = [];
