@@ -36,4 +36,4 @@ db.once('open', () => {
 require('./demo');
 
 // Launch app (start server running), with a simple logging statement, based on SE750 example
-app.listen(port, () => console.log(`App server litening on port number: ${port}`));
+app.listen(port, () => console.log(`App server listening on port number: ${port}`));
