@@ -7,7 +7,8 @@
     "start": "nodemon app.js",
     "test": "jest",
     "pretty": "prettier --write \"./**/*.{js,jsx}\"",
-    "lint": "eslint \"./**/*.{js,jsx}\""
+    "lint": "eslint \"./**/*.{js,jsx}\"",
+    "init-habit-tracker-db": "node -r esm ./src/db/init-habit-tracker-db.js"
   },
   "jest": {
     "testEnvironment": "node"
