@@ -12,12 +12,6 @@ const Widget = require('../../models/widget');
 // 'widget': type of widget i.e. 'calendar', etc.
 // 'startDate': start date
 // 'endDate': end date
-// router.get('/:widget', (req, res) => {
-//   res.json({
-//     endpoint: '/dashboard',
-//     request: `GET widget type: ${req.params.widget}, start: ${req.query.startDate}, end: ${req.query.endDate}`,
-//   });
-// });
 function getEndDate(startingDate) {
   let dayString;
   const year = startingDate.getFullYear();
