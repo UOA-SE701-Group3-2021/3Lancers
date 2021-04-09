@@ -7,11 +7,10 @@ function YoutubeWidget({ id, deleteWidget }) {
   const [displayFrame, setDisplayFrame] = useState(false);
 
   return (
-    <div className="App" style={{ display: 'block' }}>
+    <div className={styles.ytWidget}>
       <div className={styles.header}>
         <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
       </div>
-      <input defaultValue="" onChange={(e) => setVidID(e.target.value)} />
       {displayFrame ? (
         <iframe
           id="ytplayer"
@@ -24,10 +23,11 @@ function YoutubeWidget({ id, deleteWidget }) {
           allowFullScreen
         />
       ) : (
-        <button onClick={() => setDisplayFrame(true)} type="submit">
+        <button onClick={() => setDisplayFrame(true)} type="submit" className={styles.submitBtn}>
           Submit
         </button>
       )}
+      <input className={styles.inputField} onChange={(e) => setVidID(e.target.value)} />
     </div>
   );
 }
