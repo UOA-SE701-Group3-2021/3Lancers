@@ -1,4 +1,5 @@
-import dayjs from 'dayjs';
+import dummyCalendarEvents from './dummy-calendar-events';
+import CalendarEvent from '../models/calendar_event';
+import main from './Main';
 
-console.log(dayjs().toDate());
-console.log(dayjs().subtract(1, 'day').add(3, 'hour').toDate());
+main(CalendarEvent, dummyCalendarEvents);
