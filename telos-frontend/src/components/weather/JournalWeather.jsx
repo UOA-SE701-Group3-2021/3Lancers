@@ -8,16 +8,17 @@ const WEATHER_KEY = '6dd200d839f5f055c8e0e1600cb96fba';
 const WeatherWidget = ({ id, deleteWidget }) => {
 
   const [temp, setTemp] = useState(0);
-  const [desc, setDesc] = useState("Hello");
-  const [location, setLocation] = useState("Auckland");
+  const [desc, setDesc] = useState("Unknown");
+  const [location, setLocation] = useState("Unknown");
 
-  const fetchWeather = async (loc = "Auckland") => {
+  const fetchWeather = async (lat = 0, lon = 0) => {
     try {
       const res = await axios.get(
         "https://api.openweathermap.org/data/2.5/weather",
         {
           params: {
-            q: loc,
+            lat,
+            lon,
             appid: WEATHER_KEY,
             units: "metric"
           }
@@ -32,7 +33,9 @@ const WeatherWidget = ({ id, deleteWidget }) => {
   }
 
   useEffect(() => {
-    fetchWeather(location);
+    navigator.geolocation.getCurrentPosition((position) => {
+      fetchWeather(position.coords.latitude, position.coords.longitude);
+    });
   }, []);
 
   return (
