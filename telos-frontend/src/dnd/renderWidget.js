@@ -22,7 +22,7 @@ const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
         return <JournalHabitTracker data={data} date={date} id={id} deleteWidget={deleteWidget} />;
       case WidgetTypes.TEXT:
         return (
-          <div style={{ height: 300, width: 250 }}>
+          <div style={{ height: 300, width: 300 }}>
             <JournalText date={date} data={data} id={id} deleteWidget={deleteWidget} />
           </div>
         );
