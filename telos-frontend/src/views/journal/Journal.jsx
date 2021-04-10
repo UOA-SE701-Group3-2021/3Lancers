@@ -13,6 +13,7 @@ import WidgetHabitTracker from '../../components/habit-tracker/WidgetHabitTracke
 import WidgetYoutubePlayer from '../../components/youtube-player/WidgetYoutubePlayer';
 import WidgetWeather from '../../components/weather/WidgetWeather'
 import { WidgetTypes } from '../../dnd/WidgetTypes';
+import WidgetClock from '../../components/clock/WidgetClock';
 
 const axios = require('axios');
 
@@ -110,6 +111,11 @@ const Journal = () => {
           <WidgetText
             addNewText={() => {
               addNewWidget(WidgetTypes.TEXT);
+            }}
+          />
+          <WidgetClock
+            addNewClock={() => {
+              addNewWidget(WidgetTypes.CLOCK);
             }}
           />
           <WidgetYoutubePlayer
