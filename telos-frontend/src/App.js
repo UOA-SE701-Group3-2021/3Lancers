@@ -9,8 +9,8 @@ import WidgetDrawer from './components/widget-drawer/WidgetDrawer';
 import WidgetHabitTracker from './components/habit-tracker/WidgetHabitTracker';
 import WidgetYoutubePlayer from './components/youtube-player/WidgetYoutubePlayer';
 
-import CalendarDashboard from './components/calendar/DashboardCalendar';
-import CalendarJournal from './components/calendar/JournalCalendar';
+import DashboardCalendar from './components/calendar/DashboardCalendar';
+import JournalCalendar from './components/calendar/JournalCalendar';
 import DashboardHabitTracker from './components/habit-tracker/DashboardHabitTracker';
 import JournalHabitTracker from './components/habit-tracker/JournalHabitTracker';
 import DashboardTodo from './components/todo/DashboardTodo';
@@ -28,7 +28,7 @@ function App() {
         <div style={{ flex: 1 }}>
           <Switch>
             <Route path="/calendar">
-              <CalendarDashboard />
+              <DashboardCalendar />
             </Route>
             <Route path="/habittracker">
               <DashboardHabitTracker />
@@ -49,7 +49,7 @@ function App() {
             </Route>
             {/* links for easy testing of components */}
             <Route path="/test/journal/calendar">
-              <CalendarJournal />
+              <JournalCalendar />
             </Route>
             <Route path="/test/journal/habittracker">
               <JournalHabitTracker />
