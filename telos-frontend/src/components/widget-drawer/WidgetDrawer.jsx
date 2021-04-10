@@ -6,7 +6,6 @@ import { purple } from '@material-ui/core/colors';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import drawerStyle from './WidgetDrawer.module.css';
 
-
 const WidgetDrawer = ({ children, isRight, toggleIsRight }) => {
   const BLANK = '';
   const [isHidden, setisHidden] = useState(false);
