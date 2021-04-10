@@ -61,6 +61,7 @@ const Page = ({ date, widgets, setWidgets }) => {
         WidgetTypes.HABIT_TRACKER,
         WidgetTypes.TEXT,
         WidgetTypes.YOUTUBE_PLAYER,
+        WidgetTypes.WEATHER
       ],
       drop(item, monitor) {
         const delta = monitor.getDifferenceFromInitialOffset();

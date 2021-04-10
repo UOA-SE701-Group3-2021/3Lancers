@@ -4,6 +4,7 @@ import JournalHabitTracker from '../components/habit-tracker/JournalHabitTracker
 import JournalTodo from '../components/todo/JournalTodo';
 import JournalText from '../components/text/JournalText';
 import JournalYoutubePlayer from '../components/youtube-player/JournalYoutubePlayer';
+import JournalWeather from '../components/weather/JournalWeather';
 
 export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
   switch (widgetType) {
@@ -25,6 +26,8 @@ export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
       );
     case WidgetTypes.YOUTUBE_PLAYER:
       return <JournalYoutubePlayer date={date} data={data} id={id} deleteWidget={deleteWidget} />;
+    case WidgetTypes.WEATHER:
+      return <JournalWeather date={date} data={data} id={id} deleteWidget={deleteWidget} />;
     default:
       return null;
   }
