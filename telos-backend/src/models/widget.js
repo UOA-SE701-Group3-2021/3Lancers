@@ -29,7 +29,7 @@ const widgetSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
-    enum: ['calendar', 'todo', 'habit_tracker', 'text', 'clock'],
+    enum: ['calendar', 'todo', 'habit_tracker', 'text', 'youtube_player', 'clock'],
   },
 });
 

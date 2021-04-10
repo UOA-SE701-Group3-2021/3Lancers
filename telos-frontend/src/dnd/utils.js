@@ -4,6 +4,7 @@ import JournalHabitTracker from '../components/habit-tracker/JournalHabitTracker
 import JournalTodo from '../components/todo/JournalTodo';
 import JournalText from '../components/text/JournalText';
 import Clock from '../components/clock/Clock';
+import JournalYoutubePlayer from '../components/youtube-player/JournalYoutubePlayer';
 
 export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
   switch (widgetType) {
@@ -25,10 +26,12 @@ export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
       );
     case WidgetTypes.CLOCK:
       return (
-      <div style={{ height: 300, width: 200 }}>
-        <Clock date={date} data={data} id={id} deleteWidget={deleteWidget} />
-      </div>
+        <div style={{ height: 300, width: 200 }}>
+          <Clock date={date} data={data} id={id} deleteWidget={deleteWidget} />
+        </div>
       );
+    case WidgetTypes.YOUTUBE_PLAYER:
+      return <JournalYoutubePlayer date={date} data={data} id={id} deleteWidget={deleteWidget} />;
     default:
       return null;
   }

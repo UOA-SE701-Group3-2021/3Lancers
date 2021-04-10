@@ -10,6 +10,7 @@ import WidgetCalendar from '../../components/calendar/WidgetCalendar';
 import WidgetText from '../../components/text/WidgetText';
 import WidgetTodo from '../../components/todo/WidgetTodo';
 import WidgetHabitTracker from '../../components/habit-tracker/WidgetHabitTracker';
+import WidgetYoutubePlayer from '../../components/youtube-player/WidgetYoutubePlayer';
 import { WidgetTypes } from '../../dnd/WidgetTypes';
 import WidgetClock from '../../components/clock/WidgetClock';
 
@@ -114,6 +115,11 @@ const Journal = () => {
           <WidgetClock
             addNewClock={() => {
               addNewWidget(WidgetTypes.CLOCK);
+            }}
+          />
+          <WidgetYoutubePlayer
+            addNewYoutubePlayer={() => {
+              addNewWidget(WidgetTypes.YOUTUBE_PLAYER);
             }}
           />
         </WidgetDrawer>
