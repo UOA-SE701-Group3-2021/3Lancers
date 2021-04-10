@@ -4,4 +4,5 @@ export const WidgetTypes = {
   HABIT_TRACKER: 'habit_tracker',
   CALENDAR: 'calendar',
   YOUTUBE_PLAYER: 'youtube_player',
+  WEATHER: 'weather',
 };
