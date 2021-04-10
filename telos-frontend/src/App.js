@@ -8,7 +8,6 @@ import WidgetTodo from './components/todo/WidgetTodo';
 import WidgetDrawer from './components/widget-drawer/WidgetDrawer';
 import WidgetHabitTracker from './components/habit-tracker/WidgetHabitTracker';
 import WidgetYoutubePlayer from './components/youtube-player/WidgetYoutubePlayer';
-
 import DashboardCalendar from './components/calendar/DashboardCalendar';
 import JournalCalendar from './components/calendar/JournalCalendar';
 import DashboardHabitTracker from './components/habit-tracker/DashboardHabitTracker';
@@ -24,7 +23,6 @@ function App() {
     <Router>
       <div className={styles.App} data-testid="test">
         <TopBar />
-
         <div style={{ flex: 1 }}>
           <Switch>
             <Route path="/calendar">

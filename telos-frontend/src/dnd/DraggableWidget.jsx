@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useDrag } from 'react-dnd';
-import { renderWidget } from './utils';
+import RenderWidget from './renderWidget';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 function getStyles(left, top) {
@@ -28,7 +28,7 @@ const DraggableWidget = memo(({ id, position, type, data, date, deleteWidget }) 
 
   return (
     <div ref={drag} style={getStyles(position.col, position.row)}>
-      {renderWidget(type, { data, date, id, deleteWidget })}
+      {RenderWidget(type, { data, date, id, deleteWidget })}
     </div>
   );
 });
