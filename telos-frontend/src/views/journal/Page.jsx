@@ -59,6 +59,7 @@ const Page = ({ date, widgets, setWidgets }) => {
         WidgetTypes.CALENDAR,
         WidgetTypes.HABIT_TRACKER,
         WidgetTypes.TEXT,
+        WidgetTypes.CLOCK,
       ],
       drop(item, monitor) {
         const delta = monitor.getDifferenceFromInitialOffset();
