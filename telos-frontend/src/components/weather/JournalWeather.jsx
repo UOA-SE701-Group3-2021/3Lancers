@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaTimes } from 'react-icons/fa';
 import styles from './JournalWeather.module.css';
 
 const WEATHER_KEY = '6dd200d839f5f055c8e0e1600cb96fba';
-const WeatherWidget = ({ id, deleteWidget }) => {
+const WeatherWidget = () => {
   const [temp, setTemp] = useState(0);
   const [desc, setDesc] = useState('Unknown');
   const [location, setLocation] = useState('Unknown');
@@ -37,9 +36,6 @@ const WeatherWidget = ({ id, deleteWidget }) => {
 
   return (
     <div className={styles.weatherWidget}>
-      <div className={styles.header}>
-        <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
-      </div>
       <div className={styles.weather}>
         <div className={styles.box}>
           <h1>{Math.round(temp)}℃</h1>

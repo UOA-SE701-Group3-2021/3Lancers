@@ -1,7 +1,4 @@
-.header {
-  background-color: gray;
-}
-
-.cross {
-  color: red;
+.box {
+  height: 100%;
+  width: 650px;
 }
