@@ -3,6 +3,7 @@ import JournalCalendar from '../components/calendar/JournalCalendar';
 import JournalHabitTracker from '../components/habit-tracker/JournalHabitTracker';
 import JournalTodo from '../components/todo/JournalTodo';
 import JournalText from '../components/text/JournalText';
+import Clock from '../components/clock/Clock';
 import JournalYoutubePlayer from '../components/youtube-player/JournalYoutubePlayer';
 
 export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
@@ -21,6 +22,12 @@ export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
       return (
         <div style={{ height: 300, width: 250 }}>
           <JournalText date={date} data={data} id={id} deleteWidget={deleteWidget} />
+        </div>
+      );
+    case WidgetTypes.CLOCK:
+      return (
+        <div style={{ height: 300, width: 200 }}>
+          <Clock date={date} data={data} id={id} deleteWidget={deleteWidget} />
         </div>
       );
     case WidgetTypes.YOUTUBE_PLAYER:
