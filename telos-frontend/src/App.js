@@ -25,7 +25,7 @@ function App() {
     <Router>
       <div className={styles.App} data-testid="test">
         <TopBar />
-        <div style={{ flex: 1 }}>
+        <div className={styles.bar}>
           <Switch>
             <Route path="/calendar">
               <DashboardCalendar />
