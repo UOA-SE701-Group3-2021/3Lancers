@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
 import habitStyle from './HabitTracker.module.css';
+import style from './DashboardHabitTracker.module.css';
 
 // This react component draws a Material-UI Habit Tracker in Journal View for the user to note their habituals
 const DashboardHabitTracker = () => {
@@ -76,7 +77,7 @@ const DashboardHabitTracker = () => {
           </span>
         </div>
         <div className={habitStyle.HabitContent}>
-          <h2 style={{ fontFamily: 'monospace' }}>{habitDes}</h2>
+          <h2 className={style.mono}>{habitDes}</h2>
         </div>
         <WeekScheduleBar />
       </div>
