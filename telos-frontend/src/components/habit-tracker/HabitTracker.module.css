@@ -76,11 +76,8 @@
 }
 
 .cardContainer {
-  position: static;
-  margin-left : 15%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: 70%;
+  position: absolute;
+  width: 562px;
   height: 200px;
   text-align: left !important;
   background: #ffffff;
@@ -89,8 +86,6 @@
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 19px;
-  padding-left: 5px;
-  padding-right: 5px;
 }
 
 .HabitTitle {
