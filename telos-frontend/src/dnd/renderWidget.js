@@ -14,7 +14,7 @@ const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
         return <JournalTodo data={data} date={date} id={id} deleteWidget={deleteWidget} />;
       case WidgetTypes.CALENDAR:
         return (
-          <div className={styles.calander}>
+          <div style={{ height: 400, maxWidth: 350 }}>
             <JournalCalendar data={data} date={date} id={id} deleteWidget={deleteWidget} />
           </div>
         );
@@ -22,12 +22,20 @@ const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
         return <JournalHabitTracker data={data} date={date} id={id} deleteWidget={deleteWidget} />;
       case WidgetTypes.TEXT:
         return (
-          <div style={{ height: 300, width: 300 }}>
+          <div style={{ height: 300, width: 250 }}>
             <JournalText date={date} data={data} id={id} deleteWidget={deleteWidget} />
+          </div>
+        );
+      case WidgetTypes.CLOCK:
+        return (
+          <div style={{ height: 300, width: 200 }}>
+            <Clock date={date} data={data} id={id} deleteWidget={deleteWidget} />
           </div>
         );
       case WidgetTypes.YOUTUBE_PLAYER:
         return <JournalYoutubePlayer date={date} data={data} id={id} deleteWidget={deleteWidget} />;
+      case WidgetTypes.WEATHER:
+        return <JournalWeather date={date} data={data} id={id} deleteWidget={deleteWidget} />;
       default:
         return null;
     }
