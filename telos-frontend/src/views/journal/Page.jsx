@@ -60,7 +60,9 @@ const Page = ({ date, widgets, setWidgets }) => {
         WidgetTypes.CALENDAR,
         WidgetTypes.HABIT_TRACKER,
         WidgetTypes.TEXT,
+        WidgetTypes.CLOCK,
         WidgetTypes.YOUTUBE_PLAYER,
+        WidgetTypes.WEATHER,
       ],
       drop(item, monitor) {
         const delta = monitor.getDifferenceFromInitialOffset();
@@ -121,15 +123,17 @@ const Page = ({ date, widgets, setWidgets }) => {
   return (
     <div className={pageStyles.Page} ref={drop}>
       {widgets.map((widget) => (
-        <DraggableWidget
-          key={widget._id}
-          id={widget._id}
-          type={widget.type}
-          position={widget.position}
-          data={getDataByWidgetType(widget.type)}
-          date={date}
-          deleteWidget={deleteWidget}
-        />
+        <>
+          <DraggableWidget
+            key={widget._id}
+            id={widget._id}
+            type={widget.type}
+            position={widget.position}
+            data={getDataByWidgetType(widget.type)}
+            date={date}
+            deleteWidget={deleteWidget}
+          />
+        </>
       ))}
       <textarea />
     </div>

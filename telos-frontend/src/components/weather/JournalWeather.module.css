@@ -1,0 +1,35 @@
+.header {
+  background-color: gray;
+}
+
+.cross {
+  color: red;
+}
+
+.weatherWidget {
+  background-color: #0183f7;
+  color: white;
+  border: 2px solid blue;
+  height: 160px;
+  width: 200px;
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  height: 300px;
+  width: 300px;
+  padding-right: 16px;
+}
+
+h1 {
+  font-size: 70px;
+}
+
+h2 {
+  font-size: 40px;
+}
