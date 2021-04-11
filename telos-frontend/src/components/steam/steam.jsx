@@ -1,45 +1,61 @@
-import { DataGrid } from '@material-ui/data-grid';
+// import { DataGrid } from '@material-ui/data-grid';
 import { FaTimes } from 'react-icons/fa';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import styles from './WidgetSteam.module.css';
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
-  },
-];
+// const steamColumns = [
+//   { field: 'appid', headerName: 'App ID' },
+//   { field: 'name', headerName: 'Name' },
+//   { field: 'playtime_forever', headerName: 'Hours played' },
+//   { field: 'img_icon_url', headerName: 'Image' },
+// ];
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+const Steam = ({ id, deleteWidget }) => {
+  const [loadingData, setLoadingData] = useState(true);
+  const [data, setData] = useState();
+  useEffect(() => {
+    const getSteamData = async (userId) => {
+      await axios.get(`/api/steam?steamVanity=${userId}`).then((response) => {
+        if (response.data) {
+          // setData(
+          //   response.games.map(
+          //     ({
+          //       // eslint-disable-next-line camelcase
+          //       img_logo_url,
+          //       // eslint-disable-next-line camelcase
+          //       has_community_visible_stats,
+          //       // eslint-disable-next-line camelcase
+          //       playtime_windows_forever,
+          //       // eslint-disable-next-line camelcase
+          //       playtime_mac_forever,
+          //       // eslint-disable-next-line camelcase
+          //       playtime_linux_forever,
+          //       ...keepAttrs
+          //     }) => keepAttrs
+          //   )
+          // );
+          setData(response.data);
+          setLoadingData(false);
+        }
+      });
+    };
+    if (loadingData) {
+      getSteamData('rrrjax');
+    }
+  }, []);
 
-const Steam = ({ id, deleteWidget }) => (
-  <div style={{ height: 400, width: '100%' }}>
-    <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
-    <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-  </div>
-);
+  return (
+    <div style={{ height: 400, width: '100%' }}>
+      <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
+      {loadingData ? (
+        <p>Loading steam data...</p>
+      ) : (
+        // <DataGrid rows={data} columns={steamColumns} pageSize={5} checkboxSelection />
+        <p>{data}</p>
+      )}
+    </div>
+  );
+};
 
 export default Steam;
