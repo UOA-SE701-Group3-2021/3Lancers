@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { FaTimes } from 'react-icons/fa';
 import styles from './JournalYoutubePlayer.module.css';
 
 function YouTubeGetID(urlParam) {
@@ -15,14 +14,11 @@ function YouTubeGetID(urlParam) {
   return ID;
 }
 
-function YoutubeWidget({ id, deleteWidget }) {
+function YoutubeWidget() {
   const [vidID, setVidID] = useState('5qap5aO4i9A');
 
   return (
     <div className={styles.ytWidget}>
-      <div className={styles.header}>
-        <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
-      </div>
       <iframe
         id="ytplayer"
         title="youtube"

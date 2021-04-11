@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
-import { FaTimes } from 'react-icons/fa';
 import {
   Scheduler,
   DayView,
@@ -96,7 +95,7 @@ export const typeData = [
 
 // resources allow to differentiate between the different types of calendar options
 
-const JournalCalendar = ({ date, id, deleteWidget }) => {
+const JournalCalendar = ({ date }) => {
   const [state, setState] = useState({
     data: calendarData,
     resources: [
@@ -136,12 +135,8 @@ const JournalCalendar = ({ date, id, deleteWidget }) => {
 
   return (
     <>
-      <Paper style={{ height: '100%', width: '650px' }}>
-        <div className={styles.header}>
-          <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
-        </div>
-
-        <Scheduler data={state.data}>
+      <Paper className={styles.box}>
+        <Scheduler className={styles.box} data={state.data}>
           <ViewState defaultCurrentDate={date} />
           <EditingState onCommitChanges={commitChanges} />
           <IntegratedEditing />

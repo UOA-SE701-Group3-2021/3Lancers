@@ -26,7 +26,6 @@ import AddIcon from '@material-ui/icons/Add';
 import ErrorIcon from '@material-ui/icons/Error';
 import { useEffect, useState } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { FaTimes } from 'react-icons/fa';
 import styles from './JournalTodo.module.css';
 import './JournalTodoCheckbox.css';
 
@@ -48,7 +47,7 @@ const useStyles = makeStyles({
   },
 });
 
-const JournalTodo = ({ data, date, id, deleteWidget }) => {
+const JournalTodo = ({ data, date }) => {
   const [todos, setTodos] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
@@ -141,10 +140,6 @@ const JournalTodo = ({ data, date, id, deleteWidget }) => {
   return (
     <Box className={classes.root} display="flex" flexDirection="column" alignItems="stretch">
       {/* Setting the title of the To Do List, with customised styles added in the css file */}
-      <div className={styles.header}>
-        <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
-      </div>
-
       <div>
         <p className={styles.title}> To Do </p>
       </div>
