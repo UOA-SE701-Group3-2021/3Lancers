@@ -1,7 +1,7 @@
 .textInput {
   resize: none;
   width: inherit;
-  height: inherit;
+  height: 200px;
   background-color: transparent;
   border: none;
   outline: none;
@@ -13,17 +13,12 @@
   box-shadow: 3px 3px 3px darkgrey;
   resize: none;
   position: relative;
-  width: calc(100% - 10px);
-  height: calc(100% - 10px);
+  /* width: calc(100% - 4px); */
+  width: 250px;
+  height: 300px;
+  min-height: 200px;
   border: 2px solid #7a00f4;
-  border-radius: 5px;
   background-color: white !important;
-}
-
-.header {
-  background-color: gray;
-}
-
-.cross {
-  color: red;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
