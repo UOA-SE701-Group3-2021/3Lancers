@@ -225,7 +225,7 @@ const JournalTodo = ({ data, date }) => {
                       setAnchorEl(event.currentTarget);
                     }}
                   >
-                    <ErrorIcon style={{ color: '#EB5757' }} />
+                    <ErrorIcon className={styles.error} />
                   </IconButton>
                 </ListItemSecondaryAction>
               ) : (
