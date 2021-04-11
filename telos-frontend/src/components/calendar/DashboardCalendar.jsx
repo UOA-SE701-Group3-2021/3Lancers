@@ -13,7 +13,6 @@ import moment from 'moment';
 import 'fontsource-roboto';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './react-big-calendar.css';
-import style from './DashboardCalendar.module.css';
 
 const localizer = momentLocalizer(moment);
 
@@ -53,12 +52,12 @@ const DashboardCalendar = () => {
   return (
     <>
       <Calendar
-        className={style.calendar}
         selectable
         localizer={localizer}
         events={events}
         startAccessor="start"
         endAccessor="end"
+        style={{ height: '100%', width: '100%', fontFamily: 'Roboto' }}
         onSelectEvent={(event) => {
           setSelectedId(event.id);
           handleClickOpen();

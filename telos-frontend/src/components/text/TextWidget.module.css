@@ -1,7 +1,7 @@
 .textInput {
   resize: none;
   width: inherit;
-  height: inherit;
+  height: 200px;
   background-color: transparent;
   border: none;
   outline: none;
@@ -13,8 +13,10 @@
   box-shadow: 3px 3px 3px darkgrey;
   resize: none;
   position: relative;
-  width: calc(100% - 4px);
-  height: calc(100% - 10px);
+  /* width: calc(100% - 4px); */
+  width: 250px;
+  height: 300px;
+  min-height: 200px;
   border: 2px solid #7a00f4;
   background-color: white !important;
   border-bottom-left-radius: 10px;

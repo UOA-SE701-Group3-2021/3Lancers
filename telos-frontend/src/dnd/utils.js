@@ -6,7 +6,6 @@ import JournalText from '../components/text/JournalText';
 import Clock from '../components/clock/Clock';
 import JournalYoutubePlayer from '../components/youtube-player/JournalYoutubePlayer';
 import JournalWeather from '../components/weather/JournalWeather';
-import style from './utils.module.css';
 
 export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
   switch (widgetType) {
@@ -14,7 +13,7 @@ export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
       return <JournalTodo data={data} date={date} id={id} deleteWidget={deleteWidget} />;
     case WidgetTypes.CALENDAR:
       return (
-        <div className={style.calendar}>
+        <div style={{ height: 400, maxWidth: 350 }}>
           <JournalCalendar data={data} date={date} id={id} deleteWidget={deleteWidget} />
         </div>
       );
@@ -22,13 +21,13 @@ export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
       return <JournalHabitTracker data={data} date={date} id={id} deleteWidget={deleteWidget} />;
     case WidgetTypes.TEXT:
       return (
-        <div className={style.text}>
+        <div style={{ height: 300, width: 250 }}>
           <JournalText date={date} data={data} id={id} deleteWidget={deleteWidget} />
         </div>
       );
     case WidgetTypes.CLOCK:
       return (
-        <div className={style.clock}>
+        <div style={{ height: 300, width: 200 }}>
           <Clock date={date} data={data} id={id} deleteWidget={deleteWidget} />
         </div>
       );

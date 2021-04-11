@@ -1,18 +1,11 @@
 .cross {
   color: red;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  padding-left: 3px;
-  text-align: left;
+  padding-top: 5px;
+  padding-right: 5px;
 }
 
 .header {
   background-color: gray;
-  /* width: 100%; */
-  width: 60px;
-  /* align-items: flex-end; */
-  display: flex;
-  justify-content: space-between;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }

@@ -12,10 +12,6 @@
   height: 100vh;
 }
 
-.bar {
-  flex: 1;
-}
-
 .AppLogo {
   height: 40vmin;
   pointer-events: none;
