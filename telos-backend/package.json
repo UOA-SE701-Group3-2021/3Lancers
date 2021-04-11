@@ -7,7 +7,9 @@
     "start": "nodemon app.js",
     "test": "jest",
     "pretty": "prettier --write \"./**/*.{js,jsx}\"",
-    "lint": "eslint \"./**/*.{js,jsx}\""
+    "lint": "eslint \"./**/*.{js,jsx}\"",
+    "init-habit-tracker-db": "node -r esm ./src/db/init-habit-tracker-db.js",
+    "init-calendar-event-db": "node -r esm ./src/db/init-calendar-event-db.js"
   },
   "jest": {
     "testEnvironment": "node"
@@ -17,6 +19,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "cors": "^2.8.5",
+    "dayjs": "^1.10.4",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "mongoose": "^5.12.0",
     "nodemon": "^2.0.7"

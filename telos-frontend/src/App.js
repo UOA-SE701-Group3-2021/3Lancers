@@ -7,6 +7,8 @@ import WidgetText from './components/text/WidgetText';
 import WidgetTodo from './components/todo/WidgetTodo';
 import WidgetDrawer from './components/widget-drawer/WidgetDrawer';
 import WidgetHabitTracker from './components/habit-tracker/WidgetHabitTracker';
+import WidgetClock from './components/clock/WidgetClock';
+import WidgetYoutubePlayer from './components/youtube-player/WidgetYoutubePlayer';
 
 import CalendarDashboard from './components/calendar/DashboardCalendar';
 import CalendarJournal from './components/calendar/JournalCalendar';
@@ -42,6 +44,8 @@ function App() {
                   <WidgetTodo />
                   <WidgetHabitTracker />
                   <WidgetText />
+                  <WidgetClock />
+                  <WidgetYoutubePlayer />
                 </WidgetDrawer>
               </div>
             </Route>

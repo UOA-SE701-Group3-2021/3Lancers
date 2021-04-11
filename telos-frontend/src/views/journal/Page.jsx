@@ -15,12 +15,13 @@ const Page = ({ date, widgets, setWidgets }) => {
   // Fetch widgets for page/date
   useEffect(() => {
     axios.get(`/api/journal/${date}`).then(({ data }) => {
-      const { widgetData, calendarData, habitData, textData, todoData } = data;
+      const { widgetData, calendarData, habitData, textData, todoData, youtubePlayerData } = data;
       const initData = {
         calendarData,
         habitData,
         textData,
         todoData,
+        youtubePlayerData,
       };
 
       setInitialWidgetData(initData);
@@ -59,6 +60,8 @@ const Page = ({ date, widgets, setWidgets }) => {
         WidgetTypes.CALENDAR,
         WidgetTypes.HABIT_TRACKER,
         WidgetTypes.TEXT,
+        WidgetTypes.CLOCK,
+        WidgetTypes.YOUTUBE_PLAYER,
       ],
       drop(item, monitor) {
         const delta = monitor.getDifferenceFromInitialOffset();
@@ -88,6 +91,9 @@ const Page = ({ date, widgets, setWidgets }) => {
       case WidgetTypes.TEXT:
         // not currently integrated with backend
         // will need to take in id of text widget to get the exact text widget.
+        return null;
+      case WidgetTypes.YOUTUBE_PLAYER:
+        // idk
         return null;
       default:
         return null;
