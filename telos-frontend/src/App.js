@@ -10,7 +10,7 @@ import WidgetHabitTracker from './components/habit-tracker/WidgetHabitTracker';
 import WidgetClock from './components/clock/WidgetClock';
 import WidgetYoutubePlayer from './components/youtube-player/WidgetYoutubePlayer';
 import WidgetWeather from './components/weather/WidgetWeather';
-
+import WidgetSteam from './components/steam/WidgetSteam';
 
 import CalendarDashboard from './components/calendar/DashboardCalendar';
 import CalendarJournal from './components/calendar/JournalCalendar';
@@ -49,6 +49,7 @@ function App() {
                   <WidgetClock />
                   <WidgetYoutubePlayer />
                   <WidgetWeather />
+                  <WidgetSteam />
                 </WidgetDrawer>
               </div>
             </Route>
