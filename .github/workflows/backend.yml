@@ -2,8 +2,7 @@ name: Backend CI
 
 on:
   pull_request:
-    paths:
-      - telos-backend/**
+    branches: [ main, main2 ]
 
 defaults:
   run:

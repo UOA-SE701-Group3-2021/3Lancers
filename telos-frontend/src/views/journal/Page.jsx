@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDrop } from 'react-dnd';
+import { confirmAlert } from 'react-confirm-alert';
 import DraggableWidget from '../../dnd/DraggableWidget';
 import { WidgetTypes } from '../../dnd/WidgetTypes';
 import pageStyles from './Page.module.css';
@@ -9,22 +10,24 @@ const axios = require('axios');
 const Page = ({ date, widgets, setWidgets }) => {
   // Initial widget data from the backend. Passed down to the widgets as their initial state.
   const [initialWidgetData, setInitialWidgetData] = useState({});
+  const [update, setUpdate] = useState(1);
 
   // Fetch widgets for page/date
   useEffect(() => {
     axios.get(`/api/journal/${date}`).then(({ data }) => {
-      const { widgetData, calendarData, habitData, textData, todoData } = data;
+      const { widgetData, calendarData, habitData, textData, todoData, youtubePlayerData } = data;
       const initData = {
         calendarData,
         habitData,
         textData,
         todoData,
+        youtubePlayerData,
       };
 
       setInitialWidgetData(initData);
       setWidgets(widgetData);
     });
-  }, [date]);
+  }, [date, update]);
 
   const moveWidget = useCallback(
     (id, left, top) => {
@@ -57,6 +60,9 @@ const Page = ({ date, widgets, setWidgets }) => {
         WidgetTypes.CALENDAR,
         WidgetTypes.HABIT_TRACKER,
         WidgetTypes.TEXT,
+        WidgetTypes.CLOCK,
+        WidgetTypes.YOUTUBE_PLAYER,
+        WidgetTypes.WEATHER,
       ],
       drop(item, monitor) {
         const delta = monitor.getDifferenceFromInitialOffset();
@@ -87,9 +93,31 @@ const Page = ({ date, widgets, setWidgets }) => {
         // not currently integrated with backend
         // will need to take in id of text widget to get the exact text widget.
         return null;
+      case WidgetTypes.YOUTUBE_PLAYER:
+        // idk
+        return null;
       default:
         return null;
     }
+  };
+
+  const deleteWidget = (pK) => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure you want to delete this widget?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            axios.delete(`/api/journal/${pK}`);
+            setUpdate(update + 1);
+          },
+        },
+        {
+          label: 'No',
+        },
+      ],
+    });
   };
 
   return (
@@ -102,6 +130,7 @@ const Page = ({ date, widgets, setWidgets }) => {
           position={widget.position}
           data={getDataByWidgetType(widget.type)}
           date={date}
+          deleteWidget={deleteWidget}
         />
       ))}
       <textarea />
