@@ -5,4 +5,5 @@ export const WidgetTypes = {
   CALENDAR: 'calendar',
   CLOCK: 'clock',
   YOUTUBE_PLAYER: 'youtube_player',
+  WEATHER: 'weather',
 };
