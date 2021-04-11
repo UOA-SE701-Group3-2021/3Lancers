@@ -1,0 +1,16 @@
+.cross {
+  color: red;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  text-align: left;
+}
+
+.header {
+  background-color: gray;
+  width: 60px;
+  display: flex;
+  justify-content: space-between;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}

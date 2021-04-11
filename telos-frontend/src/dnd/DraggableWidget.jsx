@@ -1,7 +1,9 @@
+import { FaTimes as Delete } from 'react-icons/fa';
 import { memo } from 'react';
 import { useDrag } from 'react-dnd';
 import { renderWidget } from './utils';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import style from './DraggableWidget.module.css';
 
 function getStyles(left, top) {
   const transform = `translate3d(${left}px, ${top}px, 0)`;
@@ -28,6 +30,9 @@ const DraggableWidget = memo(({ id, position, type, data, date, deleteWidget }) 
 
   return (
     <div ref={drag} style={getStyles(position.col, position.row)}>
+      <div className={style.header}>
+        <Delete className={style.cross} onClick={() => deleteWidget(id)} />
+      </div>
       {renderWidget(type, { data, date, id, deleteWidget })}
     </div>
   );
