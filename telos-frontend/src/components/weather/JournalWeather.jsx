@@ -11,23 +11,23 @@ const WeatherWidget = ({ id, deleteWidget }) => {
 
   const fetchWeather = async (lat = 0, lon = 0) => {
     try {
-      const res = await axios.get("https://api.openweathermap.org/data/2.5/weather",
-        {
-          params: {
-            lat,
-            lon,
-            appid: WEATHER_KEY,
-            units: "metric"
-          }
-        }
-      );
+      const res = await axios.get('https://api.openweathermap.org/data/2.5/weather', {
+        params: {
+          lat,
+          lon,
+          appid: WEATHER_KEY,
+          units: 'metric',
+        },
+      });
       setDesc(res.data.weather[0].main);
       setTemp(res.data.main.temp);
-      setLocation(res.data.name)
+      setLocation(res.data.name);
     } catch (err) {
-      console.log(err.message);
+      setTemp(0);
+      setDesc('Error');
+      setLocation('Error');
     }
-  }
+  };
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -48,7 +48,7 @@ const WeatherWidget = ({ id, deleteWidget }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default WeatherWidget;
