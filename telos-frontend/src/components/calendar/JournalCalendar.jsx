@@ -136,7 +136,7 @@ const JournalCalendar = ({ date, id, deleteWidget }) => {
 
   return (
     <>
-      <Paper style={{ height: '100%', width: '650px'}}>
+      <Paper style={{ height: '100%', width: '650px' }}>
         <div className={styles.header}>
           <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
         </div>
