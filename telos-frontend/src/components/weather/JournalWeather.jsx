@@ -1,20 +1,17 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { FaTimes } from 'react-icons/fa';
-import styles from './JournalWeather.module.css'
+import styles from './JournalWeather.module.css';
 
 const WEATHER_KEY = '6dd200d839f5f055c8e0e1600cb96fba';
-
 const WeatherWidget = ({ id, deleteWidget }) => {
-
   const [temp, setTemp] = useState(0);
-  const [desc, setDesc] = useState("Unknown");
-  const [location, setLocation] = useState("Unknown");
+  const [desc, setDesc] = useState('Unknown');
+  const [location, setLocation] = useState('Unknown');
 
   const fetchWeather = async (lat = 0, lon = 0) => {
     try {
-      const res = await axios.get(
-        "https://api.openweathermap.org/data/2.5/weather",
+      const res = await axios.get("https://api.openweathermap.org/data/2.5/weather",
         {
           params: {
             lat,
