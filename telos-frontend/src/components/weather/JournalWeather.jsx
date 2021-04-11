@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import axios from "axios"
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import { FaTimes } from 'react-icons/fa';
 import styles from './JournalWeather.module.css'
 
