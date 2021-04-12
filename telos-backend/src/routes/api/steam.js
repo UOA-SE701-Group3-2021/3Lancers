@@ -4,6 +4,9 @@ const express = require('express');
 
 const router = express.Router();
 
+// Add steam key in \telos-backend by typing
+// set STEAM_KEY= <your steam key>
+// e.g set STEAM_KEY=78D5D2BFF2B1C517MKDS9809F
 const steamKey = process.env.STEAM_KEY;
 
 /**

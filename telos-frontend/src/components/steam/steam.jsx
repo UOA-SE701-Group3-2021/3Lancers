@@ -1,17 +1,26 @@
 import { DataGrid } from '@material-ui/data-grid';
-import { FaTimes } from 'react-icons/fa';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import styles from './WidgetSteam.module.css';
+import { makeStyles } from '@material-ui/core/styles';
+
+// Add in your steam name
+const steamName = 'Game0fThrones';
 
 const steamColumns = [
-  { field: 'appid', headerName: 'App ID' },
-  { field: 'name', headerName: 'Name' },
-  { field: 'playtime_forever', headerName: 'Hours played' },
-  { field: 'img_icon_url', headerName: 'Image' },
+  { field: 'name', headerName: 'Game', width: 200 },
+  { field: 'playtime_2weeks', headerName: 'Recently played (Min)', width: 200 },
+  { field: 'playtime_forever', headerName: 'Total played (Min)', width: 170 },
 ];
 
-const Steam = ({ id, deleteWidget }) => {
+const useStyles = makeStyles({
+  table: {
+    backgroundColor: '#D3D3D3',
+    color: 'black',
+  },
+});
+
+const Steam = () => {
+  const classes = useStyles();
   const [loadingData, setLoadingData] = useState(true);
   const [data, setData] = useState();
   const [dataMessage, setDataMessage] = useState('Loading steam data...');
@@ -29,17 +38,22 @@ const Steam = ({ id, deleteWidget }) => {
       });
     };
     if (loadingData) {
-      getSteamData('rrrjax');
+      getSteamData(steamName);
     }
   }, []);
 
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <FaTimes className={styles.cross} onClick={() => deleteWidget(id)} />
       {loadingData ? (
         <p>{dataMessage}</p>
       ) : (
-        <DataGrid rows={data} columns={steamColumns} pageSize={5} checkboxSelection />
+        <DataGrid
+          className={classes.table}
+          rows={data}
+          columns={steamColumns}
+          pageSize={10}
+          checkboxSelection
+        />
       )}
     </div>
   );
