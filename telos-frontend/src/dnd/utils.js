@@ -6,6 +6,7 @@ import JournalText from '../components/text/JournalText';
 import Clock from '../components/clock/Clock';
 import JournalYoutubePlayer from '../components/youtube-player/JournalYoutubePlayer';
 import JournalWeather from '../components/weather/JournalWeather';
+import Steam from '../components/steam/steam';
 
 export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
   switch (widgetType) {
@@ -35,6 +36,12 @@ export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
       return <JournalYoutubePlayer date={date} data={data} id={id} deleteWidget={deleteWidget} />;
     case WidgetTypes.WEATHER:
       return <JournalWeather date={date} data={data} id={id} deleteWidget={deleteWidget} />;
+    case WidgetTypes.STEAM:
+      return (
+        <div style={{ height: 'auto', width: 700 }}>
+          <Steam date={date} data={data} id={id} deleteWidget={deleteWidget} />
+        </div>
+      );
     default:
       return null;
   }
