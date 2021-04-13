@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-restricted-syntax */
 // these eslint rules are disabled to allow  sortEvent() function properly.
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import {
   Checkbox,
   Divider,
@@ -30,6 +30,8 @@ import AddIcon from '@material-ui/icons/Add';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ErrorIcon from '@material-ui/icons/Error';
 import styles from './DashboardTodo.module.css';
+
+const axios = require('axios');
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,38 +64,40 @@ const outdated = {
   fontWeight: 'Bold',
 };
 
-const DashboardTodo = () => {
-  const listitems = [
-    {
-      name: 'isOverdue',
-      due: '2021-04-30',
-      isOverdue: true,
-      completed: false,
-    },
-    {
-      name: 'OutDated',
-      due: '2021-01-30',
-      isOverdue: false,
-      completed: true,
-    },
-    {
-      name: '一二三四五',
-      due: '2021-04-30',
-      isOverdue: true,
-      completed: true,
-    },
-    {
-      name: '上山打老虎',
-      due: '2021-04-30',
-      isOverdue: true,
-      completed: false,
-    },
-  ];
+const DashboardTodo = ({data, date}) => {
+  // const listitems = [
+  //   {
+  //     name: 'isOverdue',
+  //     due: '2021-04-30',
+  //     isOverdue: true,
+  //     completed: false,
+  //   },
+  //   {
+  //     name: 'OutDated',
+  //     due: '2021-01-30',
+  //     isOverdue: false,
+  //     completed: true,
+  //   },
+  //   {
+  //     name: '一二三四五',
+  //     due: '2021-04-30',
+  //     isOverdue: true,
+  //     completed: true,
+  //   },
+  //   {
+  //     name: '上山打老虎',
+  //     due: '2021-04-30',
+  //     isOverdue: true,
+  //     completed: false,
+  //   },
+  // ];
 
   const classes = useStyles();
   const [todoName, setTodoName] = useState('');
-  const [todoDueDate, setTodoDueDate] = useState('2021-01-01');
-  const [newItem, setNewItem] = useState(listitems);
+  // const [todoDueDate, setTodoDueDate] = useState('2021-01-01');
+  const [todoDueDate, setTodoDueDate] = useState();
+  // const [, setTodos] = useState(listitems);
+  const [todos, setTodos] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
   const [reDate, setReDate] = useState('');
@@ -101,20 +105,26 @@ const DashboardTodo = () => {
   const [open, setOpen] = useState(false);
   const [migrate, setMigrate] = useState(false);
 
+  // sets to dos needed for the day
+  useEffect(() => {
+    setTodos(data);
+    // setTest(id);
+  }, [data]);
+
   function dateToTimestamp(endTime) {
-    const date = new Date();
-    date.setFullYear(endTime.substring(0, 4));
-    date.setMonth(endTime.substring(5, 7) - 1);
-    date.setDate(endTime.substring(8, 10));
-    return Date.parse(date) / 1000;
+    const currentDate = new Date();
+    currentDate.setFullYear(endTime.substring(0, 4));
+    currentDate.setMonth(endTime.substring(5, 7) - 1);
+    currentDate.setDate(endTime.substring(8, 10));
+    return Date.parse(currentDate) / 1000;
   }
 
   // Sort event in order of time
   const sortEvent = () => {
-    const sorted = newItem.sort((a, b) => {
+    const sorted = todos.sort((a, b) => {
       return dateToTimestamp(a.due) - dateToTimestamp(b.due);
     });
-    setNewItem(sorted);
+    setTodos(sorted);
   };
 
   // Change date for reschedule
@@ -130,20 +140,54 @@ const DashboardTodo = () => {
 
   // Sets the selected to do to checked/completed if the user clicks on the selected item
   // Will add the completed item to the completed array
-  const handleToggle = (value) => () => {
-    const newList = [...newItem];
-    for (const x of newList) {
-      if (x.name === value) {
-        x.completed = !x.completed;
-      }
-    }
+  // const handleToggle = (value) => () => {
+  //   const newList = [...];
+  //   for (const x of newList) {
+  //     if (x.name === value) {
+  //       x.completed = !x.completed;
+  //     }
+  //   }
+  //
+  //   setTodos(newList);
+  // };
 
-    setNewItem(newList);
+  const handleToggle = (todo) => {
+    const { _id, completed } = todo;
+
+    axios.put(`/api/todo/${_id}`, { completed: !completed });
+
+    const index = todos.indexOf(todo);
+    const newTodos = [...todos];
+
+    const newTodo = { ...todo };
+    newTodo.completed = !completed;
+    newTodos[index] = newTodo;
+
+    setTodos(newTodos);
   };
+
 
   const openAdd = () => {
     setOpen(true);
   };
+
+  // Adds the new to do to the list and sets variables to bind it to a name and date
+  const handleAdd = () => {
+    const body = {
+      name: todoName,
+      createdDate: date,
+      dueDate: todoDueDate,
+    };
+
+    axios.post('/api/todo', body).then((res) => {
+      const newTodo = res.data;
+      setTodos([...todos, newTodo]);
+      setTodoName('');
+      setTodoDueDate('');
+    });
+  };
+
+
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -151,19 +195,19 @@ const DashboardTodo = () => {
   };
 
   // Adding a todo from the 'New to do' dialog
-  const firstEvent = (event) => {
-    setTodoName({ name: event.target.value, due: todoDueDate, isOverdue: true, completed: false });
-  };
+  // const firstEvent = (event) => {
+  //   setTodoName({ name: event.target.value, due: todoDueDate, isOverdue: true, completed: false });
+  // };
 
-  const dateChange = (event) => {
-    setTodoDueDate(event.target.value);
-    setTodoName({
-      name: todoName.name,
-      due: event.target.value,
-      isOverdue: false,
-      completed: false,
-    });
-  };
+  // const dateChange = (event) => {
+  //   setTodoDueDate(event.target.value);
+  //   setTodoName({
+  //     name: todoName.name,
+  //     due: event.target.value,
+  //     isOverdue: false,
+  //     completed: false,
+  //   });
+  // };
 
   // To set the state of migrate once it has been pressed in the menu button as the user indicates that they need to change the date
   const openMigrate = () => {
@@ -176,21 +220,29 @@ const DashboardTodo = () => {
     sortEvent();
   };
 
-  const secondEvent = () => {
-    if (open) {
-      setNewItem((prev) => [...prev, todoName]);
-    }
-    // removed sorting
-  };
-  const handleOption = (value) => (event) => {
-    setselectedTodo({
-      name: value.name,
-      due: value.due,
-      isOverdue: value.isOverdue,
-      completed: value.completed,
-    });
-    setAnchorEl(event.currentTarget);
-  };
+  // const secondEvent = () => {
+  //   if (open) {
+  //     setTodos((prev) => [...prev, todoName]); // const handleOption = (value) => (event) => {
+  //   //   setselectedTodo({
+  //   //     name: value.name,
+  //   //     due: value.due,
+  //   //     isOverdue: value.isOverdue,
+  //   //     completed: value.completed,
+  //   //   });
+  //   //   setAnchorEl(event.currentTarget);
+  //   // };
+  //   }
+  //   // removed sorting
+  // };
+  // const handleOption = (value) => (event) => {
+  //   setselectedTodo({
+  //     name: value.name,
+  //     due: value.due,
+  //     isOverdue: value.isOverdue,
+  //     completed: value.completed,
+  //   });
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   // Looks for todolist item by name to cancel, delete and schedule
 
@@ -206,20 +258,23 @@ const DashboardTodo = () => {
   };
 
   const deleteEvent = () => {
-    const newList = [...newItem];
-    for (const x of newList) {
-      if (x.name === selectedTodo.name) {
-        const index = newList.indexOf(x);
-        newList.splice(index, 1);
-      }
-    }
-
-    setNewItem(newList);
+    // const newList = [...];
+    // for (const x of newList) {
+    //   if (x.name === selectedTodo.name) {
+    //     const index = newList.indexOf(x);
+    //     newList.splice(index, 1);
+    //   }
+    // }
+    //
+    // setTodos(newList);
+    // setAnchorEl(null);
+    axios.delete(`/api/todo/${selectedTodo._id}`);
+    setTodos(todos.filter((todo) => todo !== selectedTodo));
     setAnchorEl(null);
   };
 
   const scheduleEvent = () => {
-    const newList = [...newItem];
+    const newList = [...todos];
     const selectedTodoInst = selectedTodo;
 
     for (const x of newList) {
@@ -228,7 +283,7 @@ const DashboardTodo = () => {
       }
     }
 
-    setNewItem(newList);
+    setTodos(newList);
     closeMigrate();
     setAnchorEl(null);
   };
@@ -242,20 +297,21 @@ const DashboardTodo = () => {
         </div>
         <Divider />
         <List className={classes.root}>
-          {newItem.map((todo) => {
+          {todos && todos.map((todo) => {
             const labelId = `checkbox-list-label-${todo}`;
             return (
               // Item is binded with a name key and when it is pressed the item will become completed
               <ListItem
                 className={styles.tasks}
-                key={todo.name}
+                key={todo._id}
                 role={undefined}
                 dense
                 button
-                onClick={handleToggle(todo.name)}
+                // onClick={handleToggle(todo)}
+                onClick={() => handleToggle(todo)}
               >
                 {/* Checks if the to do is overdue or not, if the task is overdue then the task will be displayed in red */}
-                {!todo.isOverdue ? (
+                {todo.isOverdue ? (
                   <ListItemIcon>
                     <Checkbox
                       edge="start"
@@ -316,7 +372,11 @@ const DashboardTodo = () => {
                       aria-label="schedule"
                       aria-controls="simple-menu"
                       aria-haspopup="true"
-                      onClick={handleOption(todo)}
+                      // onClick={handleOption(todo)}
+                      onClick={(event) => {
+                        setselectedTodo(todo);
+                        setAnchorEl(event.currentTarget);
+                      }}
                     >
                       <MoreVertIcon />
                     </IconButton>
@@ -330,7 +390,11 @@ const DashboardTodo = () => {
                       aria-label="schedule"
                       aria-controls="simple-menu"
                       aria-haspopup="true"
-                      onClick={handleOption(todo)}
+                      // onClick={handleOption(todo)}
+                      onClick={(event) => {
+                        setselectedTodo(todo);
+                        setAnchorEl(event.currentTarget);
+                      }}
                     >
                       <ErrorIcon style={{ color: '#EB5757' }} />
                     </IconButton>
@@ -380,8 +444,8 @@ const DashboardTodo = () => {
                           autoFocus
                           margin="dense"
                           id="name"
-                          value={todoName.name}
-                          onChange={firstEvent}
+                          value={todoName}
+                          onChange={(e) => setTodoName(e.target.value)}
                           label="Description"
                           fullWidth
                         />
@@ -392,7 +456,8 @@ const DashboardTodo = () => {
                           labelColour="black"
                           type="date"
                           value={todoDueDate}
-                          onChange={dateChange}
+                          // onChange={dateChange}
+                          onChange={(e) => setTodoDueDate(e.target.value)}
                           className={classes.datetextField}
                           fullWidth
                           InputLabelProps={{
@@ -412,8 +477,9 @@ const DashboardTodo = () => {
                         label="Button"
                         // Once either buttons has been pressed then the modal will close to show other components
                         onClick={() => {
+                          handleAdd();
                           handleClose();
-                          secondEvent();
+                          // secondEvent();
                         }}
                       >
                         Confirm
