@@ -131,7 +131,7 @@ const Journal = () => {
           />
           <WidgetSteam
             addNewSteam={() => {
-              addNewWidget(WidgetTypes.Steam);
+              addNewWidget(WidgetTypes.STEAM);
             }}
           />
         </WidgetDrawer>

@@ -6,5 +6,5 @@ export const WidgetTypes = {
   CLOCK: 'clock',
   YOUTUBE_PLAYER: 'youtube_player',
   WEATHER: 'weather',
-  Steam: 'steam',
+  STEAM: 'steam',
 };

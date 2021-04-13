@@ -36,7 +36,7 @@ export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
       return <JournalYoutubePlayer date={date} data={data} id={id} deleteWidget={deleteWidget} />;
     case WidgetTypes.WEATHER:
       return <JournalWeather date={date} data={data} id={id} deleteWidget={deleteWidget} />;
-    case WidgetTypes.Steam:
+    case WidgetTypes.STEAM:
       return (
         <div style={{ height: 'auto', width: 700 }}>
           <Steam date={date} data={data} id={id} deleteWidget={deleteWidget} />

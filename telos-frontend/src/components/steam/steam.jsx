@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Add in your steam name
 // More information on: https://github.com/UOA-SE701-Group3-2021/3Lancers/pull/287
-const steamName = 'SteamName';
+const steamName = 'Game0fThrones';
 
 const steamColumns = [
   { field: 'name', headerName: 'Game', width: 200 },
