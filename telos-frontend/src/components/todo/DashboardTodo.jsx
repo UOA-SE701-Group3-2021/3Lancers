@@ -225,295 +225,295 @@ const DashboardTodo = ({ date }) => {
   };
 
   return (
-      <div className={styles.BackgroundImage}>
-        <Box className={styles.container}>
-          {/* Setting the title of the To Do List, with customised styles added in the css file */}
-          <div className={styles.header}>
-            <h2 className={styles.Title}> To Do </h2>
-          </div>
-          <Divider />
-          <List className={classes.root}>
-            {todos.map((todo) => {
-              const labelId = `checkbox-list-label-${todo}`;
-              return (
-                  // Item is binded with a name key and when it is pressed the item will become completed
-                  <ListItem
-                      className={styles.tasks}
-                      key={todo.name}
-                      role={undefined}
-                      dense
-                      button
-                      onClick={handleToggle(todo.name)}
-                  >
-                    {/* Checks if the to do is overdue or not, if the task is overdue then the task will be displayed in red */}
-                    {!todo.isOverdue ? (
-                        <ListItemIcon>
-                          <Checkbox
-                              edge="start"
-                              style={{ color: '#6200EE' }}
-                              checked={todo.completed}
-                              tabIndex={-1}
-                              disableRipple
-                              inputProps={{ 'aria-labelledby': labelId }}
-                          />
-                        </ListItemIcon>
-                    ) : (
-                        <ListItemIcon>
-                          {/* Overdue checkbox properties */}
-                          <Checkbox
-                              className={styles.checkboxOverdue}
-                              edge="start"
-                              color="primary"
-                              checked={todo.completed}
-                              tabIndex={-1}
-                              disableRipple
-                              inputProps={{ 'aria-labelledby': labelId }}
-                          />
-                        </ListItemIcon>
-                    )}
-                    {!todo.isOverdue ? (
-                        // Displays the description of the to do list item, if a to do is cancelled on the day then it will be presented with a line through the text
-                        // If it is not cancelled, text will appear as normal
-                        <ListItemText
-                            id={labelId}
-                            primaryTypographyProps={{ style: { fontWeight: 'bold' } }}
-                            primary={` ${todo.name}`}
-                            secondary={` ${todo.due}`}
-                            style={{
-                              textDecorationLine: cancel.indexOf(todo.name) !== -1 ? 'line-through' : '',
-                              textDecorationStyle: cancel.indexOf(todo.name) !== -1 ? 'solid' : '',
-                              color: todo.completed ? 'rgba(98,0,238,1)' : 'rgba(0, 0, 0, 0.6)',
-                            }}
-                        />
-                    ) : (
-                        // Displays the description in red as it is overdue
-                        <ListItemText
-                            primaryTypographyProps={{ style: outdated }}
-                            style={{
-                              textDecorationLine: cancel.indexOf(todo.name) !== -1 ? 'line-through' : '',
-                              textDecorationStyle: cancel.indexOf(todo.name) !== -1 ? 'solid' : '',
-                            }}
-                            id={labelId}
-                            primary={` ${todo.name}`}
-                            secondary={` ${todo.due}`}
-                        />
-                    )}
-                    {/* The Icons (secondary action) are different depending on if the task is overdue.
+    <div className={styles.BackgroundImage}>
+      <Box className={styles.container}>
+        {/* Setting the title of the To Do List, with customised styles added in the css file */}
+        <div className={styles.header}>
+          <h2 className={styles.Title}> To Do </h2>
+        </div>
+        <Divider />
+        <List className={classes.root}>
+          {todos.map((todo) => {
+            const labelId = `checkbox-list-label-${todo}`;
+            return (
+              // Item is binded with a name key and when it is pressed the item will become completed
+              <ListItem
+                className={styles.tasks}
+                key={todo.name}
+                role={undefined}
+                dense
+                button
+                onClick={handleToggle(todo.name)}
+              >
+                {/* Checks if the to do is overdue or not, if the task is overdue then the task will be displayed in red */}
+                {!todo.isOverdue ? (
+                  <ListItemIcon>
+                    <Checkbox
+                      edge="start"
+                      style={{ color: '#6200EE' }}
+                      checked={todo.completed}
+                      tabIndex={-1}
+                      disableRipple
+                      inputProps={{ 'aria-labelledby': labelId }}
+                    />
+                  </ListItemIcon>
+                ) : (
+                  <ListItemIcon>
+                    {/* Overdue checkbox properties */}
+                    <Checkbox
+                      className={styles.checkboxOverdue}
+                      edge="start"
+                      color="primary"
+                      checked={todo.completed}
+                      tabIndex={-1}
+                      disableRipple
+                      inputProps={{ 'aria-labelledby': labelId }}
+                    />
+                  </ListItemIcon>
+                )}
+                {!todo.isOverdue ? (
+                  // Displays the description of the to do list item, if a to do is cancelled on the day then it will be presented with a line through the text
+                  // If it is not cancelled, text will appear as normal
+                  <ListItemText
+                    id={labelId}
+                    primaryTypographyProps={{ style: { fontWeight: 'bold' } }}
+                    primary={` ${todo.name}`}
+                    secondary={` ${todo.due}`}
+                    style={{
+                      textDecorationLine: cancel.indexOf(todo.name) !== -1 ? 'line-through' : '',
+                      textDecorationStyle: cancel.indexOf(todo.name) !== -1 ? 'solid' : '',
+                      color: todo.completed ? 'rgba(98,0,238,1)' : 'rgba(0, 0, 0, 0.6)',
+                    }}
+                  />
+                ) : (
+                  // Displays the description in red as it is overdue
+                  <ListItemText
+                    primaryTypographyProps={{ style: outdated }}
+                    style={{
+                      textDecorationLine: cancel.indexOf(todo.name) !== -1 ? 'line-through' : '',
+                      textDecorationStyle: cancel.indexOf(todo.name) !== -1 ? 'solid' : '',
+                    }}
+                    id={labelId}
+                    primary={` ${todo.name}`}
+                    secondary={` ${todo.due}`}
+                  />
+                )}
+                {/* The Icons (secondary action) are different depending on if the task is overdue.
               A verticle three dot icon button will be displayed and it will set the index of what to do has been selected */}
-                    {!todo.isOverdue ? (
-                        <ListItemSecondaryAction>
-                          <IconButton
-                              edge="end"
-                              aria-label="schedule"
-                              aria-controls="simple-menu"
-                              aria-haspopup="true"
-                              onClick={handleOption(todo)}
-                          >
-                            <MoreVertIcon />
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                    ) : (
-                        // Secondary action will display an icon button with an exclaimation mark to indicate that the task is over due. To action what to do with the task, user needs to click the icon for options
-                        // Sets the active index to the to do that was selected
-                        <ListItemSecondaryAction>
-                          <IconButton
-                              edge="end"
-                              aria-label="schedule"
-                              aria-controls="simple-menu"
-                              aria-haspopup="true"
-                              onClick={handleOption(todo)}
-                          >
-                            <ErrorIcon style={{ color: '#EB5757' }} />
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                    )}
-                  </ListItem>
-              );
-            })}
-          </List>
-          <div style={{ backgroundColor: 'white', margin: '0.5vw' }}>
-            {/* A textbox to indicate to the user that they can enter new to do's
+                {!todo.isOverdue ? (
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="schedule"
+                      aria-controls="simple-menu"
+                      aria-haspopup="true"
+                      onClick={handleOption(todo)}
+                    >
+                      <MoreVertIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                ) : (
+                  // Secondary action will display an icon button with an exclaimation mark to indicate that the task is over due. To action what to do with the task, user needs to click the icon for options
+                  // Sets the active index to the to do that was selected
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="schedule"
+                      aria-controls="simple-menu"
+                      aria-haspopup="true"
+                      onClick={handleOption(todo)}
+                    >
+                      <ErrorIcon style={{ color: '#EB5757' }} />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                )}
+              </ListItem>
+            );
+          })}
+        </List>
+        <div style={{ backgroundColor: 'white', margin: '0.5vw' }}>
+          {/* A textbox to indicate to the user that they can enter new to do's
         Text box has been disabled for typing to avoid confusion and allow the user to enter a new to do once they click on the + sign  */}
-            <FormControl className={styles.inputbox} variant="outlined">
-              <InputLabel
-                  htmlFor="outlined-adornment-password"
-                  style={{ color: 'black', fontWeight: 'bolder' }}
-              >
-                {' '}
-                Add To Do{' '}
-              </InputLabel>
-              {/* Indicates the style of the text box */}
-              <OutlinedInput
-                  disabled
-                  id="outlined-disabled"
-                  label="Disabled"
-                  endAdornment={
-                    <InputAdornment position="end">
-                      {/* When the user clicks on the button a modal will pop up allowing the user to set their requirements */}
-                      <IconButton
-                          className={styles.AddBtn}
-                          variant="outlined"
-                          color="primary"
-                          onClick={openAdd}
-                          id="simple-modal"
-                          anchorEl={anchorEl}
-                          add={Boolean(anchorEl)}
-                      >
-                        <AddIcon className={styles.Publish} aria-controls="simple-modal" />
-                      </IconButton>
-                      {/* The modal that will be displayed for the user to input their description and due date
+          <FormControl className={styles.inputbox} variant="outlined">
+            <InputLabel
+              htmlFor="outlined-adornment-password"
+              style={{ color: 'black', fontWeight: 'bolder' }}
+            >
+              {' '}
+              Add To Do{' '}
+            </InputLabel>
+            {/* Indicates the style of the text box */}
+            <OutlinedInput
+              disabled
+              id="outlined-disabled"
+              label="Disabled"
+              endAdornment={
+                <InputAdornment position="end">
+                  {/* When the user clicks on the button a modal will pop up allowing the user to set their requirements */}
+                  <IconButton
+                    className={styles.AddBtn}
+                    variant="outlined"
+                    color="primary"
+                    onClick={openAdd}
+                    id="simple-modal"
+                    anchorEl={anchorEl}
+                    add={Boolean(anchorEl)}
+                  >
+                    <AddIcon className={styles.Publish} aria-controls="simple-modal" />
+                  </IconButton>
+                  {/* The modal that will be displayed for the user to input their description and due date
                   User input is stored and added into the new item list */}
-                      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                        <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
-                        <DialogContent>
-                          <form className={classes.datecontainer} noValidate>
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="name"
-                                value={todoName.name}
-                                onChange={nameChange}
-                                label="Description"
-                                fullWidth
-                            />
-                            {/* For the user to set their due date of the task, can also pick the date from the calendar  */}
-                            <TextField
-                                id="date"
-                                label="Due Date:"
-                                labelColour="black"
-                                type="date"
-                                value={todoDueDate}
-                                onChange={dateChange}
-                                className={classes.datetextField}
-                                fullWidth
-                                InputLabelProps={{
-                                  shrink: true,
-                                }}
-                            />
-                          </form>
-                        </DialogContent>
-                        {/* Button to for the user to cancel or Confirm
+                  <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">New To Do</DialogTitle>
+                    <DialogContent>
+                      <form className={classes.datecontainer} noValidate>
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          value={todoName.name}
+                          onChange={nameChange}
+                          label="Description"
+                          fullWidth
+                        />
+                        {/* For the user to set their due date of the task, can also pick the date from the calendar  */}
+                        <TextField
+                          id="date"
+                          label="Due Date:"
+                          labelColour="black"
+                          type="date"
+                          value={todoDueDate}
+                          onChange={dateChange}
+                          className={classes.datetextField}
+                          fullWidth
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                        />
+                      </form>
+                    </DialogContent>
+                    {/* Button to for the user to cancel or Confirm
                   If the user confirms, the date and description will be set. If the user cancels then nothing will be set */}
-                        <DialogActions>
-                          <Button className={classes.button} onClick={handleClose}>
-                            Cancel
-                          </Button>
-                          <Button
-                              className={classes.button}
-                              label="Button"
-                              // Once either buttons has been pressed then the modal will close to show other components
-                              onClick={() => {
-                                handleAdd();
-                                handleClose();
-                              }}
-                          >
-                            Confirm
-                          </Button>
-                        </DialogActions>
-                      </Dialog>
-                    </InputAdornment>
-                  }
-                  labelWidth={70}
-              />
-            </FormControl>
-          </div>
-          {/* A display menu to display options of what the users can do with the selected to do */}
-          <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={closeMigrate}
+                    <DialogActions>
+                      <Button className={classes.button} onClick={handleClose}>
+                        Cancel
+                      </Button>
+                      <Button
+                        className={classes.button}
+                        label="Button"
+                        // Once either buttons has been pressed then the modal will close to show other components
+                        onClick={() => {
+                          handleAdd();
+                          handleClose();
+                        }}
+                      >
+                        Confirm
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </InputAdornment>
+              }
+              labelWidth={70}
+            />
+          </FormControl>
+        </div>
+        {/* A display menu to display options of what the users can do with the selected to do */}
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={closeMigrate}
+        >
+          {/* Migrate will be set to true so the modal will show up allowing the users to select new dates */}
+          <MenuItem
+            className={styles.menubar}
+            onClick={() => {
+              openMigrate();
+              setAnchorEl(null);
+            }}
           >
-            {/* Migrate will be set to true so the modal will show up allowing the users to select new dates */}
-            <MenuItem
-                className={styles.menubar}
-                onClick={() => {
-                  openMigrate();
-                  setAnchorEl(null);
+            Migrate
+          </MenuItem>
+          {/* Allows user to cancel the selected to do on the day */}
+          <MenuItem
+            className={styles.menubar}
+            onClick={() => {
+              cancelEvent();
+              setAnchorEl(null);
+            }}
+          >
+            {cancel.indexOf(selectedTodo.name) !== -1 ? 'Uncancel' : 'Cancel'}
+          </MenuItem>
+          <MenuItem
+            id="delete"
+            className={styles.menubar}
+            onClick={() => {
+              deleteEvent();
+            }}
+          >
+            Delete
+          </MenuItem>
+        </Menu>
+        {/* Opens dialog for rescheduling exisiting todo date or due */}
+        <Dialog open={migrate} onClose={closeMigrate} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
+          <DialogContent className={classes.migrate}>
+            <form className={classes.datecontainer} noValidate>
+              <TextField
+                id="date"
+                label="Move to:"
+                labelColour="black"
+                type="date"
+                value={reDate}
+                onChange={reDateChange}
+                className={classes.datetextField}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
                 }}
-            >
-              Migrate
-            </MenuItem>
-            {/* Allows user to cancel the selected to do on the day */}
-            <MenuItem
-                className={styles.menubar}
-                onClick={() => {
-                  cancelEvent();
-                  setAnchorEl(null);
+              />
+            </form>
+          </DialogContent>
+          <DialogContent>
+            <form noValidate>
+              <TextField
+                id="date"
+                label="Edit Due Date(optional):"
+                labelColour="black"
+                type="date"
+                defaultValue="2020-05-24"
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
                 }}
+              />
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              className={classes.button}
+              onClick={() => {
+                setMigrate(false);
+                setAnchorEl(null);
+              }}
             >
-              {cancel.indexOf(selectedTodo.name) !== -1 ? 'Uncancel' : 'Cancel'}
-            </MenuItem>
-            <MenuItem
-                id="delete"
-                className={styles.menubar}
-                onClick={() => {
-                  deleteEvent();
-                }}
+              Cancel
+            </Button>
+            <Button
+              className={classes.button}
+              onClick={() => {
+                scheduleEvent();
+                setMigrate(false);
+                setAnchorEl(null);
+              }}
             >
-              Delete
-            </MenuItem>
-          </Menu>
-          {/* Opens dialog for rescheduling exisiting todo date or due */}
-          <Dialog open={migrate} onClose={closeMigrate} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Migrate Event</DialogTitle>
-            <DialogContent className={classes.migrate}>
-              <form className={classes.datecontainer} noValidate>
-                <TextField
-                    id="date"
-                    label="Move to:"
-                    labelColour="black"
-                    type="date"
-                    value={reDate}
-                    onChange={reDateChange}
-                    className={classes.datetextField}
-                    fullWidth
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                />
-              </form>
-            </DialogContent>
-            <DialogContent>
-              <form noValidate>
-                <TextField
-                    id="date"
-                    label="Edit Due Date(optional):"
-                    labelColour="black"
-                    type="date"
-                    defaultValue="2020-05-24"
-                    fullWidth
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                />
-              </form>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                  className={classes.button}
-                  onClick={() => {
-                    setMigrate(false);
-                    setAnchorEl(null);
-                  }}
-              >
-                Cancel
-              </Button>
-              <Button
-                  className={classes.button}
-                  onClick={() => {
-                    scheduleEvent();
-                    setMigrate(false);
-                    setAnchorEl(null);
-                  }}
-              >
-                Confirm
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </Box>
-      </div>
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    </div>
   );
 };
 
