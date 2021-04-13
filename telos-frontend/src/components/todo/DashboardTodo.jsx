@@ -65,50 +65,21 @@ const outdated = {
 };
 
 const DashboardTodo = ({data, date}) => {
-  // const listitems = [
-  //   {
-  //     name: 'isOverdue',
-  //     due: '2021-04-30',
-  //     isOverdue: true,
-  //     completed: false,
-  //   },
-  //   {
-  //     name: 'OutDated',
-  //     due: '2021-01-30',
-  //     isOverdue: false,
-  //     completed: true,
-  //   },
-  //   {
-  //     name: '一二三四五',
-  //     due: '2021-04-30',
-  //     isOverdue: true,
-  //     completed: true,
-  //   },
-  //   {
-  //     name: '上山打老虎',
-  //     due: '2021-04-30',
-  //     isOverdue: true,
-  //     completed: false,
-  //   },
-  // ];
 
   const classes = useStyles();
   const [todoName, setTodoName] = useState('');
-  // const [todoDueDate, setTodoDueDate] = useState('2021-01-01');
-  const [todoDueDate, setTodoDueDate] = useState();
-  // const [, setTodos] = useState(listitems);
+  const [todoDueDate, setTodoDueDate] = useState(undefined);
   const [todos, setTodos] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cancel, setCancel] = useState([0]);
   const [reDate, setReDate] = useState('');
-  const [selectedTodo, setselectedTodo] = useState('');
+  const [selectedTodo, setselectedTodo] = useState({});
   const [open, setOpen] = useState(false);
   const [migrate, setMigrate] = useState(false);
 
   // sets to dos needed for the day
   useEffect(() => {
     setTodos(data);
-    // setTest(id);
   }, [data]);
 
   function dateToTimestamp(endTime) {
