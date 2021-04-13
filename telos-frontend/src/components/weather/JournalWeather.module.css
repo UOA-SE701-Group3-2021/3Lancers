@@ -2,7 +2,7 @@
   background-color: #0183f7;
   color: white;
   border: 2px solid blue;
-  height: 160px;
+  height: 144px;
   width: 200px;
 }
 
@@ -10,12 +10,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.box {
-  height: 300px;
-  width: 300px;
-  padding-right: 16px;
 }
 
 h1 {

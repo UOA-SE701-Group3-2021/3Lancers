@@ -37,7 +37,7 @@ const WeatherWidget = () => {
   return (
     <div className={styles.weatherWidget}>
       <div className={styles.weather}>
-        <div className={styles.box}>
+        <div>
           <h1>{Math.round(temp)}℃</h1>
           <h3>{location}</h3>
           <h3>{desc}</h3>
