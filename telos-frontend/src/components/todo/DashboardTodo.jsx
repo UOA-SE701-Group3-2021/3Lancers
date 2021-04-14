@@ -129,6 +129,7 @@ const DashboardTodo = ({ date }) => {
     setOpen(false);
   };
 
+  // Adding a todo from the 'New to do' dialog
   const nameChange = (event) => {
     setTodoName({ name: event.target.value, due: todoDueDate, isOverdue: true, completed: false });
   };
@@ -154,6 +155,7 @@ const DashboardTodo = ({ date }) => {
     sortEvent();
   };
 
+  // Adds the new to do to the list and sets variables to bind it to a name and date
   const handleAdd = () => {
     const body = {
       name: todoName,
@@ -172,6 +174,7 @@ const DashboardTodo = ({ date }) => {
       setTodos((prev) => [...prev, todoName]);
     }
   };
+
   const handleOption = (value) => (event) => {
     setSelectedTodo({
       name: value.name,
@@ -183,7 +186,6 @@ const DashboardTodo = ({ date }) => {
   };
 
   // Looks for todolist item by name to cancel, delete and schedule
-
   const cancelEvent = () => {
     const currentIndex = cancel.indexOf(selectedTodo.name);
     const newCancel = [...cancel];
