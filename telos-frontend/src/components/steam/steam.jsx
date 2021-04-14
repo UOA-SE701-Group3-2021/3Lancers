@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Add in your steam name
 // More information on: https://github.com/UOA-SE701-Group3-2021/3Lancers/pull/287
-const steamName = 'Game0fThrones';
+const steamName = 'steamName';
 
 const steamColumns = [
   { field: 'name', headerName: 'Game', width: 200 },
@@ -55,12 +55,13 @@ const Steam = () => {
 
   const NoDataRows = [
     { id: 'Requirements1', StatusNow: '1. Steam profile is public', sortable: false },
-    { id: 'Requirements2', StatusNow: '2. Add steam key in steam.js' },
-    { id: 'Requirements3', StatusNow: '3. Add steam name in steam.jsx' },
-    { id: 'MoreInfo', StatusNow: 'Link below for more information:' },
+    { id: 'Requirements2', StatusNow: '2. Add steam key in steam.js', sortable: false },
+    { id: 'Requirements3', StatusNow: '3. Add steam name in steam.jsx', sortable: false },
+    { id: 'MoreInfo', StatusNow: 'Link below for more information:', sortable: false },
     {
       id: 'LinkToHelp',
       StatusNow: 'https://github.com/UOA-SE701-Group3-2021/3Lancers/wiki/Steam-Widget',
+      sortable: false,
     },
   ];
 
