@@ -29,7 +29,7 @@
   border: 2px solid #7a00f4;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 19px;
+  border-radius: 0 19px 19px;
 }
 
 .HabitualsTitle {
@@ -39,7 +39,6 @@
   padding: 10px;
   color: #ffffff;
   background-color: #7a00f4;
-  border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
 
@@ -114,7 +113,7 @@
 
 .AddIcon {
   position: fixed;
-  top: 80px;
+  top: 40px;
   left: 10px;
 }
 
