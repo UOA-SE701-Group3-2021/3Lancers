@@ -15,12 +15,13 @@ const Page = ({ date, widgets, setWidgets }) => {
   // Fetch widgets for page/date
   useEffect(() => {
     axios.get(`/api/journal/${date}`).then(({ data }) => {
-      const { widgetData, calendarData, habitData, textData, todoData } = data;
+      const { widgetData, calendarData, habitData, textData, todoData, youtubePlayerData } = data;
       const initData = {
         calendarData,
         habitData,
         textData,
         todoData,
+        youtubePlayerData,
       };
 
       setInitialWidgetData(initData);
@@ -59,6 +60,10 @@ const Page = ({ date, widgets, setWidgets }) => {
         WidgetTypes.CALENDAR,
         WidgetTypes.HABIT_TRACKER,
         WidgetTypes.TEXT,
+        WidgetTypes.CLOCK,
+        WidgetTypes.YOUTUBE_PLAYER,
+        WidgetTypes.WEATHER,
+        WidgetTypes.STEAM,
       ],
       drop(item, monitor) {
         const delta = monitor.getDifferenceFromInitialOffset();
@@ -89,6 +94,9 @@ const Page = ({ date, widgets, setWidgets }) => {
         // not currently integrated with backend
         // will need to take in id of text widget to get the exact text widget.
         return null;
+      case WidgetTypes.YOUTUBE_PLAYER:
+        // idk
+        return null;
       default:
         return null;
     }
@@ -116,15 +124,17 @@ const Page = ({ date, widgets, setWidgets }) => {
   return (
     <div className={pageStyles.Page} ref={drop}>
       {widgets.map((widget) => (
-        <DraggableWidget
-          key={widget._id}
-          id={widget._id}
-          type={widget.type}
-          position={widget.position}
-          data={getDataByWidgetType(widget.type)}
-          date={date}
-          deleteWidget={deleteWidget}
-        />
+        <>
+          <DraggableWidget
+            key={widget._id}
+            id={widget._id}
+            type={widget.type}
+            position={widget.position}
+            data={getDataByWidgetType(widget.type)}
+            date={date}
+            deleteWidget={deleteWidget}
+          />
+        </>
       ))}
       <textarea />
     </div>

@@ -14,8 +14,10 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  position: fixed;
   width: 100%;
-  height: 100%;
+  height: 91%;
+  overflow: auto;
 }
 
 .container {
@@ -82,13 +84,15 @@
 }
 
 .cardContainer {
-  top: 1vw;
-  position: relative;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-left: 10%;
+  position: static;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: auto;
+  width: 80%;
   height: auto;
   text-align: left !important;
   background:white;
@@ -106,9 +110,9 @@
 }
 
 .AddIcon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  position: fixed;
+  top: 80px;
+  left: 10px;
 }
 
 .HabitContent {
@@ -162,8 +166,8 @@
 
 .menuContainer {
   display: block !important;
-  width: 562px !important;
-  height: 500px !important;
+  width: 100% !important;
+  height: auto !important;
 }
 
 .dialog {
@@ -182,7 +186,9 @@
 }
 
 .menuHeader h2 {
-  left: 50% !important;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .menuBody {
@@ -197,19 +203,20 @@
 }
 
 #saveButton {
+  position: absolute;
   width: 50px !important;
   height: 22px !important;
   left: 20px !important;
-  margin-right: 146px !important;
   background: #ffffff !important;
   border-radius: 19px !important;
 }
 
 #closeButton {
+  position: absolute !important;
   width: 30px !important;
   min-width: 0 !important;
   height: 30px !important;
-  left: 170px !important;
+  right: 5% !important;
   padding: 0 !important;
   background: #ffffff !important;
   border-radius: 50% !important;
@@ -257,6 +264,8 @@
 }
 
 .habitTracker{
-  margin: 2% auto auto auto;
-  width: 50%;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 2% 0 0 0;
 }
