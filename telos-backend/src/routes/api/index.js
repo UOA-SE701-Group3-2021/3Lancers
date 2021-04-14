@@ -8,5 +8,6 @@ router.use('/todo', require('./todo'));
 router.use('/habittracker', require('./habittracker'));
 router.use('/calendar', require('./calendar'));
 router.use('/text', require('./text'));
+router.use('/steam', require('./steam'));
 
 module.exports = router;

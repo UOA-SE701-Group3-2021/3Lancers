@@ -14,6 +14,7 @@ import WidgetYoutubePlayer from '../../components/youtube-player/WidgetYoutubePl
 import WidgetWeather from '../../components/weather/WidgetWeather';
 import { WidgetTypes } from '../../dnd/WidgetTypes';
 import WidgetClock from '../../components/clock/WidgetClock';
+import WidgetSteam from '../../components/steam/WidgetSteam';
 
 const axios = require('axios');
 
@@ -126,6 +127,11 @@ const Journal = () => {
           <WidgetWeather
             addNewWeather={() => {
               addNewWidget(WidgetTypes.WEATHER);
+            }}
+          />
+          <WidgetSteam
+            addNewSteam={() => {
+              addNewWidget(WidgetTypes.STEAM);
             }}
           />
         </WidgetDrawer>
