@@ -8,7 +8,7 @@
 }
 
 .WidgetDrawer {
-  height: 100vh;
+  height: 89vh;
   width: var(--parentMaxWidth);
   background-color: var(--background);
   transition: all 0.3s ease;
