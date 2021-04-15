@@ -50,19 +50,32 @@ const Steam = () => {
     }
   }, []);
   const NoDataColumn = [
-    { field: 'StatusNow', headerName: `Status: ${dataMessage}`, width: 690, sortable: false },
+    { field: 'StatusNow', headerName: `Status: ${dataMessage}`, width: 600, sortable: false },
   ];
 
   const NoDataRows = [
-    { id: 'Requirements1', StatusNow: 'Looks like somthing went wrong. Try the following:', sortable: false },
-    { id: 'Requirements2', StatusNow: '1. Make sure the steam profile you are searching is public', sortable: false },
-    { id: 'Requirements3', StatusNow: '2. Create a bug report here: ', sortable: false },
-    { 
-      id: 'BugReport', 
-      StatusNow: 'https://github.com/UOA-SE701-Group3-2021/3Lancers/issues/new?assignees=&labels=&template=bug_report.md&title=', 
-      sortable: false 
+    {
+      id: 'Requirements1',
+      StatusNow: 'Looks like somthing went wrong. Try the following:',
+      sortable: false,
     },
-    { id: 'MoreInfo', StatusNow: 'For Contributors: Link below for more information:', sortable: false },
+    {
+      id: 'Requirements2',
+      StatusNow: '1. Make sure the steam profile you are searching is public',
+      sortable: false,
+    },
+    { id: 'Requirements3', StatusNow: '2. Create a bug report here: ', sortable: false },
+    {
+      id: 'BugReport',
+      StatusNow:
+        'https://github.com/UOA-SE701-Group3-2021/3Lancers/issues/new?assignees=&labels=&template=bug_report.md&title=',
+      sortable: false,
+    },
+    {
+      id: 'MoreInfo',
+      StatusNow: 'For Contributors: Link below for more information:',
+      sortable: false,
+    },
     {
       id: 'LinkToHelp',
       StatusNow: 'https://github.com/UOA-SE701-Group3-2021/3Lancers/wiki/Steam-Widget',
