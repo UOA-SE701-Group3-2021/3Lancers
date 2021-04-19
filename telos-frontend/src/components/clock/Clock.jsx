@@ -16,11 +16,9 @@ const Clock = () => {
   }, []);
 
   return (
-    <>
-      <Box className={styles.box}>
-        <div className={styles.clockContent}>{clockContent}</div>
-      </Box>
-    </>
+    <Box className={styles.box}>
+      <div className={styles.clockContent}>{clockContent}</div>
+    </Box>
   );
 };
 
