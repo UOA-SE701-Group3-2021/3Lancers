@@ -96,13 +96,14 @@ const Steam = () => {
   return (
     <>
       {!getSteam ? (
-        <div>
+        <div style={{ height: 400, width: '40%' }}>
           <form onSubmit={onSubmit}>
             <input
               onChange={(e) => setSteam(e.target.value)}
               type="text"
               id="steamName"
               name="steamName"
+              placeholder="Put username here"
             />
             <input type="submit" value="View Account!" />
           </form>
@@ -113,7 +114,9 @@ const Steam = () => {
             <>
               <DataGrid className={classes.NoDataTable} rows={NoDataRows} columns={NoDataColumn} />
 
-              <p>{dataMessage} </p>
+              <button type="button" onClick={() => setGetSteam(false)}>
+                Try again{' '}
+              </button>
             </>
           ) : (
             <DataGrid
