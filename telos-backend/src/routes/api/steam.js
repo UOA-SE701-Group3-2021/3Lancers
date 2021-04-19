@@ -11,7 +11,7 @@ set STEAM_KEY= <your steam key>
 e.g set STEAM_KEY=78D5D2BFF2B1C517MKDS9809F
 More information on: https://github.com/UOA-SE701-Group3-2021/3Lancers/pull/287
 * */
-const steamKey = '78D5D2BFF2B1C517C1B77B91F919862F';
+const steamKey = process.env.STEAM_KEY;
 
 /**
  * Filter the unwanted fields from the steam data & sort by playtime
