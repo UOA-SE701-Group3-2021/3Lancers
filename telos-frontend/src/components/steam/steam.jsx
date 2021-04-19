@@ -32,6 +32,7 @@ const Steam = () => {
   const [data, setData] = useState();
   const [dataMessage, setDataMessage] = useState('Please provide username...');
   const [steamName, setSteamName] = useState('');
+  const [getSteam, setGetSteam] = useState(false);
 
   useEffect(() => {
     const getSteamData = async (userId) => {
@@ -49,7 +50,7 @@ const Steam = () => {
     if (loadingData) {
       getSteamData(steamName);
     }
-  }, [steamName]);
+  }, [getSteam]);
 
   const setSteam = (newName) => {
     setSteamName(newName);
@@ -57,6 +58,10 @@ const Steam = () => {
   const NoDataColumn = [
     { field: 'StatusNow', headerName: `Status: ${dataMessage}`, width: 600, sortable: false },
   ];
+
+  const onSubmit = () => {
+    setGetSteam(true);
+  };
 
   const NoDataRows = [
     {
@@ -89,25 +94,38 @@ const Steam = () => {
   ];
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      {loadingData ? (
-        <>
-          <DataGrid className={classes.NoDataTable} rows={NoDataRows} columns={NoDataColumn} />
-
-          <p>
-            {dataMessage}{' '}
+    <>
+      {!getSteam ? (
+        <div>
+          <form onSubmit={onSubmit}>
             <input
               onChange={(e) => setSteam(e.target.value)}
               type="text"
               id="steamName"
               name="steamName"
             />
-          </p>
-        </>
+            <input type="submit" value="View Account!" />
+          </form>
+        </div>
       ) : (
-        <DataGrid className={classes.table} rows={data} columns={steamColumns} checkboxSelection />
+        <div style={{ height: 400, width: '100%' }}>
+          {loadingData ? (
+            <>
+              <DataGrid className={classes.NoDataTable} rows={NoDataRows} columns={NoDataColumn} />
+
+              <p>{dataMessage} </p>
+            </>
+          ) : (
+            <DataGrid
+              className={classes.table}
+              rows={data}
+              columns={steamColumns}
+              checkboxSelection
+            />
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
