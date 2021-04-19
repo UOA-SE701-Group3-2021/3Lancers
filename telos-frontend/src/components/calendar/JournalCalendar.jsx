@@ -115,27 +115,46 @@ const JournalCalendar = ({ data, date }) => {
     ],
   });
 
-  // const [calendarEventName, setCalendarEventName] = useState('');
+  const [calendarEventName, setCalendarEventName] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  // const [body, setBody] = useState({
+  //   name: calendarEventName,
+  //   startDate,
+  //   endDate,
+  // });
 
   function commitChanges({ added, changed, deleted }) {
     setState((newState) => {
       let { calendarData } = newState;
       if (added) {
-        const startingAddedId =
-          calendarData.length > 0 ? calendarData[calendarData.length - 1].id + 1 : 0;
-        calendarData = [...calendarData, { id: startingAddedId, ...added }];
-        // const body = {
-        //   name: calendarEventName,
-        //   startDate: new Date('2021-04-15T04:30:00.000Z'),
-        //   endDate: new Date('2021-04-15T05:30:00.000Z'),
-        // };
-        // axios.post('/api/calendar', body).then((res) => {
-        //   // const startingAddedId = res.data;
-        //   const startingAddedId =
-        //     calendarData.length > 0 ? calendarData[calendarData.length - 1].id + 1 : 0;
-        //   calendarData = [...calendarData, { id: startingAddedId, ...added }];
-        //   setCalendarEventName('');
-        // });
+        // const startingAddedId =
+        //   calendarData.length > 0 ? calendarData[calendarData.length - 1].id + 1 : 0;
+        // calendarData = [...calendarData, { id: startingAddedId, ...added }];
+
+        const body = {
+          name: calendarEventName,
+          startDate,
+          endDate,
+        };
+        axios.post('/api/calendar', body).then((res) => {
+          // const startingAddedId = res.data;
+          // res.data.map((appointment) => {
+          //   setBody(appointment);
+          //   setCalendarEventName(appointment.title);
+          //   setStartDate(appointment.startDate);
+          //   setEndDate(appointment.endDate);
+          //   return res.data;
+          // });
+
+          setCalendarEventName(res.data.item.title);
+          setStartDate(res.data.item.startDate);
+          setEndDate(res.data.item.endDate);
+
+          const startingAddedId =
+            calendarData.length > 0 ? calendarData[calendarData.length - 1].id + 1 : 0;
+          calendarData = [...calendarData, { id: startingAddedId, ...added }];
+        });
       }
       if (changed) {
         calendarData = calendarData.forEach((appointment) => {
