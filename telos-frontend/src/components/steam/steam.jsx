@@ -89,25 +89,32 @@ const Steam = () => {
   ];
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      {loadingData ? (
-        <>
-          <DataGrid className={classes.NoDataTable} rows={NoDataRows} columns={NoDataColumn} />
+    <>
+      <div style={{ height: 400, width: '100%' }}>
+        {loadingData ? (
+          <>
+            <DataGrid className={classes.NoDataTable} rows={NoDataRows} columns={NoDataColumn} />
 
-          <p>
-            {dataMessage}{' '}
-            <input
-              onChange={(e) => setSteam(e.target.value)}
-              type="text"
-              id="steamName"
-              name="steamName"
-            />
-          </p>
-        </>
-      ) : (
-        <DataGrid className={classes.table} rows={data} columns={steamColumns} checkboxSelection />
-      )}
-    </div>
+            <p>
+              {dataMessage}{' '}
+              <input
+                onChange={(e) => setSteam(e.target.value)}
+                type="text"
+                id="steamName"
+                name="steamName"
+              />
+            </p>
+          </>
+        ) : (
+          <DataGrid
+            className={classes.table}
+            rows={data}
+            columns={steamColumns}
+            checkboxSelection
+          />
+        )}
+      </div>
+    </>
   );
 };
 

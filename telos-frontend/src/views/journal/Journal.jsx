@@ -15,6 +15,7 @@ import WidgetWeather from '../../components/weather/WidgetWeather';
 import { WidgetTypes } from '../../dnd/WidgetTypes';
 import WidgetClock from '../../components/clock/WidgetClock';
 import WidgetSteam from '../../components/steam/WidgetSteam';
+import SteamForm from '../../components/steam/SteamForm';
 
 const axios = require('axios');
 
@@ -34,6 +35,8 @@ const Journal = () => {
   const [widgetsRight, setWidgetsRight] = useState([]);
   // widget will be added on the right page if isRight is true
   const [isRight, setIsRight] = useState(false);
+
+  const [addSteam, setAddSteam] = useState(false);
 
   // Iterate the dates at the top of the journal pages to the previous day
   function handleLeftNav() {
@@ -86,87 +89,91 @@ const Journal = () => {
   };
 
   return (
-    <div className={journalStyles.JournalContainer}>
-      <div className={journalStyles.WidgetDrawerContainer}>
-        <WidgetDrawer
-          isRight={isRight}
-          toggleIsRight={() => {
-            setIsRight(!isRight);
-          }}
-        >
-          <WidgetCalendar
-            addNewCalendar={() => {
-              addNewWidget(WidgetTypes.CALENDAR);
+    <>
+      <div className={journalStyles.JournalContainer}>
+        <div className={journalStyles.WidgetDrawerContainer}>
+          <WidgetDrawer
+            isRight={isRight}
+            toggleIsRight={() => {
+              setIsRight(!isRight);
             }}
-          />
-          <WidgetTodo
-            addNewTodo={() => {
-              addNewWidget(WidgetTypes.TODO_LIST);
-            }}
-          />
-          <WidgetHabitTracker
-            addNewHabitTracker={() => {
-              addNewWidget(WidgetTypes.HABIT_TRACKER);
-            }}
-          />
-          <WidgetText
-            addNewText={() => {
-              addNewWidget(WidgetTypes.TEXT);
-            }}
-          />
-          <WidgetClock
-            addNewClock={() => {
-              addNewWidget(WidgetTypes.CLOCK);
-            }}
-          />
-          <WidgetYoutubePlayer
-            addNewYoutubePlayer={() => {
-              addNewWidget(WidgetTypes.YOUTUBE_PLAYER);
-            }}
-          />
-          <WidgetWeather
-            addNewWeather={() => {
-              addNewWidget(WidgetTypes.WEATHER);
-            }}
-          />
-          <WidgetSteam
-            addNewSteam={() => {
-              addNewWidget(WidgetTypes.STEAM);
-            }}
-          />
-        </WidgetDrawer>
-      </div>
-      <div className={journalStyles.Journal}>
-        <div className={journalStyles.HalfJournal}>
-          <ArrowBackIcon className={journalStyles.ArrowLeft} onClick={handleLeftNav} />
-          <DatePicker
-            selected={dateLeftPage}
-            onChange={(selectedDate) => handleLeftDatePick(selectedDate)}
-            dateFormat="MMMM d, yyyy"
-            className={journalStyles.DateSelect}
-          />
-          <Page
-            date={formatDateString(dateLeftPage)}
-            widgets={widgetsLeft}
-            setWidgets={setWidgetsLeft}
-          />
+          >
+            <WidgetCalendar
+              addNewCalendar={() => {
+                addNewWidget(WidgetTypes.CALENDAR);
+              }}
+            />
+            <WidgetTodo
+              addNewTodo={() => {
+                addNewWidget(WidgetTypes.TODO_LIST);
+              }}
+            />
+            <WidgetHabitTracker
+              addNewHabitTracker={() => {
+                addNewWidget(WidgetTypes.HABIT_TRACKER);
+              }}
+            />
+            <WidgetText
+              addNewText={() => {
+                addNewWidget(WidgetTypes.TEXT);
+              }}
+            />
+            <WidgetClock
+              addNewClock={() => {
+                addNewWidget(WidgetTypes.CLOCK);
+              }}
+            />
+            <WidgetYoutubePlayer
+              addNewYoutubePlayer={() => {
+                addNewWidget(WidgetTypes.YOUTUBE_PLAYER);
+              }}
+            />
+            <WidgetWeather
+              addNewWeather={() => {
+                addNewWidget(WidgetTypes.WEATHER);
+              }}
+            />
+            <WidgetSteam
+              addNewSteam={() => {
+                setAddSteam(true);
+                // addNewWidget(WidgetTypes.STEAM);
+              }}
+            />
+          </WidgetDrawer>
         </div>
-        <div className={journalStyles.HalfJournal}>
-          <DatePicker
-            selected={dateRightPage}
-            onChange={(selectedDate) => handleRightDatePick(selectedDate)}
-            dateFormat="MMMM d, yyyy"
-            className={journalStyles.DateSelect}
-          />
-          <Page
-            date={formatDateString(dateRightPage)}
-            widgets={widgetsRight}
-            setWidgets={setWidgetsRight}
-          />
-          <ArrowForwardIcon className={journalStyles.ArrowRight} onClick={handleRightNav} />
+        {addSteam && <SteamForm addWidget={() => addNewWidget(WidgetTypes.STEAM)} />}
+        <div className={journalStyles.Journal}>
+          <div className={journalStyles.HalfJournal}>
+            <ArrowBackIcon className={journalStyles.ArrowLeft} onClick={handleLeftNav} />
+            <DatePicker
+              selected={dateLeftPage}
+              onChange={(selectedDate) => handleLeftDatePick(selectedDate)}
+              dateFormat="MMMM d, yyyy"
+              className={journalStyles.DateSelect}
+            />
+            <Page
+              date={formatDateString(dateLeftPage)}
+              widgets={widgetsLeft}
+              setWidgets={setWidgetsLeft}
+            />
+          </div>
+          <div className={journalStyles.HalfJournal}>
+            <DatePicker
+              selected={dateRightPage}
+              onChange={(selectedDate) => handleRightDatePick(selectedDate)}
+              dateFormat="MMMM d, yyyy"
+              className={journalStyles.DateSelect}
+            />
+            <Page
+              date={formatDateString(dateRightPage)}
+              widgets={widgetsRight}
+              setWidgets={setWidgetsRight}
+            />
+            <ArrowForwardIcon className={journalStyles.ArrowRight} onClick={handleRightNav} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
