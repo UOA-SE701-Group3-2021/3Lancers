@@ -16,6 +16,13 @@ const useStyles = makeStyles({
   table: {
     backgroundColor: '#D3D3D3',
     color: 'black',
+    userSelect: 'text',
+  },
+  NoDataTable: {
+    backgroundColor: '#D3D3D3',
+    color: 'red',
+    fontSize: '0.7vw',
+    userSelect: 'text',
   },
 });
 
@@ -47,11 +54,46 @@ const Steam = () => {
   const setSteam = (newName) => {
     setSteamName(newName);
   };
+  const NoDataColumn = [
+    { field: 'StatusNow', headerName: `Status: ${dataMessage}`, width: 600, sortable: false },
+  ];
+
+  const NoDataRows = [
+    {
+      id: 'Requirements1',
+      StatusNow: 'Looks like somthing went wrong. Try the following:',
+      sortable: false,
+    },
+    {
+      id: 'Requirements2',
+      StatusNow: '1. Make sure the steam profile you are searching is public',
+      sortable: false,
+    },
+    { id: 'Requirements3', StatusNow: '2. Create a bug report here: ', sortable: false },
+    {
+      id: 'BugReport',
+      StatusNow:
+        'https://github.com/UOA-SE701-Group3-2021/3Lancers/issues/new?assignees=&labels=&template=bug_report.md&title=',
+      sortable: false,
+    },
+    {
+      id: 'MoreInfo',
+      StatusNow: 'For Contributors: Link below for more information:',
+      sortable: false,
+    },
+    {
+      id: 'LinkToHelp',
+      StatusNow: 'https://github.com/UOA-SE701-Group3-2021/3Lancers/wiki/Steam-Widget',
+      sortable: false,
+    },
+  ];
 
   return (
     <div style={{ height: 400, width: '100%' }}>
       {loadingData ? (
         <>
+          <DataGrid className={classes.NoDataTable} rows={NoDataRows} columns={NoDataColumn} />
+
           <p>
             {dataMessage}{' '}
             <input
@@ -63,13 +105,7 @@ const Steam = () => {
           </p>
         </>
       ) : (
-        <DataGrid
-          className={classes.table}
-          rows={data}
-          columns={steamColumns}
-          pageSize={10}
-          checkboxSelection
-        />
+        <DataGrid className={classes.table} rows={data} columns={steamColumns} checkboxSelection />
       )}
     </div>
   );
