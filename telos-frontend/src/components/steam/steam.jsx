@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Add in your steam name
 // More information on: https://github.com/UOA-SE701-Group3-2021/3Lancers/pull/287
-const steamName = 'SteamName';
 
 const steamColumns = [
   { field: 'name', headerName: 'Game', width: 200 },
@@ -24,7 +23,9 @@ const Steam = () => {
   const classes = useStyles();
   const [loadingData, setLoadingData] = useState(true);
   const [data, setData] = useState();
-  const [dataMessage, setDataMessage] = useState('Loading steam data...');
+  const [dataMessage, setDataMessage] = useState('Please provide username...');
+  const [steamName, setSteamName] = useState('');
+
   useEffect(() => {
     const getSteamData = async (userId) => {
       await axios.get(`/api/steam?steamVanity=${userId}`).then((response) => {
@@ -41,12 +42,26 @@ const Steam = () => {
     if (loadingData) {
       getSteamData(steamName);
     }
-  }, []);
+  }, [steamName]);
+
+  const setSteam = (newName) => {
+    setSteamName(newName);
+  };
 
   return (
     <div style={{ height: 400, width: '100%' }}>
       {loadingData ? (
-        <p>{dataMessage}</p>
+        <>
+          <p>
+            {dataMessage}{' '}
+            <input
+              onChange={(e) => setSteam(e.target.value)}
+              type="text"
+              id="steamName"
+              name="steamName"
+            />
+          </p>
+        </>
       ) : (
         <DataGrid
           className={classes.table}
