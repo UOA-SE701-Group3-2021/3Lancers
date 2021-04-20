@@ -28,7 +28,7 @@ export const renderWidget = (widgetType, { data, date, id, deleteWidget }) => {
       );
     case WidgetTypes.CLOCK:
       return (
-        <div style={{ height: 300, width: 200 }}>
+        <div style={{ height: 20, width: 200 }}>
           <Clock date={date} data={data} id={id} deleteWidget={deleteWidget} />
         </div>
       );

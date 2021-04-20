@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Add in your steam name
 // More information on: https://github.com/UOA-SE701-Group3-2021/3Lancers/pull/287
-const steamName = 'steamName';
 
 const steamColumns = [
   { field: 'name', headerName: 'Game', width: 200 },
@@ -31,7 +30,10 @@ const Steam = () => {
   const classes = useStyles();
   const [loadingData, setLoadingData] = useState(true);
   const [data, setData] = useState();
-  const [dataMessage, setDataMessage] = useState('loading steam data...');
+  const [dataMessage, setDataMessage] = useState('Please provide username...');
+  const [steamName, setSteamName] = useState('');
+  const [getSteam, setGetSteam] = useState(false);
+
   useEffect(() => {
     const getSteamData = async (userId) => {
       await axios.get(`/api/steam?steamVanity=${userId}`).then((response) => {
@@ -48,10 +50,18 @@ const Steam = () => {
     if (loadingData) {
       getSteamData(steamName);
     }
-  }, []);
+  }, [getSteam]);
+
+  const setSteam = (newName) => {
+    setSteamName(newName);
+  };
   const NoDataColumn = [
     { field: 'StatusNow', headerName: `Status: ${dataMessage}`, width: 600, sortable: false },
   ];
+
+  const onSubmit = () => {
+    setGetSteam(true);
+  };
 
   const NoDataRows = [
     {
@@ -84,13 +94,41 @@ const Steam = () => {
   ];
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      {loadingData ? (
-        <DataGrid className={classes.NoDataTable} rows={NoDataRows} columns={NoDataColumn} />
+    <>
+      {!getSteam ? (
+        <div style={{ height: 400, width: '40%' }}>
+          <form onSubmit={onSubmit}>
+            <input
+              onChange={(e) => setSteam(e.target.value)}
+              type="text"
+              id="steamName"
+              name="steamName"
+              placeholder="Put username here"
+            />
+            <input type="submit" value="View Account!" />
+          </form>
+        </div>
       ) : (
-        <DataGrid className={classes.table} rows={data} columns={steamColumns} checkboxSelection />
+        <div style={{ height: 400, width: '100%' }}>
+          {loadingData ? (
+            <>
+              <DataGrid className={classes.NoDataTable} rows={NoDataRows} columns={NoDataColumn} />
+
+              <button type="button" onClick={() => setGetSteam(false)}>
+                Try again{' '}
+              </button>
+            </>
+          ) : (
+            <DataGrid
+              className={classes.table}
+              rows={data}
+              columns={steamColumns}
+              checkboxSelection
+            />
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
